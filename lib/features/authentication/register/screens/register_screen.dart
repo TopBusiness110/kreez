@@ -1,6 +1,7 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:kreez/config/routes/app_routes.dart';
 import 'package:kreez/core/widgets/custom_arrow_back.dart';
 
 import '../../../../core/utils/app_colors.dart';
@@ -97,7 +98,9 @@ class RegisterScreen extends StatelessWidget{
                 CustomButton(
                     width: width*0.7,
                     backgroundColor: AppColors.primary, textColor: AppColors.white,
-                    text: "register".tr(), onPressed: (){}),
+                    text: "register".tr(), onPressed: (){
+                      Navigator.pushReplacementNamed(context, Routes.homeRoute);
+                }),
                 SizedBox(height: height*0.04,),
 
 
