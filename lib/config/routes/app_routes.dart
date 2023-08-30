@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kreez/features/authentication/forgot_password/screeens/forgot_password_screen.dart';
 import 'package:kreez/features/authentication/login/screens/login_screen.dart';
+import 'package:kreez/features/authentication/new_password/screens/new_password_screen.dart';
+import 'package:kreez/features/authentication/otp/screens/otp_screen.dart';
 import 'package:kreez/features/authentication/register/screens/register_screen.dart';
+import 'package:kreez/features/home/screens/home_screen.dart';
 import 'package:kreez/features/onboarding/screens/onboarding.dart';
 
 
@@ -14,6 +17,9 @@ class Routes {
   static const String loginRoute = '/login';
   static const String registerRoute = '/register';
   static const String forgotPasswordRoute = '/forgotPassword';
+  static const String otpRoute = '/otp';
+  static const String newPasswordRoute = '/newPassword';
+  static const String homeRoute = '/home';
 
 }
 
@@ -48,6 +54,20 @@ class AppRoutes {
           builder: (context) => const ForgotPasswordScreen(),
         );
 
+      case Routes.otpRoute:
+        return MaterialPageRoute(
+          builder: (context) => const OtpScreen(),
+        );
+
+      case Routes.newPasswordRoute:
+        return MaterialPageRoute(
+          builder: (context) => const NewPasswordScreen(),
+        );
+
+      case Routes.homeRoute:
+        return MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        );
 
 
       default:

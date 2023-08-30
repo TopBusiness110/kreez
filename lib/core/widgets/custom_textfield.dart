@@ -48,7 +48,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.symmetric(vertical: 4, horizontal: horizantalTape!),
+      padding:  EdgeInsets.symmetric(vertical: 4, ),
       child: TextFormField(
 
         onTap:onTap ,

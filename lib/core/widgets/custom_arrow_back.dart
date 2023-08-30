@@ -18,7 +18,8 @@ class CustomArrowBack extends StatelessWidget {
           icon: Transform.rotate(
             angle: lang == "en" ? 0 : (3.14),
             child:  Icon(
-              Icons.arrow_back_ios,
+              Icons.arrow_back_outlined,
+              size: 30,
               color: AppColors.black1,
             ),
           )),

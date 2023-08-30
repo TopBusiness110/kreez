@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:kreez/features/home/cubit/home_cubit.dart';
 
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,10 +19,10 @@ Future<void> setup() async {
 
   ///////////////////////// Blocs ////////////////////////
   //
-  // serviceLocator.registerFactory(
-  //   () => SplashCubit(
-  //       // serviceLocator(),
-  //       ),
+  serviceLocator.registerFactory(
+    () => HomeCubit(
+        // serviceLocator(),
+        ),);
 
   // serviceLocator.registerFactory(
   //   () => LoginCubit(

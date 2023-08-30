@@ -41,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   TextButton(
                       onPressed: () {
-
+                    Navigator.pushNamed(context, Routes.forgotPasswordRoute);
                   }, child: Text("forgot_password".tr(),style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: AppColors.red
                   ),textAlign: TextAlign.start,)),
