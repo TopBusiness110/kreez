@@ -43,9 +43,12 @@ class ForgotPasswordScreen extends StatelessWidget {
                 children: [
 
                   Expanded(
-                    child: CustomTextField(title: "phone".tr(), textInputType: TextInputType.emailAddress,
-                      backgroundColor: AppColors.lightGreen, textColor: AppColors.black2,
-                      prefixWidget: Icon(Icons.phone_outlined,color: AppColors.primary,) ,),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 12.0),
+                      child: CustomTextField(title: "phone/email".tr(), textInputType: TextInputType.phone,
+                        backgroundColor: AppColors.lightGreen, textColor: AppColors.black2,
+                        prefixWidget: Icon(Icons.phone_outlined,color: AppColors.primary,) ,),
+                    ),
                   ),
                   SizedBox(
                     height: 60,

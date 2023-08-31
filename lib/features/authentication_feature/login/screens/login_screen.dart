@@ -26,15 +26,21 @@ class LoginScreen extends StatelessWidget {
              Row(children: [Text("login".tr(),style: Theme.of(context).textTheme.displayMedium!.copyWith(fontWeight: FontWeight.w700),)],),
               Image.asset(ImageAssets.kreezImage,width:width*0.6 ,height: height*0.3,),
 
-            CustomTextField(title: "email".tr(), textInputType: TextInputType.emailAddress,
-                backgroundColor: AppColors.lightGreen, textColor: AppColors.black2,
-              prefixWidget: Icon(Icons.email_outlined,color: AppColors.primary,) ,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomTextField(title: "email".tr(), textInputType: TextInputType.emailAddress,
+                  backgroundColor: AppColors.lightGreen, textColor: AppColors.black2,
+                prefixWidget: Icon(Icons.email_outlined,color: AppColors.primary,) ,),
+            ),
             //  SizedBox(height: height*0.1,),
 
-              CustomTextField(title: "password".tr(), textInputType: TextInputType.text,
-                backgroundColor: AppColors.lightGreen, textColor: AppColors.black2,
-                prefixWidget: Icon(Icons.lock_open_outlined,color: AppColors.primary,) ,
-                suffixWidget: Icon(Icons.remove_red_eye_outlined,color: AppColors.primary,)  ,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomTextField(title: "password".tr(), textInputType: TextInputType.text,
+                  backgroundColor: AppColors.lightGreen, textColor: AppColors.black2,
+                  prefixWidget: Icon(Icons.lock_open_outlined,color: AppColors.primary,) ,
+                  suffixWidget: Icon(Icons.remove_red_eye_outlined,color: AppColors.primary,)  ,),
+              ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

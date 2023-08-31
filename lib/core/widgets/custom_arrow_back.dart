@@ -11,7 +11,8 @@ class CustomArrowBack extends StatelessWidget {
     String? lang = EasyLocalization.of(context)!.locale.countryCode;
     return    Padding(
       padding: const EdgeInsets.only(left: 8.0),
-      child: IconButton(
+      child:
+      IconButton(
           onPressed: () {
             Navigator.pop(context);
           },

@@ -6,7 +6,7 @@ class AppColors {
   static Color primary = HexColor('#2C9E07');
   static Color secondPrimary = HexColor('#3ED70D');
   static Color orangeThirdPrimary = HexColor('#FF9201');
-  static Color lightGreen = HexColor('#F6FBF7');
+  static Color lightGreen = HexColor('#2C9E07').withOpacity(0.10);
   static Color green1 = HexColor('#EEF7F1');
   static Color blueLiteColor = HexColor('#00B3DC');
   static Color blueTextColor = HexColor('#5663FF');

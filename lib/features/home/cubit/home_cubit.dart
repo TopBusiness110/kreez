@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:kreez/features/cart/screens/cart_screen.dart';
-import 'package:kreez/features/home/screens/home_screen.dart';
 import 'package:meta/meta.dart';
 
-import '../../profile/screens/profile_screen.dart';
+import '../../profile_feature/profile/screens/profile_screen.dart';
+import '../tabs/home_tab.dart';
 
 part 'home_state.dart';
 enum WidgetType {
@@ -16,7 +16,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   WidgetType selectedWidget = WidgetType.home;
   List<Widget> tabs = [ProfileScreen(),HomeTab(),CartScreen()];
-  FloatingActionButtonLocation? floatingActionButtonLocation = FloatingActionButtonLocation.centerFloat;
+  FloatingActionButtonLocation? floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked;
   IconData? icon = Icons.home;
   int currentIndex = 1;
   int selectedIndex = 0;

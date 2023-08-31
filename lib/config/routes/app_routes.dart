@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:kreez/features/authentication/forgot_password/screeens/forgot_password_screen.dart';
-import 'package:kreez/features/authentication/login/screens/login_screen.dart';
-import 'package:kreez/features/authentication/new_password/screens/new_password_screen.dart';
-import 'package:kreez/features/authentication/otp/screens/otp_screen.dart';
-import 'package:kreez/features/authentication/register/screens/register_screen.dart';
+
 import 'package:kreez/features/home/screens/home_screen.dart';
 import 'package:kreez/features/onboarding/screens/onboarding.dart';
-
-
+import 'package:kreez/features/profile_feature/change_password/screens/change_password_screen.dart';
 import '../../core/utils/app_strings.dart';
+import '../../features/authentication_feature/forgot_password/screeens/forgot_password_screen.dart';
+import '../../features/authentication_feature/login/screens/login_screen.dart';
+import '../../features/authentication_feature/new_password/screens/new_password_screen.dart';
+import '../../features/authentication_feature/otp/screens/otp_screen.dart';
+import '../../features/authentication_feature/register/screens/register_screen.dart';
+import '../../features/profile_feature/edit_profile/screens/edit_profile_screen.dart';
 import '../../features/splash/screens/splash_screen.dart';
 
 class Routes {
@@ -20,6 +21,8 @@ class Routes {
   static const String otpRoute = '/otp';
   static const String newPasswordRoute = '/newPassword';
   static const String homeRoute = '/home';
+  static const String editProfileRoute = '/editProfile';
+  static const String changePasswordRoute = '/changePassword';
 
 }
 
@@ -66,7 +69,17 @@ class AppRoutes {
 
       case Routes.homeRoute:
         return MaterialPageRoute(
-          builder: (context) =>  HomeScreen(),
+          builder: (context) =>  const HomeScreen(),
+        );
+
+      case Routes.editProfileRoute:
+        return MaterialPageRoute(
+          builder: (context) =>  const EditProfileScreen(),
+        );
+
+      case Routes.changePasswordRoute:
+        return MaterialPageRoute(
+          builder: (context) =>  const ChangePasswordScreen(),
         );
 
 

@@ -38,15 +38,21 @@ class NewPasswordScreen extends StatelessWidget {
 
                 //  SizedBox(height: height*0.1,),
 
-                CustomTextField(title: "new_password".tr(), textInputType: TextInputType.text,
-                  backgroundColor: AppColors.lightGreen, textColor: AppColors.black2,
-                  prefixWidget: Icon(Icons.lock_open_outlined,color: AppColors.primary,) ,
-                  suffixWidget: Icon(Icons.remove_red_eye_outlined,color: AppColors.primary,)  ,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomTextField(title: "new_password".tr(), textInputType: TextInputType.text,
+                    backgroundColor: AppColors.lightGreen, textColor: AppColors.black2,
+                    prefixWidget: Icon(Icons.lock_open_outlined,color: AppColors.primary,) ,
+                    suffixWidget: Icon(Icons.remove_red_eye_outlined,color: AppColors.primary,)  ,),
+                ),
 
-                CustomTextField(title: "confirm_password".tr(), textInputType: TextInputType.text,
-                  backgroundColor: AppColors.lightGreen, textColor: AppColors.black2,
-                  prefixWidget: Icon(Icons.lock_open_outlined,color: AppColors.primary,) ,
-                  suffixWidget: Icon(Icons.remove_red_eye_outlined,color: AppColors.primary,)  ,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomTextField(title: "confirm_password".tr(), textInputType: TextInputType.text,
+                    backgroundColor: AppColors.lightGreen, textColor: AppColors.black2,
+                    prefixWidget: Icon(Icons.lock_open_outlined,color: AppColors.primary,) ,
+                    suffixWidget: Icon(Icons.remove_red_eye_outlined,color: AppColors.primary,)  ,),
+                ),
 
 
 
@@ -58,7 +64,7 @@ class NewPasswordScreen extends StatelessWidget {
                       Navigator.pushNamed(context, Routes.homeRoute);
                 }),
 
-                SizedBox(height: height*0.3,),
+                SizedBox(height: height*0.25,),
 
                 //Spacer(),
                 CopyrightWidget(width: width,)
