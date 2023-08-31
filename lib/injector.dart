@@ -9,6 +9,7 @@ import 'core/api/app_interceptors.dart';
 import 'core/api/base_api_consumer.dart';
 import 'core/api/dio_consumer.dart';
 import 'core/remote/service.dart';
+import 'features/profile_feature/orders_history/cubit/order_history_cubit.dart';
 
 // import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
 
@@ -24,11 +25,11 @@ Future<void> setup() async {
         // serviceLocator(),
         ),);
 
-  // serviceLocator.registerFactory(
-  //   () => LoginCubit(
-  //     serviceLocator(),
-  //   ),
-  // );
+  serviceLocator.registerFactory(
+    () => OrderHistoryCubit(
+      //serviceLocator(),
+    ),
+  );
   // serviceLocator.registerFactory(
   //       () => GoogleMapsCubit(
   //    // serviceLocator(),

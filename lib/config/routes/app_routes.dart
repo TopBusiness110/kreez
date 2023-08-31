@@ -10,6 +10,7 @@ import '../../features/authentication_feature/new_password/screens/new_password_
 import '../../features/authentication_feature/otp/screens/otp_screen.dart';
 import '../../features/authentication_feature/register/screens/register_screen.dart';
 import '../../features/profile_feature/edit_profile/screens/edit_profile_screen.dart';
+import '../../features/profile_feature/orders_history/screens/orders_history_screen.dart';
 import '../../features/splash/screens/splash_screen.dart';
 
 class Routes {
@@ -23,6 +24,7 @@ class Routes {
   static const String homeRoute = '/home';
   static const String editProfileRoute = '/editProfile';
   static const String changePasswordRoute = '/changePassword';
+  static const String ordersHistoryRoute = '/ordersHistory';
 
 }
 
@@ -80,6 +82,10 @@ class AppRoutes {
       case Routes.changePasswordRoute:
         return MaterialPageRoute(
           builder: (context) =>  const ChangePasswordScreen(),
+        );
+      case Routes.ordersHistoryRoute:
+        return MaterialPageRoute(
+          builder: (context) =>  const OrdersHistoryScreen(),
         );
 
 

@@ -10,6 +10,9 @@ class ImageAssets {
   static const String onboarding2Image = '$imagePath/onboarding2.png';
   static const String onboarding3Image = '$imagePath/onboarding3.png';
   static const String kreezImage = '$imagePath/kreez.png';
+  static const String watermelonImage = '$imagePath/watermelon.png';
+  static const String strawberryImage = '$imagePath/strawberry.png';
+  static const String tomatoImage = '$imagePath/tomato.png';
 
 
   // icons

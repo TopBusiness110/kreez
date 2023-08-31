@@ -8,6 +8,8 @@ import 'core/utils/app_colors.dart';
 import 'core/utils/app_strings.dart';
 import 'package:kreez/injector.dart' as injector;
 
+import 'features/profile_feature/orders_history/cubit/order_history_cubit.dart';
+
 class Kreez extends StatefulWidget {
   const Kreez({Key? key}) : super(key: key);
 
@@ -34,9 +36,9 @@ class _KreezState extends State<Kreez> {
       providers: [
         BlocProvider(
           create: (_) => injector.serviceLocator<HomeCubit>(),),
-    //     // BlocProvider(
-    //     //   create: (_) => injector.serviceLocator<LoginCubit>(),
-    //     // ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<OrderHistoryCubit>(),
+        ),
     //     // BlocProvider(
     //     //   create: (_) => injector.serviceLocator<HomeCubit>(),
     //     // ),
@@ -76,6 +78,12 @@ class _KreezState extends State<Kreez> {
               bodySmall: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
+                  color: AppColors.white,
+                  fontFamily: "Cairo"
+              ),
+              bodyLarge: TextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.w600,
                   color: AppColors.white,
                   fontFamily: "Cairo"
               ),

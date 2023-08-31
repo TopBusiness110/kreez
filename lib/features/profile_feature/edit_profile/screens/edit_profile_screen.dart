@@ -18,7 +18,6 @@ class EditProfileScreen extends StatelessWidget {
     return  Scaffold(
       body: SingleChildScrollView(
         child: Column(
-
           children: [
             Container(
               width: double.infinity,
