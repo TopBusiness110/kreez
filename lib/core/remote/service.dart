@@ -1,13 +1,31 @@
 
 // import 'package:http/http.dart' as http;
 
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+
 import '../api/base_api_consumer.dart';
+import '../api/end_points.dart';
+import '../error/exceptions.dart';
+import '../error/failures.dart';
+import '../models/login_response_model.dart';
+import 'package:odoo_rpc/odoo_rpc.dart';
+import 'package:http/http.dart' as http;
 
 
 class ServiceApi {
   final BaseApiConsumer dio;
 
   ServiceApi(this.dio);
+  final odoo = OdooClient('https://store.topbuziness.com');
+
+
+ Future<String> getSessionId(String username, String password) async {
+    final odoResponse = await odoo.authenticate('store.topbuziness.com', username, password);
+    final sessionId = odoResponse.id;
+    print("session id = $sessionId");
+    return sessionId;
+  }
 
 //
 //   Future<Either<Failure, LoginModel>> postRegister(
@@ -156,20 +174,24 @@ class ServiceApi {
 //   }
 //
 //
-//   Future<Either<Failure, LoginModel>> postLogin(
-//       String phone, String phoneCode) async {
-//     try {
-//       final response = await dio.post(
-//         EndPoints.loginUrl,
-//         body: {
-//           'phone': phone,
-//         },
-//       );
-//       return Right(LoginModel.fromJson(response));
-//     } on ServerException {
-//       return Left(ServerFailure());
-//     }
-//   }
+  Future<Either<Failure, LoginResponseModel>> postLogin(
+      String phoneOrMail,String password) async {
+    try {
+      final response = await dio.post(
+        EndPoints.loginUrl,
+        body: {
+          "params":{
+            'login': phoneOrMail,
+            "password":password,
+            "db": "store.topbuziness.com"
+          },
+        },
+      );
+      return Right(LoginResponseModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 //
 //   Future<Either<Failure, HomeModel>> homeData() async {
 //     LoginModel loginModel = await Preferences.instance.getUserModel();

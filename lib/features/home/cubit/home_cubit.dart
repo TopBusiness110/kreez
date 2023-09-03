@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kreez/features/cart/screens/cart_screen.dart';
 import 'package:meta/meta.dart';
 
+import '../../../core/utils/assets_manager.dart';
 import '../../profile_feature/profile/screens/profile_screen.dart';
 import '../tabs/home_tab.dart';
 
@@ -16,12 +17,24 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   WidgetType selectedWidget = WidgetType.home;
   List<Widget> tabs = [ProfileScreen(),HomeTab(),CartScreen()];
+  int sliderCurrentIndex = 0;
+  final List<String> sliderImageList = [
+    ImageAssets.homeSlider1Image,
+    ImageAssets.homeSlider2Image,
+    ImageAssets.homeSlider1Image,
+  ];
   FloatingActionButtonLocation? floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked;
   IconData? icon = Icons.home;
   int currentIndex = 1;
   int selectedIndex = 0;
   IconData? leftIcon =Icons.person;
   IconData? rightIcon =  Icons.shopping_cart;
+
+  changeDotsIndicator(int index){
+   sliderCurrentIndex = index;
+   emit(DotsIndicatorChange());
+  }
+
 
   changeFABLocation(int index){
     if(index==2){

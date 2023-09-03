@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:kreez/features/authentication_feature/login/cubit/login_cubit.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
 
 
@@ -30,11 +31,11 @@ Future<void> setup() async {
       //serviceLocator(),
     ),
   );
-  // serviceLocator.registerFactory(
-  //       () => GoogleMapsCubit(
-  //    // serviceLocator(),
-  //   ),
-  // );
+  serviceLocator.registerFactory(
+        () => LoginCubit(
+      serviceLocator(),
+    ),
+  );
   // serviceLocator.registerFactory(
   //   () => ProfileCubit(
   //      serviceLocator(),

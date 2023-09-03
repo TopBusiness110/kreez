@@ -123,6 +123,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         HomeCubit cubit = context.read<HomeCubit>();
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
           floatingActionButton: CircleAvatar(
             radius: 38,

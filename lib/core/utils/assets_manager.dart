@@ -13,10 +13,14 @@ class ImageAssets {
   static const String watermelonImage = '$imagePath/watermelon.png';
   static const String strawberryImage = '$imagePath/strawberry.png';
   static const String tomatoImage = '$imagePath/tomato.png';
+  static const String homeSlider1Image = '$imagePath/home_slider1.png';
+  static const String homeSlider2Image = '$imagePath/home_slider2.png';
+  static const String homeSaleImage = '$imagePath/home_sale.png';
 
 
   // icons
   static const String phoneIcon = '$iconsPath/phone.svg';
+  static const String filterIcon = '$iconsPath/filter_icon.svg';
 
 
   //Lottie

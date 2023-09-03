@@ -8,3 +8,4 @@ class FABLocationChanged extends HomeState {}
 class ProfileScreenState extends HomeState {}
 class HomeScreenState extends HomeState {}
 class CartScreenState extends HomeState {}
+class DotsIndicatorChange extends HomeState {}

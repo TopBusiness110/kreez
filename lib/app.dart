@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:kreez/features/authentication_feature/login/cubit/login_cubit.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
 import 'config/routes/app_routes.dart';
 import 'core/utils/app_colors.dart';
@@ -39,9 +40,9 @@ class _KreezState extends State<Kreez> {
         BlocProvider(
           create: (_) => injector.serviceLocator<OrderHistoryCubit>(),
         ),
-    //     // BlocProvider(
-    //     //   create: (_) => injector.serviceLocator<HomeCubit>(),
-    //     // ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<LoginCubit>(),
+        ),
     //     // BlocProvider(
     //     //   create: (_) => injector.serviceLocator<PostsCubit>(),
     //     // ),

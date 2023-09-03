@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/login_model.dart';
+import '../models/login_response_model.dart';
 
 class Preferences {
   static final Preferences instance = Preferences._internal();
@@ -24,24 +24,24 @@ class Preferences {
   //   return jsonData;
   // }
 
-  Future<void> setUser(LoginModel loginModel) async {
+  Future<void> setUser(LoginResponseModel loginModel) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString(
-        'user', jsonEncode(LoginModel.fromJson(loginModel.toJson())));
+        'user', jsonEncode(LoginResponseModel.fromJson(loginModel.toJson())));
     print(await getUserModel());
   }
  Future<void> clearShared()async{
    SharedPreferences preferences = await SharedPreferences.getInstance();
    preferences.clear();
  }
-  Future<LoginModel> getUserModel() async {
+  Future<LoginResponseModel> getUserModel() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? jsonData = preferences.getString('user');
-    LoginModel userModel;
+    LoginResponseModel userModel;
     if (jsonData != null) {
-      userModel = LoginModel.fromJson(jsonDecode(jsonData));
+      userModel = LoginResponseModel.fromJson(jsonDecode(jsonData));
     } else {
-      userModel = LoginModel();
+      userModel = LoginResponseModel();
     }
     return userModel;
   }

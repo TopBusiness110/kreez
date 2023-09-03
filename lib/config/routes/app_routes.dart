@@ -46,7 +46,7 @@ class AppRoutes {
 
       case Routes.loginRoute:
         return MaterialPageRoute(
-          builder: (context) => const LoginScreen(),
+          builder: (context) =>  LoginScreen(),
         );
 
       case Routes.registerRoute:
