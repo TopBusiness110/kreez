@@ -12,6 +12,20 @@ class Preferences {
 
   factory Preferences() => instance;
 
+  Future<void> setSessionId(String sessionId) async {
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('sessionId',sessionId );
+    print("sessionId = $sessionId");
+  }
+
+  Future<String?> getSessionId() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? sessionId = preferences.getString('sessionId');
+
+
+    return sessionId;
+  }
 
   // Future<void> setFirstInstall() async {
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -25,6 +39,7 @@ class Preferences {
   // }
 
   Future<void> setUser(LoginResponseModel loginModel) async {
+
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString(
         'user', jsonEncode(LoginResponseModel.fromJson(loginModel.toJson())));

@@ -11,7 +11,9 @@ import '../../../../core/utils/dialogs.dart';
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit(this.api) : super(RegisterInitial());
+  RegisterCubit(this.api) : super(RegisterInitial()){
+
+  }
   final ServiceApi api;
 
   TextEditingController fullNameController = TextEditingController();

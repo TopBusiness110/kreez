@@ -129,7 +129,8 @@ class LoginScreen extends StatelessWidget {
                           text: "login".tr(),
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
-                              await cubit.login(context);
+                              //todo--> login as true user
+                              await cubit.loginAsTrueUser(context);
                             }
                           }),
                       SizedBox(
@@ -164,7 +165,16 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: height * 0.2,
+                        height: height * 0.03,
+                      ),
+                      TextButton(onPressed: (){
+                        Navigator.pushNamed(context,
+                            Routes.homeRoute);
+                      }, child: Text("as_guest".tr(),style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: AppColors.primary
+                      ),)),
+                      SizedBox(
+                        height: height * 0.05,
                       ),
                       //Spacer(),
                       CopyrightWidget(

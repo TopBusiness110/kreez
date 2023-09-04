@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:kreez/core/models/register_response_model.dart';
+import 'package:kreez/core/preferences/preferences.dart';
 
 import '../api/base_api_consumer.dart';
 import '../api/end_points.dart';
@@ -30,20 +31,20 @@ class ServiceApi {
     return sessionId;
   }
 
-  getSessionId2() async {
-    final client = OdooClient('https://store.topbuziness.com');
-    try {
-      await client.authenticate('store.topbuziness.com', 'admin', 'admin');
-      final res = await client.callRPC('/web/session/modules', 'call', {});
-      print('Installed modules: \n' + res.toString());
-      return res;
-    } on OdooException catch (e) {
-      print(e);
-      client.close();
-      exit(-1);
-    }
-    client.close();
-  }
+  // getSessionId2() async {
+  //   final client = OdooClient('https://store.topbuziness.com');
+  //   try {
+  //     await client.authenticate('store.topbuziness.com', 'admin', 'admin');
+  //     final res = await client.callRPC('/web/session/modules', 'call', {});
+  //     print('Installed modules: \n' + res.toString());
+  //     return res;
+  //   } on OdooException catch (e) {
+  //     print(e);
+  //     client.close();
+  //     exit(-1);
+  //   }
+  //   client.close();
+  // }
 
 //
 //   Future<Either<Failure, LoginModel>> postRegister(
@@ -192,7 +193,7 @@ class ServiceApi {
 //   }
 //
 //
-  Future<Either<Failure, LoginResponseModel>> postLogin(
+  Future<Either<Failure, LoginResponseModel>> postLoginAsAdmin(
       String phoneOrMail,String password) async {
     try {
       final response = await dio.post(
@@ -205,6 +206,41 @@ class ServiceApi {
           },
         },
       );
+     String sessionId = await getSessionId(username: "admin",password: "admin");
+
+     await Preferences.instance.setSessionId(sessionId);
+     await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
+
+      return Right(LoginResponseModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, LoginResponseModel>> postLoginAsTrueUser(
+      String phoneOrMail,String password) async {
+    try {
+      String? sessionId  =  await Preferences.instance.getSessionId();
+      final response = await dio.post(
+        EndPoints.loginUrl,
+        options: Options(
+          headers: {
+            "Cookie":"session_id=$sessionId"
+          },
+        ),
+        body: {
+          "params":{
+            'login': phoneOrMail,
+            "password":password,
+            "db": "store.topbuziness.com"
+          },
+        },
+      );
+
+
+
+      await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
+
       return Right(LoginResponseModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
@@ -214,7 +250,7 @@ class ServiceApi {
   Future<Either<Failure, RegisterResponseModel>> postRegister(
   String fullName,String password, String phone) async {
     try {
-     String sessionId = await getSessionId(username:fullName,password: password );
+      String? sessionId  =  await Preferences.instance.getSessionId();
      print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
      print("sessionId = $sessionId");
       final response = await dio.post(
@@ -236,6 +272,7 @@ class ServiceApi {
           },
         },
       );
+      await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
     print("___________________________________________________________________");
     print(response);
         return Right(RegisterResponseModel.fromJson(response));
