@@ -51,7 +51,7 @@ class AppRoutes {
 
       case Routes.registerRoute:
         return MaterialPageRoute(
-          builder: (context) => const RegisterScreen(),
+          builder: (context) =>  RegisterScreen(),
         );
 
       case Routes.forgotPasswordRoute:

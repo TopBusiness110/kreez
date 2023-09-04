@@ -18,7 +18,7 @@ import '../../../../core/widgets/copyright.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>(debugLabel: "login key");
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +27,14 @@ class LoginScreen extends StatelessWidget {
     String? lang = EasyLocalization.of(context)?.locale.countryCode;
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
+        if(state is LoginFailureState){
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error occured while login process"),duration: Duration(seconds: 1),));
+        }
         if (state is LoginSuccessState) {
           Navigator.pushNamed(context,
               Routes.homeRoute); //todo plz chane it to push replacement
         }
-        else if(state is LoginFailureState){
-          errorGetBar("Error in Loading");
-        }
+
       },
       builder: (context, state) {
         LoginCubit cubit = context.read<LoginCubit>();

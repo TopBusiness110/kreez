@@ -1,8 +1,11 @@
 
 // import 'package:http/http.dart' as http;
 
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:kreez/core/models/register_response_model.dart';
 
 import '../api/base_api_consumer.dart';
 import '../api/end_points.dart';
@@ -20,11 +23,26 @@ class ServiceApi {
   final odoo = OdooClient('https://store.topbuziness.com');
 
 
- Future<String> getSessionId(String username, String password) async {
+ Future<String> getSessionId({required String username,required String password}) async {
     final odoResponse = await odoo.authenticate('store.topbuziness.com', username, password);
     final sessionId = odoResponse.id;
     print("session id = $sessionId");
     return sessionId;
+  }
+
+  getSessionId2() async {
+    final client = OdooClient('https://store.topbuziness.com');
+    try {
+      await client.authenticate('store.topbuziness.com', 'admin', 'admin');
+      final res = await client.callRPC('/web/session/modules', 'call', {});
+      print('Installed modules: \n' + res.toString());
+      return res;
+    } on OdooException catch (e) {
+      print(e);
+      client.close();
+      exit(-1);
+    }
+    client.close();
   }
 
 //
@@ -188,6 +206,42 @@ class ServiceApi {
         },
       );
       return Right(LoginResponseModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, RegisterResponseModel>> postRegister(
+  String fullName,String password, String phone) async {
+    try {
+     String sessionId = await getSessionId(username:fullName,password: password );
+     print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+     print("sessionId = $sessionId");
+      final response = await dio.post(
+        EndPoints.registerUrl,
+        options: Options(
+          headers: {
+            "Cookie":"session_id=$sessionId"
+          },
+        ),
+        body: {
+          "params":{
+         "data":{
+           "name":phone,
+           'login': fullName,
+           "sel_groups_1_9_10":9,
+           "password":password,
+
+         }
+          },
+        },
+      );
+    print("___________________________________________________________________");
+    print(response);
+        return Right(RegisterResponseModel.fromJson(response));
+
+
+
     } on ServerException {
       return Left(ServerFailure());
     }

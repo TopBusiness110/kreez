@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:kreez/core/models/login_error_model.dart';
 import 'package:kreez/core/models/login_response_model.dart';
 import 'package:kreez/core/remote/service.dart';
 import 'package:meta/meta.dart';
@@ -14,6 +15,7 @@ class LoginCubit extends Cubit<LoginState> {
   TextEditingController passwordController = TextEditingController();
   final ServiceApi api;
  late LoginResponseModel loginResponseModel ;
+ late LoginErrorModel loginErrorModel ;
 
   login(BuildContext context) async {
     loadingDialog();
@@ -26,8 +28,17 @@ class LoginCubit extends Cubit<LoginState> {
             },
             (r) {
               Navigator.pop(context);
-              loginResponseModel = r;
-              emit(LoginSuccessState());
+              if(r.result==null){
+                emit(LoginFailureState());
+                loginErrorModel = r as LoginErrorModel;
+                emit(LoginFailureState());
+              }
+              else{
+                emit(LoginSuccessState());
+                loginResponseModel = r;
+
+              }
+
             });
   }
 }
