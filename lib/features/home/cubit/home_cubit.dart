@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:kreez/core/models/all_categories_model.dart';
+import 'package:kreez/core/remote/service.dart';
 import 'package:kreez/features/cart/screens/cart_screen.dart';
 import 'package:meta/meta.dart';
 
@@ -14,7 +16,10 @@ enum WidgetType {
   profile,
 }
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
+  HomeCubit(this.api) : super(HomeInitial()){
+    getAllCategories();
+  }
+  ServiceApi api;
   WidgetType selectedWidget = WidgetType.home;
   List<Widget> tabs = [ProfileScreen(),HomeTab(),CartScreen()];
   int sliderCurrentIndex = 0;
@@ -29,6 +34,8 @@ class HomeCubit extends Cubit<HomeState> {
   int selectedIndex = 0;
   IconData? leftIcon =Icons.person;
   IconData? rightIcon =  Icons.shopping_cart;
+
+ late AllCategoriesModel allCategoriesModel;
 
   changeDotsIndicator(int index){
    sliderCurrentIndex = index;
@@ -104,6 +111,16 @@ class HomeCubit extends Cubit<HomeState> {
        // emit(ProfileScreenState());
         return ProfileScreen();
     }
+  }
+
+  getAllCategories() async {
+    final response =await api.getAllCategories();
+    response.fold(
+            (l) => emit(AllCategoriesFailureState()),
+            (r) {
+              emit(AllCategoriesSuccessState());
+              allCategoriesModel = r;
+            });
   }
 
 }

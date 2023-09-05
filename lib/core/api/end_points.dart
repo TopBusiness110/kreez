@@ -2,6 +2,7 @@ class EndPoints {
   static const String baseUrl = 'https://store.topbuziness.com/';
   static const String registerUrl = '${baseUrl}api/res.users/';
   static const String loginUrl = '${baseUrl}auth';
+  static const String allCategoriesUrl = '${baseUrl}api/product.public.category';
 
   // static const String homeUrl = '${baseUrl}home';
   // static const String citiesUrl = '${baseUrl}cities';

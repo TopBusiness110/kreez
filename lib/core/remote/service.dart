@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:kreez/core/models/all_categories_model.dart';
 import 'package:kreez/core/models/register_response_model.dart';
 import 'package:kreez/core/preferences/preferences.dart';
 
@@ -273,8 +274,6 @@ class ServiceApi {
         },
       );
       await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
-    print("___________________________________________________________________");
-    print(response);
         return Right(RegisterResponseModel.fromJson(response));
 
 
@@ -283,6 +282,27 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
+
+  Future<Either<Failure,AllCategoriesModel>> getAllCategories()async{
+  try{
+    String? sessionId  =  await Preferences.instance.getSessionId();
+    final response = await dio.get(
+      EndPoints.allCategoriesUrl,
+      options: Options(
+        headers: {
+          "Cookie":"session_id=$sessionId"
+        },
+      ),
+    );
+    print("99999999999999999999999999999999999999");
+    print(response);
+    return Right( AllCategoriesModel.fromJson(response));
+  }
+  on ServerException {
+    return Left(ServerFailure());
+  }
+  }
+
 //
 //   Future<Either<Failure, HomeModel>> homeData() async {
 //     LoginModel loginModel = await Preferences.instance.getUserModel();

@@ -11,7 +11,7 @@ String loginResponseModelToJson(LoginResponseModel data) => json.encode(data.toJ
 class LoginResponseModel {
   final String? jsonrpc;
   final dynamic id;
-  final Result? result;
+  dynamic result;
 
   LoginResponseModel({
     this.jsonrpc,
@@ -22,13 +22,13 @@ class LoginResponseModel {
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) => LoginResponseModel(
     jsonrpc: json["jsonrpc"],
     id: json["id"],
-    result: json["result"] == null ? null : Result.fromJson(json["result"]),
+    result: json["result"] ,
   );
 
   Map<String, dynamic> toJson() => {
     "jsonrpc": jsonrpc,
     "id": id,
-    "result": result?.toJson(),
+    "result": result,
   };
 }
 
