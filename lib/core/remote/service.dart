@@ -26,8 +26,11 @@ class ServiceApi {
   final odoo = OdooClient('https://store.topbuziness.com');
 
 
- Future<String> getSessionId({required String username,required String password}) async {
-    final odoResponse = await odoo.authenticate('store.topbuziness.com', username, password);
+ Future<String> getSessionId({required String phone,required String password}) async {
+   print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+   print("phone = $phone");
+   print("password = $password");
+    final odoResponse = await odoo.authenticate('store.topbuziness.com', phone, password);
     final sessionId = odoResponse.id;
     print("session id = $sessionId");
     return sessionId;
@@ -208,7 +211,7 @@ class ServiceApi {
           },
         },
       );
-     String sessionId = await getSessionId(username: "admin",password: "admin");
+     String sessionId = await getSessionId(phone: "admin",password: "admin");
 
      await Preferences.instance.setSessionId(sessionId);
      await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
@@ -240,7 +243,7 @@ class ServiceApi {
       );
 
 
-       sessionId = await getSessionId(username: phoneOrMail,password: password);
+       sessionId = await getSessionId(phone: phoneOrMail,password: password);
 
       await Preferences.instance.setSessionId(sessionId);
       await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
@@ -266,16 +269,16 @@ class ServiceApi {
         body: {
           "params":{
          "data":{
-           "name":email??phone,
-           'login': fullName,
-           "sel_groups_1_9_10":9,
+           "name":fullName,
+           'login': phone,
            "password":password,
+           "sel_groups_9_44_10":10,
 
          }
           },
         },
       );
-      sessionId = await getSessionId(username: fullName,password: password);
+      sessionId = await getSessionId(phone: phone,password: password);
 
       await Preferences.instance.setSessionId(sessionId);
       await Preferences.instance.setUser(LoginResponseModel.fromJson(response));

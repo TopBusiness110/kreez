@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:kreez/features/home/screens/home_screen.dart';
 import 'package:kreez/features/onboarding/screens/onboarding.dart';
+import 'package:kreez/features/product_details/models/product_model.dart';
+import 'package:kreez/features/product_details/screens/product_details_screen.dart';
 import 'package:kreez/features/profile_feature/change_password/screens/change_password_screen.dart';
 import '../../core/utils/app_strings.dart';
 import '../../features/authentication_feature/forgot_password/screeens/forgot_password_screen.dart';
@@ -25,6 +27,7 @@ class Routes {
   static const String editProfileRoute = '/editProfile';
   static const String changePasswordRoute = '/changePassword';
   static const String ordersHistoryRoute = '/ordersHistory';
+  static const String productDetailsRoute = '/productDetails';
 
 }
 
@@ -83,11 +86,16 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) =>  const ChangePasswordScreen(),
         );
+
       case Routes.ordersHistoryRoute:
         return MaterialPageRoute(
           builder: (context) =>  const OrdersHistoryScreen(),
         );
-
+      case Routes.productDetailsRoute:
+        var args = settings.arguments as ProductModel;
+        return MaterialPageRoute(
+          builder: (context) =>   ProductDetailsScreen(productModel: args),
+        );
 
       default:
         return undefinedRoute();

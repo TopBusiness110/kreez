@@ -32,3 +32,25 @@ class DecodedImage extends StatelessWidget {
       ,);
   }
 }
+
+
+class DecodedImage2 extends StatelessWidget {
+  const DecodedImage2({super.key,required this.base64String});
+  final dynamic base64String ;
+
+
+  @override
+  Widget build(BuildContext context) {
+    Image image;
+    if(base64String.runtimeType== String){
+      Uint8List bytes = base64.decode(base64String);
+      image = Image.memory(bytes,width: 100,height: 150,);
+    }
+    else{
+      image = Image.asset("assets/images/splash.png",color: AppColors.primary,);
+    }
+
+
+    return  image;
+  }
+}
