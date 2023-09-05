@@ -13,6 +13,7 @@ import '../api/base_api_consumer.dart';
 import '../api/end_points.dart';
 import '../error/exceptions.dart';
 import '../error/failures.dart';
+import '../models/all_products_model.dart';
 import '../models/login_response_model.dart';
 import 'package:odoo_rpc/odoo_rpc.dart';
 import 'package:http/http.dart' as http;
@@ -239,7 +240,9 @@ class ServiceApi {
       );
 
 
+       sessionId = await getSessionId(username: phoneOrMail,password: password);
 
+      await Preferences.instance.setSessionId(sessionId);
       await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
 
       return Right(LoginResponseModel.fromJson(response));
@@ -249,11 +252,10 @@ class ServiceApi {
   }
 
   Future<Either<Failure, RegisterResponseModel>> postRegister(
-  String fullName,String password, String phone) async {
+  String fullName,String password, String phone,String? email) async {
     try {
+
       String? sessionId  =  await Preferences.instance.getSessionId();
-     print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-     print("sessionId = $sessionId");
       final response = await dio.post(
         EndPoints.registerUrl,
         options: Options(
@@ -264,7 +266,7 @@ class ServiceApi {
         body: {
           "params":{
          "data":{
-           "name":phone,
+           "name":email??phone,
            'login': fullName,
            "sel_groups_1_9_10":9,
            "password":password,
@@ -273,6 +275,9 @@ class ServiceApi {
           },
         },
       );
+      sessionId = await getSessionId(username: fullName,password: password);
+
+      await Preferences.instance.setSessionId(sessionId);
       await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
         return Right(RegisterResponseModel.fromJson(response));
 
@@ -294,13 +299,32 @@ class ServiceApi {
         },
       ),
     );
-    print("99999999999999999999999999999999999999");
-    print(response);
+
     return Right( AllCategoriesModel.fromJson(response));
   }
   on ServerException {
     return Left(ServerFailure());
   }
+  }
+
+  Future<Either<Failure,AllProductsModel>> getAllProducts()async{
+    try{
+      String? sessionId  =  await Preferences.instance.getSessionId();
+      final response = await dio.get(
+        EndPoints.allProductsUrl,
+        options: Options(
+          headers: {
+            "Cookie":"session_id=$sessionId"
+          },
+        ),
+      );
+      print("___________________________________________");
+      print(response);
+      return Right( AllProductsModel.fromJson(response));
+    }
+    on ServerException {
+      return Left(ServerFailure());
+    }
   }
 
 //

@@ -18,12 +18,22 @@ class Preferences {
     preferences.setString('sessionId',sessionId );
     print("sessionId = $sessionId");
   }
+  Future<void> setOnBoardingFirstTime(bool firstTime) async {
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool('firstTime',firstTime );
+    print("firstTime = $firstTime");
+  }
+
+  Future<bool?> getOnBoardingFirstTime() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool? firstTime = preferences.getBool('firstTime');
+    return firstTime;
+  }
 
   Future<String?> getSessionId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? sessionId = preferences.getString('sessionId');
-
-
     return sessionId;
   }
 

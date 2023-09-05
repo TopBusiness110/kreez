@@ -1,10 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:kreez/core/models/all_categories_model.dart';
+import 'package:kreez/core/models/login_response_model.dart';
+import 'package:kreez/core/preferences/preferences.dart';
 import 'package:kreez/core/remote/service.dart';
 import 'package:kreez/features/cart/screens/cart_screen.dart';
 import 'package:meta/meta.dart';
 
+import '../../../core/models/all_products_model.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../profile_feature/profile/screens/profile_screen.dart';
 import '../tabs/home_tab.dart';
@@ -18,7 +21,10 @@ enum WidgetType {
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.api) : super(HomeInitial()){
     getAllCategories();
+    getAllProducts();
+
   }
+  LoginResponseModel? loginResponseModel;
   ServiceApi api;
   WidgetType selectedWidget = WidgetType.home;
   List<Widget> tabs = [ProfileScreen(),HomeTab(),CartScreen()];
@@ -35,7 +41,8 @@ class HomeCubit extends Cubit<HomeState> {
   IconData? leftIcon =Icons.person;
   IconData? rightIcon =  Icons.shopping_cart;
 
- late AllCategoriesModel allCategoriesModel;
+  AllCategoriesModel? allCategoriesModel;
+  AllProductsModel? allProductsModel;
 
   changeDotsIndicator(int index){
    sliderCurrentIndex = index;
@@ -114,6 +121,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   getAllCategories() async {
+    loginResponseModel = await Preferences.instance.getUserModel();
     final response =await api.getAllCategories();
     response.fold(
             (l) => emit(AllCategoriesFailureState()),
@@ -121,6 +129,16 @@ class HomeCubit extends Cubit<HomeState> {
               emit(AllCategoriesSuccessState());
               allCategoriesModel = r;
             });
+  }
+
+  getAllProducts() async {
+    final response =await api.getAllProducts();
+    response.fold(
+            (l) => emit(AllProductsFailureState()),
+            (r) {
+          emit(AllProductsSuccessState());
+          allProductsModel = r;
+        });
   }
 
 }

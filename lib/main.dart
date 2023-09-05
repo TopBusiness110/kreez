@@ -8,6 +8,9 @@ import 'app.dart';
 import 'app_bloc_observer.dart';
 import 'core/utils/restart_app_class.dart';
 
+
+int? initScreen;
+
 void main() async{
 
 

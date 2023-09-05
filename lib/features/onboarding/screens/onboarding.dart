@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kreez/core/preferences/preferences.dart';
 import 'package:kreez/core/utils/app_colors.dart';
 
 import '../../../config/routes/app_routes.dart';
@@ -84,6 +85,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             onPressed: (){
+              Preferences.instance.setOnBoardingFirstTime(true);
               if(currentIndex ==2){
                 Navigator.pushReplacementNamed(context, Routes.loginRoute);
               }
@@ -99,6 +101,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
          SizedBox(height: height*0.01,),
           InkWell(
             onTap: () {
+              Preferences.instance.setOnBoardingFirstTime(true);
               Navigator.pushReplacementNamed(context, Routes.loginRoute);
             },
             child: Text(

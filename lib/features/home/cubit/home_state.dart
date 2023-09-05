@@ -11,3 +11,5 @@ class CartScreenState extends HomeState {}
 class DotsIndicatorChange extends HomeState {}
 class AllCategoriesFailureState extends HomeState {}
 class AllCategoriesSuccessState extends HomeState {}
+class AllProductsFailureState extends HomeState {}
+class AllProductsSuccessState extends HomeState {}

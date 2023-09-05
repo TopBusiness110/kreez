@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kreez/core/preferences/preferences.dart';
 import 'package:kreez/core/utils/app_colors.dart';
 import 'package:kreez/core/utils/assets_manager.dart';
 
@@ -57,14 +58,20 @@ class _SplashScreenState extends State<SplashScreen> {
     // the splash screen is displayed.  Remove the following example because
     // delaying the user experience is a bad design practice!
     // ignore_for_file: avoid_print
-    print('ready in 3...');
+
     await Future.delayed(const Duration(seconds: 1));
+   bool? firstTime = await Preferences.instance.getOnBoardingFirstTime();
     print('ready in 2...');
-    await Future.delayed(const Duration(seconds: 1));
-    print('ready in 1...');
-    await Future.delayed(const Duration(seconds: 1));
-    print('go!');
+    // await Future.delayed(const Duration(seconds: 1));
+    // print('ready in 1...');
+    // await Future.delayed(const Duration(seconds: 1));
+    // print('go!');
    // FlutterNativeSplash.remove();
-    Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
+    if(firstTime==null||firstTime==false){
+      Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
+    }
+    else{
+      Navigator.pushNamed(context, Routes.loginRoute);
+    }
   }
 }

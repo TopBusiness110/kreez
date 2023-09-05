@@ -18,12 +18,13 @@ class HomeTitleItem extends StatelessWidget {
               height: 35,
               decoration: BoxDecoration(
                   color: AppColors.primary,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10),bottomLeft:Radius.circular(10) )
+                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(10),bottomLeft:Radius.circular(10) )
               ),
             ),
             const SizedBox(width: 6,),
             Text(title,style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: AppColors.black
+                color: AppColors.black,
+
             ),),
           ],
         ),

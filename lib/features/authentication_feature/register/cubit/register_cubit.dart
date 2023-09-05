@@ -30,7 +30,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   register(BuildContext context) async {
     loadingDialog();
-    final response = await api.postRegister(fullNameController.text, passwordController.text,phoneController.text);
+    final response = await api.postRegister(fullNameController.text, passwordController.text,phoneController.text,emailController.text);
     response.fold(
             (l) {
           Navigator.pop(context);

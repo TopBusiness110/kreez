@@ -70,6 +70,11 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.0),
            borderSide:borderSide ,
           ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.0),
+            borderSide:BorderSide(color: AppColors.primary,) ,
+          ),
+
           suffixIcon: suffixWidget,
           prefixIcon: prefixWidget,
           fillColor: backgroundColor,

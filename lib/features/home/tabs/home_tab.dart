@@ -10,6 +10,7 @@ import 'package:sizer/sizer.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/custom_textfield.dart';
+import '../../../core/widgets/decoded_image.dart';
 import '../components/home_product_item.dart';
 import '../components/home_title_item.dart';
 
@@ -54,6 +55,7 @@ class HomeTab extends StatelessWidget {
               ),
               Row(
                 children: [
+                  const SizedBox(width: 12,),
                   Expanded(
                     child: CustomTextField(
 
@@ -93,13 +95,16 @@ class HomeTab extends StatelessWidget {
                   );
                 }).toList(),
                 options: CarouselOptions(
+                  pauseAutoPlayInFiniteScroll: true,
+                  pauseAutoPlayOnManualNavigate: true,
+                  pauseAutoPlayOnTouch: true,
                   height: 15.h,
                   viewportFraction: 1,
                   initialPage: 0,
                   enlargeCenterPage: true,
                   autoPlay: true,
                   onPageChanged: (index, reason) {
-                    cubit.changeDotsIndicator(index);
+                   // cubit.changeDotsIndicator(index);
                   },
                 ),
               ),
@@ -118,26 +123,29 @@ class HomeTab extends StatelessWidget {
               const SizedBox(height: 10,),
 
               const HomeTitleItem(title: "التصنيفات",),
-              SizedBox(
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 12),
                 height: 18.h,
                 child: ListView.separated(
                   separatorBuilder: (context, index) {
-                    return SizedBox(width: 5.w,);
+                    return SizedBox(width: 3.w,);
                   },
-                  itemCount: 10,
+                  itemCount:cubit.allCategoriesModel?.count??0,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                        CircleAvatar(
-                          radius:50,
-                            backgroundColor: AppColors.primary,
-                            child: CircleAvatar(
-                                radius:48,
-                                backgroundColor: AppColors.white,
-                                child: Image.asset(ImageAssets.strawberryImage,height: 10.h,))),
-                        Text("خضروات",style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: AppColors.black1
+                        // CircleAvatar(
+                        //   radius:50,
+                        //     backgroundColor: AppColors.primary,
+                        //     child: CircleAvatar(
+                        //         radius:48,
+                        //         backgroundColor: AppColors.white,
+                        //         child: Image.asset(ImageAssets.strawberryImage,height: 10.h,))),
+                        DecodedImage(base64String:cubit.allCategoriesModel?.result?[index].image1920 ),
+                        Text("${cubit.allCategoriesModel?.result?[index].displayName}",style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: AppColors.black1,
+                          fontSize: 15
                         ),)
                       ],
                     );
@@ -146,16 +154,21 @@ class HomeTab extends StatelessWidget {
 
 
               const HomeTitleItem(title: "الأكثر مبيعا",),
-              SizedBox(
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 12),
                 height: 26.h,
                 child: ListView.separated(
                   separatorBuilder: (context, index) {
                     return SizedBox(width: 5.w,);
                   },
-                  itemCount: 10,
+                  itemCount: cubit.allProductsModel?.count??0,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                  return HomeProductItem();
+                    return HomeProductItem(inSale: cubit.allProductsModel?.result?[index].websiteRibbonId,
+                      productName: cubit.allProductsModel?.result?[index].name,
+                      image:cubit.allProductsModel?.result?[index].image1920,
+                      price: cubit.allProductsModel?.result?[index].listPrice,
+                      unit:cubit.allProductsModel?.result?[index].uomName ,);
                 },),
               ),
 
@@ -166,30 +179,41 @@ class HomeTab extends StatelessWidget {
 
 
              const  HomeTitleItem(title: " المنتجات",),
-              SizedBox(
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 12),
                 height: 26.h,
                 child: ListView.separated(
                   separatorBuilder: (context, index) {
                     return SizedBox(width: 5.w,);
                   },
-                  itemCount: 10,
+                  itemCount: cubit.allProductsModel?.count??0,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return HomeProductItem();
+                    return HomeProductItem(inSale: cubit.allProductsModel?.result?[index].websiteRibbonId,
+                                     productName: cubit.allProductsModel?.result?[index].name,
+                    image:cubit.allProductsModel?.result?[index].image1920,
+                        price: cubit.allProductsModel?.result?[index].listPrice,
+                        unit:cubit.allProductsModel?.result?[index].uomName ,);
                   },),
               ),
 
               const  HomeTitleItem(title: " أحدث منتجات",),
-              SizedBox(
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 12),
                 height: 26.h,
                 child: ListView.separated(
+                  reverse: true,
                   separatorBuilder: (context, index) {
                     return SizedBox(width: 5.w,);
                   },
-                  itemCount: 10,
+                  itemCount: cubit.allProductsModel?.count??0,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return HomeProductItem();
+                    return HomeProductItem(inSale: cubit.allProductsModel?.result?[index].websiteRibbonId,
+                      productName: cubit.allProductsModel?.result?[index].name,
+                      image:cubit.allProductsModel?.result?[index].image1920,
+                      price: cubit.allProductsModel?.result?[index].listPrice,
+                      unit:cubit.allProductsModel?.result?[index].uomName ,);
                   },),
               ),
 
