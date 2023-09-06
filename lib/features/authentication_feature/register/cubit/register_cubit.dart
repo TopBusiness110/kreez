@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:kreez/core/models/auth_model.dart';
 import 'package:kreez/core/models/register_response_model.dart';
 import 'package:meta/meta.dart';
 
@@ -26,11 +27,39 @@ class RegisterCubit extends Cubit<RegisterState> {
   late CountryCode selectedCountryCode;
 
  late RegisterResponseModel registerResponseModel;
-  late LoginErrorModel loginErrorModel ;
+ late AuthModel authModel;
+  // late LoginErrorModel loginErrorModel ;
+  //
+  // register(BuildContext context) async {
+  //   loadingDialog();
+  //   final response = await api.postRegister(fullNameController.text, passwordController.text,phoneController.text,emailController.text);
+  //   response.fold(
+  //           (l) {
+  //         Navigator.pop(context);
+  //         emit(RegisterFailureState());
+  //
+  //       },
+  //           (r) {
+  //         Navigator.pop(context);
+  //         if(r.result==null){
+  //           emit(RegisterFailureState());
+  //         //  loginErrorModel = r as LoginErrorModel;
+  //
+  //         }
+  //         else{
+  //
+  //           emit(RegisterSuccessState());
+  //           Navigator.pop(context);
+  //           registerResponseModel = r;
+  //
+  //         }
+  //
+  //       });
+  // }
 
-  register(BuildContext context) async {
+  register2(BuildContext context) async {
     loadingDialog();
-    final response = await api.postRegister(fullNameController.text, passwordController.text,phoneController.text,emailController.text);
+    final response = await api.postRegister2(fullNameController.text, passwordController.text,phoneController.text,emailController.text);
     response.fold(
             (l) {
           Navigator.pop(context);
@@ -41,17 +70,19 @@ class RegisterCubit extends Cubit<RegisterState> {
           Navigator.pop(context);
           if(r.result==null){
             emit(RegisterFailureState());
-          //  loginErrorModel = r as LoginErrorModel;
+            //todo -->handle emits because we have now only one mode auth model
+            //todo--> make login again to have the correct model
 
           }
           else{
 
             emit(RegisterSuccessState());
             Navigator.pop(context);
-            registerResponseModel = r;
+            authModel = r;
 
           }
 
         });
   }
+
 }

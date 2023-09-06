@@ -69,7 +69,7 @@ class LoginScreen extends StatelessWidget {
                         child: CustomTextField(
                           validatorMessage: "Enter phone or mail",
                           controller: cubit.phoneOrMailController,
-                          title: "name".tr(),
+                          title: "phone_or_mail".tr(),
                           textInputType: TextInputType.emailAddress,
                           backgroundColor: AppColors.lightGreen,
                           textColor: AppColors.black2,
@@ -130,7 +130,7 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
                               //todo--> login as true user
-                              await cubit.loginAsTrueUser(context);
+                              await cubit.loginAsTrueUser2(context);
                             }
                           }),
                       SizedBox(

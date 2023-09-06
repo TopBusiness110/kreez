@@ -132,6 +132,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   getAllProducts() async {
+    emit(LoadingAllProductsState());
     final response =await api.getAllProducts();
     response.fold(
             (l) => emit(AllProductsFailureState()),

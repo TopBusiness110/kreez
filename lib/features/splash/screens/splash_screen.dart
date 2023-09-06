@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kreez/core/models/login_response_model.dart';
 import 'package:kreez/core/preferences/preferences.dart';
 import 'package:kreez/core/utils/app_colors.dart';
 import 'package:kreez/core/utils/assets_manager.dart';
@@ -71,7 +72,15 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
     }
     else{
-      Navigator.pushReplacementNamed(context, Routes.loginRoute);
+      bool? isAdmin = await Preferences.instance.getIsAdmin();
+      if(isAdmin==true||isAdmin==null){
+        // if admin--> go to login
+        Navigator.pushReplacementNamed(context, Routes.loginRoute);
+      }
+     else{
+        Navigator.pushReplacementNamed(context, Routes.homeRoute);
+      }
+      //if not admin means real user -->gp to home
     }
   }
 }

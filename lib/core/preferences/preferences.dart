@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 
+import 'package:kreez/core/models/auth_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/login_response_model.dart';
@@ -17,6 +18,17 @@ class Preferences {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('sessionId',sessionId );
     print("sessionId = $sessionId");
+  }
+  Future<void> isAdmin(bool is_admin) async {
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool('isAdmin',is_admin );
+    print("isAdmin = $is_admin");
+  }
+  Future<bool?> getIsAdmin() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool? isAdmin = preferences.getBool('isAdmin');
+    return isAdmin;
   }
   Future<void> setOnBoardingFirstTime(bool firstTime) async {
 
@@ -47,14 +59,25 @@ class Preferences {
   //   String? jsonData = prefs.getString('onBoarding');
   //   return jsonData;
   // }
+  //
+  // Future<void> setUser(LoginResponseModel loginModel) async {
+  //
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   preferences.setString(
+  //       'user', jsonEncode(LoginResponseModel.fromJson(loginModel.toJson())));
+  //   print(await getUserModel());
+  // }
 
-  Future<void> setUser(LoginResponseModel loginModel) async {
+
+  Future<void> setUser2(AuthModel authModel) async {
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString(
-        'user', jsonEncode(LoginResponseModel.fromJson(loginModel.toJson())));
-    print(await getUserModel());
+        'user2', jsonEncode(AuthModel.fromJson(authModel.toJson())));
+    print(await getUserModel2());
   }
+
+
  Future<void> clearShared()async{
    SharedPreferences preferences = await SharedPreferences.getInstance();
    preferences.clear();
@@ -69,6 +92,18 @@ class Preferences {
       userModel = LoginResponseModel();
     }
     return userModel;
+  }
+
+  Future<AuthModel> getUserModel2() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? jsonData = preferences.getString('user2');
+    AuthModel authModel;
+    if (jsonData != null) {
+      authModel = AuthModel.fromJson(jsonDecode(jsonData));
+    } else {
+      authModel = AuthModel();
+    }
+    return authModel;
   }
 
 }

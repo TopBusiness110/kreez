@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/config/routes/app_routes.dart';
 import 'package:kreez/core/widgets/decoded_image.dart';
+import 'package:kreez/features/home/cubit/home_cubit.dart';
 import 'package:kreez/features/product_details/models/product_model.dart';
 import 'package:sizer/sizer.dart';
 
@@ -17,7 +19,27 @@ class HomeProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    HomeCubit cubit = context.read<HomeCubit>();
+    return   state is LoadingAllProductsState
+        ? SizedBox(
+      // height: 130,
+      // width: 130,
+        child: Row(
+        mainAxisAlignment:
+        MainAxisAlignment.center,
+        children: [
+          CircularProgressIndicator(
+            color: AppColors.primary,
+          ),
+        ],
+      ),
+    ):
+      InkWell(
       onTap: () {
         Navigator.pushNamed(context, Routes.productDetailsRoute,
             arguments: ProductModel(name:productName,image:image,
@@ -56,6 +78,20 @@ class HomeProductItem extends StatelessWidget {
                   ],
                 ):SizedBox(height: 10,):SizedBox(height: 10,),
              // ),
+              state is LoadingAllProductsState
+              ? SizedBox(
+                height: 130,
+                width: 130,
+                child: Row(
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      color: AppColors.secondPrimary,
+                    ),
+                  ],
+                ),
+              ):
               DecodedImage(base64String:image ),
               // Image.asset(ImageAssets.strawberryImage,height: 8.h,fit: BoxFit.cover,),
               Text("$productName",style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -146,5 +182,7 @@ class HomeProductItem extends StatelessWidget {
           )
       ),
     );
+  },
+);
   }
 }

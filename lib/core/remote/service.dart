@@ -14,6 +14,7 @@ import '../api/end_points.dart';
 import '../error/exceptions.dart';
 import '../error/failures.dart';
 import '../models/all_products_model.dart';
+import '../models/auth_model.dart';
 import '../models/login_response_model.dart';
 import 'package:odoo_rpc/odoo_rpc.dart';
 import 'package:http/http.dart' as http;
@@ -36,169 +37,33 @@ class ServiceApi {
     return sessionId;
   }
 
-  // getSessionId2() async {
-  //   final client = OdooClient('https://store.topbuziness.com');
+  //
+  // Future<Either<Failure, LoginResponseModel>> postLoginAsAdmin(
+  //     String phoneOrMail,String password) async {
   //   try {
-  //     await client.authenticate('store.topbuziness.com', 'admin', 'admin');
-  //     final res = await client.callRPC('/web/session/modules', 'call', {});
-  //     print('Installed modules: \n' + res.toString());
-  //     return res;
-  //   } on OdooException catch (e) {
-  //     print(e);
-  //     client.close();
-  //     exit(-1);
+  //     final response = await dio.post(
+  //       EndPoints.loginUrl,
+  //       body: {
+  //         "params":{
+  //           'login': phoneOrMail,
+  //           "password":password,
+  //           "db": "store.topbuziness.com"
+  //         },
+  //       },
+  //     );
+  //    String sessionId = await getSessionId(phone: "admin",password: "admin");
+  //
+  //    await Preferences.instance.setSessionId(sessionId);
+  //    await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
+  //    await Preferences.instance.isAdmin(true);
+  //
+  //     return Right(LoginResponseModel.fromJson(response));
+  //   } on ServerException {
+  //     return Left(ServerFailure());
   //   }
-  //   client.close();
   // }
 
-//
-//   Future<Either<Failure, LoginModel>> postRegister(
-//       String phone, String phoneCode,String name) async {
-//     try {
-//       var response = await dio.post(
-//         EndPoints.registerUrl,
-//         body: {
-//           'phone': phone,
-//           'phone_code': phoneCode,
-//           'name': name,
-//           //'role_id': 1,
-//         },
-//       );
-//
-//         return Right(LoginModel.fromJson(response));
-//
-//
-//
-//     } on ServerException {
-//       return Left(ServerFailure());
-//     }
-//   }
-//   //
-//   // Future<Either<Failure, ServiceStoreModel>> postServiceStore(ServiceModel serviceModel) async {
-//   //   LoginModel loginModel = await Preferences.instance.getUserModel();
-//   //
-//   //   try {
-//   //     List<MultipartFile> images = [];
-//   //     for (int i = 0; i < serviceModel.images.length; i++) {
-//   //
-//   //       var image =  await MultipartFile.fromFile(serviceModel.images[i]!.path)  ;
-//   //       images.add(image);
-//   //     }      List phones = [];
-//   //     for(int i = 0 ; i<serviceModel.phones.length ; i++){
-//   //       phones.add(serviceModel.phones[i]);
-//   //     }
-//   //     final response = await dio.post(
-//   //       EndPoints.serviceStoreUrl,
-//   //       formDataIsEnabled: true,
-//   //       options: Options(
-//   //         headers: {'Authorization': loginModel.data!.accessToken!},
-//   //       ),
-//   //       body: {
-//   //         'name': serviceModel.name,
-//   //         "category_id":serviceModel.category_id,
-//   //         "sub_category_id":serviceModel.sub_category_id,
-//   //         "city_id":serviceModel.cityId,
-//   //         "phones[]": phones,
-//   //         "details":serviceModel.details,
-//   //         "logo": await MultipartFile.fromFile(serviceModel.logo.path),
-//   //         "location":serviceModel.location,
-//   //         "images[]":images,
-//   //         "longitude":serviceModel.longitude,
-//   //         "latitude":serviceModel.latitude,
-//   //       },
-//   //     );
-//   //     return Right(ServiceStoreModel.fromJson(response));
-//   //   } on ServerException {
-//   //
-//   //     return Left(ServerFailure());
-//   //   }
-//   // }
-//
-//   Future<Either<Failure,UpdatedModel >> edit(ServiceToUpdate serviceToUpdate,catId) async {
-//     LoginModel loginModel = await Preferences.instance.getUserModel();
-//
-//     try {
-//       List<MultipartFile> images = [];
-//       for (int i = 0; i < serviceToUpdate.images!.length; i++) {
-//
-//         var image =  await MultipartFile.fromFile(serviceToUpdate.images?[i]!.path)  ;
-//         images.add(image);
-//       }      List phones = [];
-//       for(int i = 0 ; i<serviceToUpdate.phones!.length ; i++){
-//         phones.add(serviceToUpdate.phones?[i]);
-//       }
-//       final response = await dio.post(
-//         EndPoints.editServicesUrl + catId.toString(),
-//
-//         formDataIsEnabled: true,
-//         options: Options(
-//           headers: {'Authorization': loginModel.data!.accessToken!},
-//         ),
-//         body: {
-//           'name': serviceToUpdate.name,
-//           "category_id":serviceToUpdate.categoryId,
-//          // "sub_category_id":1,
-//           "phones[]": phones,
-//           "details":serviceToUpdate.details,
-//            "city_id":serviceToUpdate.cityId,
-//           "longitude":serviceToUpdate.longitude,
-//           "latitude":serviceToUpdate.latitude,
-//           "logo": serviceToUpdate.logo,
-//           "location":serviceToUpdate.location,
-//           "images[]":images,
-//         },
-//       );
-//       return Right(UpdatedModel.fromJson(response));
-//     } on ServerException {
-//
-//       return Left(ServerFailure());
-//     }
-//   }
-//
-//   Future<Either<Failure, RateResponseModel>> postRate({required serviceId,required value,comment}) async {
-//     LoginModel loginModel = await Preferences.instance.getUserModel();
-//     try {
-//
-//       final response = await dio.post(
-//         EndPoints.rateUrl,
-//         options: Options(
-//           headers: {'Authorization': loginModel.data!.accessToken!},
-//         ),
-//         body: {
-//           'service_id': serviceId,
-//           "value":value,
-//           "comment":comment
-//         },
-//       );
-//       return Right(RateResponseModel.fromJson(response));
-//     } on ServerException {
-//       return Left(ServerFailure());
-//     }
-//   }
-//
-//
-//   Future<Either<Failure, LoginModel>> postEditProfile(
-//       String name) async {
-//     LoginModel loginModel = await Preferences.instance.getUserModel();
-//
-//     try {
-//       final response = await dio.post(
-//         EndPoints.updateProfileUrl,
-//         options: Options(headers: {"Authorization":loginModel.data!.accessToken!}),
-//         body: {
-//           'name': name,
-//           "phone":loginModel.data?.user?.phone,
-//         },
-//       );
-//
-//       return Right(LoginModel.fromJson(response));
-//     } on ServerException {
-//       return Left(ServerFailure());
-//     }
-//   }
-//
-//
-  Future<Either<Failure, LoginResponseModel>> postLoginAsAdmin(
+  Future<Either<Failure, AuthModel>> postLoginAsAdmin2(
       String phoneOrMail,String password) async {
     try {
       final response = await dio.post(
@@ -211,18 +76,20 @@ class ServiceApi {
           },
         },
       );
-     String sessionId = await getSessionId(phone: "admin",password: "admin");
+      String sessionId = await getSessionId(phone: "admin",password: "admin");
 
-     await Preferences.instance.setSessionId(sessionId);
-     await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
+      await Preferences.instance.setSessionId(sessionId);
+      await Preferences.instance.setUser2(AuthModel.fromJson(response));
+      await Preferences.instance.isAdmin(true);
 
-      return Right(LoginResponseModel.fromJson(response));
+      return Right(AuthModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }
   }
 
-  Future<Either<Failure, LoginResponseModel>> postLoginAsTrueUser(
+
+  Future<Either<Failure, AuthModel>> postLoginAsTrueUser2(
       String phoneOrMail,String password) async {
     try {
       String? sessionId  =  await Preferences.instance.getSessionId();
@@ -243,19 +110,103 @@ class ServiceApi {
       );
 
 
-       sessionId = await getSessionId(phone: phoneOrMail,password: password);
+      sessionId = await getSessionId(phone: phoneOrMail,password: password);
 
       await Preferences.instance.setSessionId(sessionId);
-      await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
+      await Preferences.instance.setUser2(AuthModel.fromJson(response));
+       await Preferences.instance.isAdmin(false); //todo-->
 
-      return Right(LoginResponseModel.fromJson(response));
+      return Right(AuthModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }
   }
+  //***********************************************************************************
+  //
+  // Future<Either<Failure, LoginResponseModel>> postLoginAsTrueUser(
+  //     String phoneOrMail,String password) async {
+  //   try {
+  //     String? sessionId  =  await Preferences.instance.getSessionId();
+  //     final response = await dio.post(
+  //       EndPoints.loginUrl,
+  //       options: Options(
+  //         headers: {
+  //           "Cookie":"session_id=$sessionId"
+  //         },
+  //       ),
+  //       body: {
+  //         "params":{
+  //           'login': phoneOrMail,
+  //           "password":password,
+  //           "db": "store.topbuziness.com"
+  //         },
+  //       },
+  //     );
+  //
+  //
+  //      sessionId = await getSessionId(phone: phoneOrMail,password: password);
+  //
+  //     await Preferences.instance.setSessionId(sessionId);
+  //     await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
+  //    // await Preferences.instance.isAdmin(false); //todo-->
+  //
+  //     return Right(LoginResponseModel.fromJson(response));
+  //   } on ServerException {
+  //     return Left(ServerFailure());
+  //   }
+  // }
+//*****************************************************************************************
+  // Future<Either<Failure, RegisterResponseModel>> postRegister(
+  // String fullName,String password, String phone,String? email) async {
+  //   try {
+  //
+  //     String? sessionId  =  await Preferences.instance.getSessionId();
+  //     final response = await dio.post(
+  //       EndPoints.registerUrl,
+  //       options: Options(
+  //         headers: {
+  //           "Cookie":"session_id=$sessionId"
+  //         },
+  //       ),
+  //       body: {
+  //         "params":{
+  //        "data":{
+  //          "name":fullName,
+  //          'login': phone,
+  //          "password":password,
+  //          "sel_groups_9_44_10":10
+  //
+  //        }
+  //         },
+  //       },
+  //     ).then((value) async {
+  //       sessionId = await getSessionId(phone: phone,password: password);
+  //
+  //       await Preferences.instance.setSessionId(sessionId!);
+  //
+  //       await Preferences.instance.isAdmin(false);
+  //     }).onError((error, stackTrace) {
+  //       print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+  //       print("error is $error");
+  //     });
+  //     await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
+  //     // sessionId = await getSessionId(phone: phone,password: password);
+  //     //
+  //     // await Preferences.instance.setSessionId(sessionId);
+  //     // await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
+  //     // await Preferences.instance.isAdmin(false);
+  //       return Right(RegisterResponseModel.fromJson(response));
+  //
+  //
+  //
+  //   } on ServerException {
+  //     return Left(ServerFailure());
+  //   }
+  // }
 
-  Future<Either<Failure, RegisterResponseModel>> postRegister(
-  String fullName,String password, String phone,String? email) async {
+  Future<Either<Failure, AuthModel>> postRegister2(
+      String fullName,String password, String phone,String? email) async
+  {
     try {
 
       String? sessionId  =  await Preferences.instance.getSessionId();
@@ -268,21 +219,24 @@ class ServiceApi {
         ),
         body: {
           "params":{
-         "data":{
-           "name":fullName,
-           'login': phone,
-           "password":password,
-           "sel_groups_9_44_10":10,
+            "data":{
+              "name":fullName,
+              'login':  phone,
+              "password":password,
+              "sel_groups_9_44_10":10,
 
-         }
+            }
           },
         },
-      );
+      ).onError((error, stackTrace) {
+        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        print("error is $error");
+      });
       sessionId = await getSessionId(phone: phone,password: password);
-
       await Preferences.instance.setSessionId(sessionId);
-      await Preferences.instance.setUser(LoginResponseModel.fromJson(response));
-        return Right(RegisterResponseModel.fromJson(response));
+      await Preferences.instance.isAdmin(false);
+      await Preferences.instance.setUser2(AuthModel.fromJson(response));
+      return Right(AuthModel.fromJson(response));
 
 
 
