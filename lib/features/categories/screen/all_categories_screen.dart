@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kreez/core/utils/app_colors.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/models/all_categories_model.dart';
 import '../../../core/widgets/decoded_image.dart';
 
@@ -70,28 +71,33 @@ class CategoriesScreen extends StatelessWidget {
                  ),
               itemCount: allCategoriesModel?.result?.length??0,
               itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    color: AppColors.lightGreen,
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // CircleAvatar(
-                      //   radius:50,
-                      //     backgroundColor: AppColors.primary,
-                      //     child: CircleAvatar(
-                      //         radius:48,
-                      //         backgroundColor: AppColors.white,
-                      //         child: Image.asset(ImageAssets.strawberryImage,height: 10.h,))),
-                      DecodedImage(base64String:allCategoriesModel?.result?[index].image1920 ),
-                      Text("${allCategoriesModel?.result?[index].displayName}",style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: AppColors.black1,
-                          fontSize: 15
-                      ),)
-                    ],
+                return InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.productsRoute);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: AppColors.lightGreen,
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // CircleAvatar(
+                        //   radius:50,
+                        //     backgroundColor: AppColors.primary,
+                        //     child: CircleAvatar(
+                        //         radius:48,
+                        //         backgroundColor: AppColors.white,
+                        //         child: Image.asset(ImageAssets.strawberryImage,height: 10.h,))),
+                        DecodedImage(base64String:allCategoriesModel?.result?[index].image1920 ),
+                        Text("${allCategoriesModel?.result?[index].displayName}",style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: AppColors.black1,
+                            fontSize: 15
+                        ),)
+                      ],
+                    ),
                   ),
                 );
               },),

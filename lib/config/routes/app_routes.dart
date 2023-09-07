@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kreez/core/models/all_categories_model.dart';
+import 'package:kreez/features/cart/screens/cart_screen.dart';
 import 'package:kreez/features/categories/screen/all_categories_screen.dart';
 
 import 'package:kreez/features/home/screens/home_screen.dart';
@@ -34,6 +35,7 @@ class Routes {
   static const String productDetailsRoute = '/productDetails';
   static const String categoriesRoute = '/categories';
   static const String productsRoute = '/products';
+  static const String cartRoute = '/cart';
 
 }
 
@@ -113,6 +115,11 @@ class AppRoutes {
         var args = settings.arguments as AllProductsModel;
         return MaterialPageRoute(
           builder: (context) =>   ProductsScreen(allProductsModel: args),
+        );
+
+      case Routes.cartRoute:
+        return MaterialPageRoute(
+          builder: (context) =>  const CartScreen(),
         );
 
       default:

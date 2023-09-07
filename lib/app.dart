@@ -10,6 +10,8 @@ import 'core/utils/app_colors.dart';
 import 'core/utils/app_strings.dart';
 import 'package:kreez/injector.dart' as injector;
 
+import 'features/cart/cubit/cart_cubit.dart';
+import 'features/product_details/cubit/product_details_cubit.dart';
 import 'features/products/cubit/products_cubit.dart';
 import 'features/profile_feature/orders_history/cubit/order_history_cubit.dart';
 
@@ -51,18 +53,15 @@ class _KreezState extends State<Kreez> {
         BlocProvider(
           create: (_) => injector.serviceLocator<ProductsCubit>(),
         ),
-    //     // BlocProvider(
-    //     //   create: (_) => injector.serviceLocator<FavoriteCubit>(),
-    //     // ),
-    //     //
-    //     // BlocProvider(
-    //     //   create: (_) => injector.serviceLocator<PrivacyCubit>(),
-    //     // ),
-    //     //
-    //     //
-    //     // BlocProvider(
-    //     //   create: (_) => injector.serviceLocator<AddServiceCubit>(),
-    //     // ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<CartCubit>(),
+        ),
+
+        BlocProvider(
+          create: (_) => injector.serviceLocator<ProductDetailsCubit>(),
+        ),
+
+
     //
     //
     //

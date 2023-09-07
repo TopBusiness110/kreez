@@ -9,6 +9,7 @@ import 'package:meta/meta.dart';
 
 import '../../../core/models/all_products_model.dart';
 import '../../../core/utils/assets_manager.dart';
+import '../../product_details/models/product_model.dart';
 import '../../profile_feature/profile/screens/profile_screen.dart';
 import '../tabs/home_tab.dart';
 
@@ -121,6 +122,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   getAllCategories() async {
+    emit(LoadingAllCategoriesState());
     loginResponseModel = await Preferences.instance.getUserModel();
     final response =await api.getAllCategories();
     response.fold(
@@ -142,6 +144,39 @@ class HomeCubit extends Cubit<HomeState> {
           print("_______________________________________________________________");
           print(r.result);
         });
+  }
+
+ late double quantity ;
+  increaseQuantity(){
+    print(quantity);
+    quantity++;
+    print("@@@@@@@@@@@@@@@@@@@@@@@");
+    print(quantity);
+    emit(IncreasingQuantity());
+  }
+  // increaseQuantity(ProductModel productModel){
+  //   double productQuantity = productModel.quantity!;
+  //   productQuantity++;
+  //   productModel.quantity = productQuantity;
+  //
+  //   print("###############################");
+  //   print(productModel.quantity);
+  //   emit(IncreasingQuantity());
+  // }
+
+  decreaseQuantity(ProductModel productModel){
+    double productQuantity = productModel.quantity!;
+    if(productQuantity==0){
+
+    }
+    else{
+      productQuantity--;
+      productModel.quantity = productQuantity;
+
+      print("###############################");
+      print(productModel.quantity);
+      emit(DecreasingQuantity());
+    }
   }
 
 }
