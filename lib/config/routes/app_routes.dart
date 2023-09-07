@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kreez/core/models/all_categories_model.dart';
+import 'package:kreez/features/categories/screen/all_categories_screen.dart';
 
 import 'package:kreez/features/home/screens/home_screen.dart';
 import 'package:kreez/features/onboarding/screens/onboarding.dart';
 import 'package:kreez/features/product_details/models/product_model.dart';
 import 'package:kreez/features/product_details/screens/product_details_screen.dart';
+import 'package:kreez/features/products/screens/products_screen.dart';
 import 'package:kreez/features/profile_feature/change_password/screens/change_password_screen.dart';
+import '../../core/models/all_products_model.dart';
 import '../../core/utils/app_strings.dart';
 import '../../features/authentication_feature/forgot_password/screeens/forgot_password_screen.dart';
 import '../../features/authentication_feature/login/screens/login_screen.dart';
@@ -28,6 +32,8 @@ class Routes {
   static const String changePasswordRoute = '/changePassword';
   static const String ordersHistoryRoute = '/ordersHistory';
   static const String productDetailsRoute = '/productDetails';
+  static const String categoriesRoute = '/categories';
+  static const String productsRoute = '/products';
 
 }
 
@@ -95,6 +101,18 @@ class AppRoutes {
         var args = settings.arguments as ProductModel;
         return MaterialPageRoute(
           builder: (context) =>   ProductDetailsScreen(productModel: args),
+        );
+
+      case Routes.categoriesRoute:
+        var args = settings.arguments as AllCategoriesModel;
+        return MaterialPageRoute(
+          builder: (context) =>   CategoriesScreen(allCategoriesModel: args),
+        );
+
+      case Routes.productsRoute:
+        var args = settings.arguments as AllProductsModel;
+        return MaterialPageRoute(
+          builder: (context) =>   ProductsScreen(allProductsModel: args),
         );
 
       default:

@@ -139,6 +139,8 @@ class HomeCubit extends Cubit<HomeState> {
             (r) {
           emit(AllProductsSuccessState());
           allProductsModel = r;
+          print("_______________________________________________________________");
+          print(r.result);
         });
   }
 

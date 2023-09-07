@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/custom_textfield.dart';
@@ -122,7 +123,11 @@ class HomeTab extends StatelessWidget {
 
               const SizedBox(height: 10,),
 
-              const HomeTitleItem(title: "التصنيفات",),
+               HomeTitleItem(title: "categories".tr(),
+                   moreOnTap: (){
+                 Navigator.pushNamed(context, Routes.categoriesRoute,arguments: cubit.allCategoriesModel);
+               },
+               ),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 12),
                 height: 18.h,
@@ -164,11 +169,14 @@ class HomeTab extends StatelessWidget {
                   itemCount: cubit.allProductsModel?.count??0,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return HomeProductItem(inSale: cubit.allProductsModel?.result?[index].websiteRibbonId,
+                    return HomeProductItem(
+                      inSale: cubit.allProductsModel?.result?[index].websiteRibbonId,
                       productName: cubit.allProductsModel?.result?[index].name,
                       image:cubit.allProductsModel?.result?[index].image1920,
                       price: cubit.allProductsModel?.result?[index].listPrice,
-                      unit:cubit.allProductsModel?.result?[index].uomName ,);
+                      unit:cubit.allProductsModel?.result?[index].uomName ,
+                      descriptionSale:cubit.allProductsModel?.result?[index].descriptionSale ,
+                    );
                 },),
               ),
 
@@ -178,7 +186,9 @@ class HomeTab extends StatelessWidget {
                   child: Image.asset(ImageAssets.homeSaleImage)),
 
 
-             const  HomeTitleItem(title: " المنتجات",),
+               HomeTitleItem(title: " المنتجات",moreOnTap: (){
+               Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allProductsModel);
+             }),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 12),
                 height: 26.h,

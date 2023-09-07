@@ -4,7 +4,8 @@ import '../../../core/utils/app_colors.dart';
 
 class HomeTitleItem extends StatelessWidget {
   final String title;
-  const HomeTitleItem({super.key,required this.title});
+ final void Function()? moreOnTap;
+  const HomeTitleItem({super.key,required this.title,this.moreOnTap});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +29,14 @@ class HomeTitleItem extends StatelessWidget {
             ),),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Text("المزيد",style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              color: AppColors.primary
-          ),),
+        InkWell(
+          onTap: moreOnTap,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text("المزيد",style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                color: AppColors.primary
+            ),),
+          ),
         ),
 
       ],

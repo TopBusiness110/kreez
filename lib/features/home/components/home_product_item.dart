@@ -15,7 +15,9 @@ class HomeProductItem extends StatelessWidget {
   final String? image;
   final double? price;
   final String? unit;
-  const HomeProductItem({super.key,this.inSale,this.productName,this.image,this.price,this.unit});
+ final dynamic descriptionSale;
+  const HomeProductItem({super.key,this.inSale,this.productName,this.image,
+    this.price,this.unit,this.descriptionSale});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class HomeProductItem extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(context, Routes.productDetailsRoute,
             arguments: ProductModel(name:productName,image:image,
-                details: "details",unit: unit,price:price  ));
+                details: "$descriptionSale",unit: unit,price:price  ));
       },
       child: Container(
           width: 46.w,
@@ -70,7 +72,7 @@ class HomeProductItem extends StatelessWidget {
                       ),
                       child:Row(
                         children: [
-                          Text("10%",style: Theme.of(context).textTheme.bodySmall,),
+                         // Text("10%",style: Theme.of(context).textTheme.bodySmall,),
                           Text(" تخفيض",style: Theme.of(context).textTheme.bodySmall,),
                         ],
                       )
