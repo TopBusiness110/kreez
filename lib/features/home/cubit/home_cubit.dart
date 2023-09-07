@@ -1,14 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/core/models/all_categories_model.dart';
+import 'package:kreez/core/models/auth_model.dart';
 import 'package:kreez/core/models/login_response_model.dart';
 import 'package:kreez/core/preferences/preferences.dart';
 import 'package:kreez/core/remote/service.dart';
 import 'package:kreez/features/cart/screens/cart_screen.dart';
 import 'package:meta/meta.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/models/all_products_model.dart';
 import '../../../core/utils/assets_manager.dart';
+import '../../cart/cubit/cart_cubit.dart';
 import '../../product_details/models/product_model.dart';
 import '../../profile_feature/profile/screens/profile_screen.dart';
 import '../tabs/home_tab.dart';
@@ -25,7 +29,8 @@ class HomeCubit extends Cubit<HomeState> {
     getAllProducts();
 
   }
-  LoginResponseModel? loginResponseModel;
+ // LoginResponseModel? loginResponseModel;
+  AuthModel? authModel;
   ServiceApi api;
   WidgetType selectedWidget = WidgetType.home;
   List<Widget> tabs = [ProfileScreen(),HomeTab(),CartScreen()];
@@ -123,7 +128,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   getAllCategories() async {
     emit(LoadingAllCategoriesState());
-    loginResponseModel = await Preferences.instance.getUserModel();
+    authModel = await Preferences.instance.getUserModel2();
     final response =await api.getAllCategories();
     response.fold(
             (l) => emit(AllCategoriesFailureState()),
@@ -146,37 +151,41 @@ class HomeCubit extends Cubit<HomeState> {
         });
   }
 
- late double quantity ;
-  increaseQuantity(){
-    print(quantity);
-    quantity++;
-    print("@@@@@@@@@@@@@@@@@@@@@@@");
-    print(quantity);
-    emit(IncreasingQuantity());
+
+  addToCart(ProductModel productModel, BuildContext context){
+    context.read<CartCubit>().cart[productModel.id!] = productModel;
+    emit(AddProductFromHomeState());
+    print(context.read<CartCubit>().cart);
+    Navigator.pushNamed(context, Routes.homeRoute);
+
   }
-  // increaseQuantity(ProductModel productModel){
-  //   double productQuantity = productModel.quantity!;
-  //   productQuantity++;
-  //   productModel.quantity = productQuantity;
-  //
-  //   print("###############################");
-  //   print(productModel.quantity);
+
+// late double quantity ;
+  // increaseQuantity2(){
+  //   print(quantity);
+  //   quantity++;
+  //   print("@@@@@@@@@@@@@@@@@@@@@@@");
+  //   print(quantity);
   //   emit(IncreasingQuantity());
   // }
-
-  decreaseQuantity(ProductModel productModel){
-    double productQuantity = productModel.quantity!;
-    if(productQuantity==0){
-
-    }
-    else{
-      productQuantity--;
-      productModel.quantity = productQuantity;
-
-      print("###############################");
-      print(productModel.quantity);
-      emit(DecreasingQuantity());
-    }
-  }
+  // increaseQuantity(double quantityOfProduct){
+  //  quantityOfProduct++;
+  //   emit(IncreasingQuantity());
+  // }
+  //
+  // decreaseQuantity(ProductModel productModel){
+  //   double productQuantity = productModel.quantity!;
+  //   if(productQuantity==0){
+  //
+  //   }
+  //   else{
+  //     productQuantity--;
+  //     productModel.quantity = productQuantity;
+  //
+  //     print("###############################");
+  //     print(productModel.quantity);
+  //     emit(DecreasingQuantity());
+  //   }
+  // }
 
 }

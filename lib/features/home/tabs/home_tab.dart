@@ -348,12 +348,13 @@ class HomeTab extends StatelessWidget {
               ),
 
               const SizedBox(height: 10,),
-
+              //categories
               HomeTitleItem(title: "categories".tr(),
                 moreOnTap: (){
                   Navigator.pushNamed(context, Routes.categoriesRoute,arguments: cubit.allCategoriesModel);
                 },
               ),
+              //categories list
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 12),
                 height: 18.h,
@@ -377,8 +378,9 @@ class HomeTab extends StatelessWidget {
                   },),
               ),
 
-
+             //الأكثر مبيعا
               const HomeTitleItem(title: "الأكثر مبيعا",),
+              //الأكثر مبيعا list
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 12),
                 height: 28.h,
@@ -409,10 +411,11 @@ class HomeTab extends StatelessWidget {
                   padding: EdgeInsets.only(left: 5.w),
                   child: Image.asset(ImageAssets.homeSaleImage)),
 
-
+           // المنتجات
               HomeTitleItem(title: " المنتجات",moreOnTap: (){
                 Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allProductsModel);
               }),
+              // المنتجاتlist
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 12),
                 height: 28.h,

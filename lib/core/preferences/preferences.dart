@@ -82,17 +82,17 @@ class Preferences {
    SharedPreferences preferences = await SharedPreferences.getInstance();
    preferences.clear();
  }
-  Future<LoginResponseModel> getUserModel() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String? jsonData = preferences.getString('user');
-    LoginResponseModel userModel;
-    if (jsonData != null) {
-      userModel = LoginResponseModel.fromJson(jsonDecode(jsonData));
-    } else {
-      userModel = LoginResponseModel();
-    }
-    return userModel;
-  }
+  // Future<LoginResponseModel> getUserModel() async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   String? jsonData = preferences.getString('user');
+  //   LoginResponseModel userModel;
+  //   if (jsonData != null) {
+  //     userModel = LoginResponseModel.fromJson(jsonDecode(jsonData));
+  //   } else {
+  //     userModel = LoginResponseModel();
+  //   }
+  //   return userModel;
+  // }
 
   Future<AuthModel> getUserModel2() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -100,6 +100,7 @@ class Preferences {
     AuthModel authModel;
     if (jsonData != null) {
       authModel = AuthModel.fromJson(jsonDecode(jsonData));
+
     } else {
       authModel = AuthModel();
     }

@@ -35,7 +35,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   context.read<CartCubit>().cart[productModel.id!] = productModel;
   emit(AddProductState());
   print(context.read<CartCubit>().cart);
-  Navigator.pushNamed(context, Routes.cartRoute);
+  Navigator.pushNamed(context, Routes.homeRoute);
+  quantity = 0;
   }
 
 }

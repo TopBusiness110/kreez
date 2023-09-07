@@ -17,3 +17,4 @@ class LoadingAllProductsState extends HomeState {}
 class LoadingAllCategoriesState extends HomeState {}
 class IncreasingQuantity extends HomeState {}
 class DecreasingQuantity extends HomeState {}
+class AddProductFromHomeState extends HomeState {}

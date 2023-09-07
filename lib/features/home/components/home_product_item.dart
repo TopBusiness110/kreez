@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/config/routes/app_routes.dart';
 import 'package:kreez/core/widgets/decoded_image.dart';
+import 'package:kreez/features/cart/cubit/cart_cubit.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
 import 'package:kreez/features/product_details/models/product_model.dart';
 import 'package:sizer/sizer.dart';
@@ -174,12 +175,17 @@ import '../../../core/utils/assets_manager.dart';
 
 
 
-class HomeProductItem2 extends StatelessWidget {
+class HomeProductItem2 extends StatefulWidget {
   ProductModel? productModel;
   //   HomeProductItem({super.key,this.productModel});
 
   HomeProductItem2({super.key,this.productModel});
 
+  @override
+  State<HomeProductItem2> createState() => _HomeProductItem2State();
+}
+
+class _HomeProductItem2State extends State<HomeProductItem2> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
@@ -191,12 +197,17 @@ class HomeProductItem2 extends StatelessWidget {
         return
           InkWell(
             onTap: () {
-              print("*********************************************");
-              print("name:${productModel?.name} , description = ${productModel?.description}");
+
               Navigator.pushNamed(context, Routes.productDetailsRoute,
-                  arguments: ProductModel(name:productModel?.name,image:productModel?.image,
-                      description: productModel?.description,unit:productModel?.unit,
-                      price:productModel?.price ,id: productModel?.id ));
+                  arguments: ProductModel(
+                    quantity:widget.productModel?.quantity ,
+                      inSale: widget.productModel?.inSale,
+                      name:widget.productModel?.name,
+                      image:widget.productModel?.image,
+                      description: widget.productModel?.description,
+                      unit:widget.productModel?.unit,
+                      price:widget.productModel?.price ,
+                      id: widget.productModel?.id ));
             },
             child: Container(
                 width: 45.w,
@@ -208,7 +219,7 @@ class HomeProductItem2 extends StatelessWidget {
                   children: [
                     // Visibility(
                     //   visible:inSale.runtimeType==bool? inSale : false,
-                    productModel?.inSale.runtimeType==bool? productModel?.inSale==false?
+                    widget.productModel?.inSale.runtimeType==bool? widget.productModel?.inSale==false?
                     Row(
                       children: [
                         Container(
@@ -232,8 +243,8 @@ class HomeProductItem2 extends StatelessWidget {
                     ):SizedBox(height: 3.6.h,):SizedBox(height: 3.6.h,),
                     // ),
 
-                    DecodedImage(base64String:productModel?.image ),
-                    Text("${productModel?.name}",style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    DecodedImage(base64String:widget.productModel?.image ),
+                    Text("${widget.productModel?.name}",style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: AppColors.black
                     ),),
                     Row(
@@ -244,11 +255,11 @@ class HomeProductItem2 extends StatelessWidget {
                         //     fontSize: 15
                         // ),),
                         Row(children: [
-                          Text("${productModel?.unit}/",style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          Text("${widget.productModel?.unit}/",style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               color: AppColors.primary,
                               fontSize: 15
                           ),),
-                          Text("${productModel?.price}",style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          Text("${widget.productModel?.price}",style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               color: AppColors.primary,
                               fontSize: 15
                           ),),
@@ -275,8 +286,16 @@ class HomeProductItem2 extends StatelessWidget {
                                 icon: Icon(Icons.add,size: 15,color: AppColors.primary,),
 
                                 onPressed: (){
-                                  cubit.quantity = productModel!.quantity!;
-                                  cubit.increaseQuantity();
+                                  double quant = widget.productModel!.quantity!;
+                                  quant++;
+                                  widget.productModel!.quantity =quant ;
+                                  //todo-->remove set state
+                                  setState(() {
+
+                                  });
+
+                                 // cubit.quantity = productModel!.quantity!;
+                                 // cubit.increaseQuantity( productModel!.quantity!);
                                 }),
                           ),
                           Container(
@@ -288,7 +307,7 @@ class HomeProductItem2 extends StatelessWidget {
                                 color: AppColors.lightGreen,
                                 borderRadius: BorderRadius.circular(5)
                             ),
-                            child: Text("${productModel?.quantity}",style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            child: Text("${widget.productModel?.quantity}",style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                 color: AppColors.primary,
                                 fontSize: 12
                             )),
@@ -306,16 +325,34 @@ class HomeProductItem2 extends StatelessWidget {
                                 padding: EdgeInsets.zero,
                                 icon: Icon(Icons.remove,size: 15,color: AppColors.primary,),
 
-                                onPressed: (){}),
+                                onPressed: (){
+                                  double quant = widget.productModel!.quantity!;
+                                  if(quant==0){
+
+                                  }
+                                 else{
+                                    quant--;
+                                    widget.productModel!.quantity =quant ;
+                                  }
+
+                                  setState(() {
+
+                                  });
+                                }),
                           ),
                           Spacer(),
-                          Container(
-                            padding: EdgeInsets.all(3),
-                            decoration: BoxDecoration(
-                              color: AppColors.primary,
-                              borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomLeft: Radius.circular(10)),
+                          InkWell(
+                            onTap: () async {
+                            await  cubit.addToCart(widget.productModel! , context);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(3),
+                              decoration: BoxDecoration(
+                                color: AppColors.primary,
+                                borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomLeft: Radius.circular(10)),
+                              ),
+                              child: Icon(Icons.shopping_cart,color: AppColors.white,),
                             ),
-                            child: Icon(Icons.shopping_cart,color: AppColors.white,),
                           )
                         ],
                       ),

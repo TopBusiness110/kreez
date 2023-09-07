@@ -33,7 +33,8 @@ class _ProductsScreenState extends State<ProductsScreen> with SingleTickerProvid
     ProductsCubit cubit = context.read<ProductsCubit>();
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: SingleChildScrollView(
+      body:
+      SingleChildScrollView(
 
         child: Column(
           children: [
@@ -98,8 +99,8 @@ class _ProductsScreenState extends State<ProductsScreen> with SingleTickerProvid
                 ]),
           ],
         ),
-      ),
-    );
+      ))      ;
+
   },
 );
   }

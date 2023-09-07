@@ -52,7 +52,7 @@ Future<void> setup() async {
   );
   serviceLocator.registerFactory(
     () => CartCubit(
-     // serviceLocator(),
+      serviceLocator(),
     ),
   );
   serviceLocator.registerFactory(

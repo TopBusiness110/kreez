@@ -7,6 +7,7 @@ import 'package:kreez/features/product_details/models/product_model.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../core/utils/app_colors.dart';
+import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_textfield.dart';
 
 class CartScreen extends StatelessWidget {
@@ -21,10 +22,10 @@ class CartScreen extends StatelessWidget {
       },
       builder: (context, state) {
         CartCubit cubit = context.read<CartCubit>();
-        return Scaffold(
-          body: SingleChildScrollView(
+        return SingleChildScrollView(
             physics: NeverScrollableScrollPhysics(),
-            child: Container(
+            child:
+            Container(
               // color: Colors.lightBlue,
               height: 88.h,
               child: Column(
@@ -226,12 +227,30 @@ class CartScreen extends StatelessWidget {
                         );
                       },
                     ),
-                  )
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(1),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: AppColors.primary,width: 1.5)
+                    ),
+                    child: CustomButton(
+                        width: 70.w,
+                        backgroundColor: AppColors.white,
+                        textColor: AppColors.primary,
+                        text: "confirm".tr(),
+                        onPressed: () async {
+                      await  cubit.createSaleOrder(context);
+
+                        }),
+                  ),
+                  SizedBox(height: 5.h,)
                 ],
               ),
             ),
-          ),
-        );
+
+          )
+        ;
       },
     );
   }

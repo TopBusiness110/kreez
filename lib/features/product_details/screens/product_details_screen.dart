@@ -137,7 +137,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           color: AppColors.lightGreen,
                           borderRadius: BorderRadius.circular(5)),
                       child: Text(
-                          cubit.quantity.toInt().toString(),
+                          "${productModel?.quantity?.toInt().toString()}",
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
@@ -184,10 +184,9 @@ class ProductDetailsScreen extends StatelessWidget {
                   backgroundColor: AppColors.primary,
                   textColor: AppColors.white,
                   text: "add_to_cart".tr(),
-                  onPressed: () {
-                    print("22222222222222222222222222222222222222222222");
-                    print(productModel);
-                    cubit.addToCart(productModel!, context);
+                  onPressed: () async {
+
+                  await  cubit.addToCart(productModel!, context);
 
                   }),
               SizedBox(
