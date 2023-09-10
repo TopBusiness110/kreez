@@ -6,6 +6,8 @@ import 'package:kreez/features/cart/cubit/cart_cubit.dart';
 import 'package:kreez/features/product_details/models/product_model.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../config/routes/app_routes.dart';
+import '../../../core/preferences/preferences.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_textfield.dart';
@@ -240,7 +242,11 @@ class CartScreen extends StatelessWidget {
                         textColor: AppColors.primary,
                         text: "confirm".tr(),
                         onPressed: () async {
-                      await  cubit.createSaleOrder(context);
+                        await cubit.createSaleOrder();
+                        int? orderId = await Preferences.instance.getSaleOrder();
+                         cubit.cart.forEach((key, value) async {
+                          await cubit.createSaleOrderLines(context,saleOrderId: orderId!, productId: key, productName: value.name??"", productQuantity: value.quantity??0);
+                         });
 
                         }),
                   ),

@@ -1,14 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/config/routes/app_routes.dart';
 import 'package:kreez/core/widgets/decoded_image.dart';
-import 'package:kreez/features/cart/cubit/cart_cubit.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
 import 'package:kreez/features/product_details/models/product_model.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/assets_manager.dart';
+
 //
 // class HomeProductItem extends StatelessWidget {
 //   // ProductModel? productModel;
@@ -186,6 +185,7 @@ class HomeProductItem2 extends StatefulWidget {
 }
 
 class _HomeProductItem2State extends State<HomeProductItem2> {
+  int index=0;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
@@ -242,7 +242,14 @@ class _HomeProductItem2State extends State<HomeProductItem2> {
                       ],
                     ):SizedBox(height: 3.6.h,):SizedBox(height: 3.6.h,),
                     // ),
-
+                   //  widget.productModel!.image.runtimeType== String?
+                   //  CachedMemoryImage(
+                   //    uniqueKey: '${index+1}',
+                   //    height: 10.h,
+                   //    bytes:   base64.decode(widget.productModel!.image!)
+                   //  //  Uint8List.fromList(base64.decode(widget.productModel!.image!)),
+                   //  ):
+                   // Image.asset("assets/images/splash.png",color: AppColors.primary,),
                     DecodedImage(base64String:widget.productModel?.image ),
                     Text("${widget.productModel?.name}",style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: AppColors.black
@@ -270,12 +277,12 @@ class _HomeProductItem2State extends State<HomeProductItem2> {
                     Padding(
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
                             alignment: Alignment.center,
-                            width:5.w,
-                            height: 2.5.h,
+                            width:10.w,
+                             height: 3.h,
                             decoration: BoxDecoration(
                                 color: AppColors.lightGreen,
                                 borderRadius: BorderRadius.circular(5),
@@ -301,7 +308,7 @@ class _HomeProductItem2State extends State<HomeProductItem2> {
                           Container(
                             margin: EdgeInsets.all(8),
                             alignment: Alignment.center,
-                            width:7.w,
+                            width:10.w,
                             height: 3.2.h,
                             decoration:BoxDecoration(
                                 color: AppColors.lightGreen,
@@ -314,8 +321,8 @@ class _HomeProductItem2State extends State<HomeProductItem2> {
                           ),
                           Container(
                             alignment: Alignment.center,
-                            width:5.w,
-                            height: 2.5.h,
+                            width:10.w,
+                            height: 3.h,
                             decoration: BoxDecoration(
                                 color: AppColors.lightGreen,
                                 borderRadius: BorderRadius.circular(5),
@@ -340,20 +347,20 @@ class _HomeProductItem2State extends State<HomeProductItem2> {
                                   });
                                 }),
                           ),
-                          Spacer(),
-                          InkWell(
-                            onTap: () async {
-                            await  cubit.addToCart(widget.productModel! , context);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(3),
-                              decoration: BoxDecoration(
-                                color: AppColors.primary,
-                                borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomLeft: Radius.circular(10)),
-                              ),
-                              child: Icon(Icons.shopping_cart,color: AppColors.white,),
-                            ),
-                          )
+                          // Spacer(),
+                          // InkWell(
+                          //   onTap: () async {
+                          //   await  cubit.addToCart(widget.productModel! , context);
+                          //   },
+                          //   child: Container(
+                          //     padding: EdgeInsets.all(3),
+                          //     decoration: BoxDecoration(
+                          //       color: AppColors.primary,
+                          //       borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomLeft: Radius.circular(10)),
+                          //     ),
+                          //     child: Icon(Icons.shopping_cart,color: AppColors.white,),
+                          //   ),
+                          // )
                         ],
                       ),
                     ),

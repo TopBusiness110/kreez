@@ -14,6 +14,7 @@ import '../error/exceptions.dart';
 import '../error/failures.dart';
 import '../models/all_products_model.dart';
 import '../models/auth_model.dart';
+import '../models/get_all_sale_orders.dart';
 import '../models/login_response_model.dart';
 import 'package:odoo_rpc/odoo_rpc.dart';
 import 'package:http/http.dart' as http;
@@ -227,8 +228,13 @@ class ServiceApi {
       sessionId = await getSessionId(phone: phone, password: password);
       await Preferences.instance.setSessionId(sessionId);
       await Preferences.instance.isAdmin(false);
-      await postLoginAsTrueUser2(phone, password);
-      //  await Preferences.instance.setUser2(AuthModel.fromJson(response));
+      Either either =  await postLoginAsTrueUser2(phone, password);
+      AuthModel? authModel;
+      either.fold((l) => null, (r) {
+        authModel = r;
+      });
+
+        await Preferences.instance.setUser2(authModel!);
       return Right(AuthModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
@@ -280,20 +286,76 @@ class ServiceApi {
           "params": {
             "data": {
               "partner_id": authModel.result!.partnerId,
-              "pricelist_id": 3,
+              "pricelist_id": 1,
               "team_id":2,
               "website_id":1
             }
           }
         }
       );
-      print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-      print(response);
+      Preferences.instance.setSaleOrder(AuthModel.fromJson(response).result);
       return Right(AuthModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }
   }
+
+  Future<Either<Failure, AuthModel>> createSaleOrderLines(
+      {required orderId ,required int productId,required String productName,required double productQuantity}) async {
+
+    String? sessionId = await Preferences.instance.getSessionId();
+   // await createSaleOrder();
+    //int? orderId = await Preferences.instance.getSaleOrder();
+    try {
+      final response = await dio.post(
+          EndPoints.createSaleOrderLineUrl,
+          options: Options(
+            headers: {"Cookie": "session_id=$sessionId"},
+          ),
+          body: {
+            "params": {
+              "data": {
+                "order_id":orderId,
+                "product_id":productId,
+                "name": productName,
+                "product_uom_qty": productQuantity
+              }
+            }
+          }
+      );
+
+
+      return Right(AuthModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure,GetAllSaleOrderModel>>  getAllSaleOrderForPartner() async {
+  try{
+    String? sessionId = await Preferences.instance.getSessionId();
+    AuthModel authModel = await Preferences.instance.getUserModel2();
+    final partnerId = authModel.result.partnerId;
+  final response = await  dio.get(
+        EndPoints.getAllSaleOrderForPartnerUrl,
+        options: Options(
+          headers: {"Cookie": "session_id=$sessionId"},
+        ),
+        queryParameters: {
+          "query":"{id,display_name,state,write_date,amount_total}",
+          "filter":[["partner_id", "=",partnerId]]
+        }
+    );
+    return Right(GetAllSaleOrderModel.fromJson(response));
+  } on ServerException{
+    return Left(ServerFailure());
+  }
+
+    }
+
+
+
+
 
 //
 //   Future<Either<Failure, HomeModel>> homeData() async {

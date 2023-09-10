@@ -125,12 +125,12 @@ class Result {
     websiteDescription: json["website_description"],
     productTmplIds: json["product_tmpl_ids"] == null ? [] : List<int>.from(json["product_tmpl_ids"]!.map((x) => x)),
     id: json["id"],
-    lastUpdate: dateValues.map[json["__last_update"]]!,
+   lastUpdate: dateValues.map[json["__last_update"]],
     displayName: json["display_name"],
     createUid: json["create_uid"],
-    createDate: dateValues.map[json["create_date"]]!,
+    createDate: dateValues.map[json["create_date"]],
     writeUid: json["write_uid"],
-    writeDate: dateValues.map[json["write_date"]]!,
+    writeDate: dateValues.map[json["write_date"]],
   );
 
   Map<String, dynamic> toJson() => {

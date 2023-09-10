@@ -13,6 +13,19 @@ class Preferences {
 
   factory Preferences() => instance;
 
+  Future<void> setSaleOrder (int result) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setInt("orderNumber", result);
+    print(await getSaleOrder());
+
+  }
+  Future<int?> getSaleOrder() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+   int? orderNumber =  preferences.getInt("orderNumber");
+   return orderNumber;
+
+  }
+
   Future<void> setSessionId(String sessionId) async {
 
     SharedPreferences preferences = await SharedPreferences.getInstance();

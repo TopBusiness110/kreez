@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
+import 'package:kreez/core/utils/assets_manager.dart';
 
 import '../utils/app_colors.dart';
 
 class DecodedImage extends StatelessWidget {
-  const DecodedImage({super.key,required this.base64String});
+  int index ;
+   DecodedImage({super.key,required this.base64String,this.index = 0});
   final dynamic base64String ;
 
 
@@ -18,7 +19,7 @@ class DecodedImage extends StatelessWidget {
        image = Image.memory(bytes,width: 60,);
     }
     else{
-       image = Image.asset("assets/images/splash.png",color: AppColors.primary,);
+       image = Image.asset(ImageAssets.splashImage);
     }
 
 
