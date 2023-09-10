@@ -21,7 +21,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen>with SingleTic
   @override
   void initState() {
     super.initState();
-    context.read<OrderHistoryCubit>().tabController = TabController(length: 3, vsync: this);
+    context.read<OrderHistoryCubit>().tabController = TabController(length: 2, vsync: this);
   }
 
   // @override
@@ -41,7 +41,9 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen>with SingleTic
     String? lang = EasyLocalization.of(context)?.locale.countryCode;
     return BlocConsumer<OrderHistoryCubit, OrderHistoryState>(
   listener: (context, state) {
-    // TODO: implement listener
+    if(state is FailureGettingAllOrdersState||state is SuccessGettingAllOrdersState){
+     // Navigator.pop(context);
+    }
   },
   builder: (context, state) {
     OrderHistoryCubit cubit = context.read<OrderHistoryCubit>();
@@ -93,9 +95,9 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen>with SingleTic
               controller:cubit.tabController,
                 labelStyle: TextStyle(fontSize: 18),
                 tabs: [
-                  Text("completed_orders".tr(),),
-                  Text("next_orders".tr(),),
-                  Text("canceled_orders".tr(),),
+                  Text("current_orders".tr(),),
+                  Text("last_orders".tr(),),
+                //  Text("canceled_orders".tr(),),
             ]),
             SizedBox(
               height: height*0.8,
@@ -103,8 +105,8 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen>with SingleTic
                  controller: cubit.tabController,
                   children: const [
                  CompletedOrdersTab(),
-                NextOrdersTab(),
-                CanceledOrdersTab()
+                 NextOrdersTab(),
+               //  CanceledOrdersTab()
               ],
             ))
           ],

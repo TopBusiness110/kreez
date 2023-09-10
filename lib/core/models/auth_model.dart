@@ -507,6 +507,11 @@ class AuthModel {
     this.result,
   });
 
+  @override
+  String toString() {
+    return 'AuthModel{jsonrpc: $jsonrpc, id: $id, error: $error, result: $result}';
+  }
+
   factory AuthModel.fromJson(Map<String, dynamic> json) => AuthModel(
     jsonrpc: json["jsonrpc"],
     id: json["id"],
@@ -526,6 +531,7 @@ class AuthModel {
     result?.toJson():result,
   };
 }
+
 
 class Error {
   final int? code;
@@ -648,6 +654,11 @@ class Result {
   final bool? iapCompanyEnrich;
   final String? dbuuid;
   final bool? multiLang;
+
+  @override
+  String toString() {
+    return 'Result{uid: $uid, isSystem: $isSystem, isAdmin: $isAdmin, userContext: $userContext, db: $db, serverVersion: $serverVersion, serverVersionInfo: $serverVersionInfo, supportUrl: $supportUrl, name: $name, username: $username, partnerDisplayName: $partnerDisplayName, companyId: $companyId, partnerId: $partnerId, webBaseUrl: $webBaseUrl, activeIdsLimit: $activeIdsLimit, profileSession: $profileSession, profileCollectors: $profileCollectors, profileParams: $profileParams, maxFileUploadSize: $maxFileUploadSize, homeActionId: $homeActionId, cacheHashes: $cacheHashes, currencies: $currencies, bundleParams: $bundleParams, userCompanies: $userCompanies, showEffect: $showEffect, displaySwitchCompanyMenu: $displaySwitchCompanyMenu, userId: $userId, webTours: $webTours, tourDisable: $tourDisable, mapBoxToken: $mapBoxToken, uaType: $uaType, appSystemName: $appSystemName, appDocumentationUrl: $appDocumentationUrl, appDocumentationDevUrl: $appDocumentationDevUrl, appSupportUrl: $appSupportUrl, appAccountTitle: $appAccountTitle, appAccountUrl: $appAccountUrl, appShowLang: $appShowLang, appShowDebug: $appShowDebug, appShowDocumentation: $appShowDocumentation, appShowDocumentationDev: $appShowDocumentationDev, appShowSupport: $appShowSupport, appShowAccount: $appShowAccount, appShowPoweredby: $appShowPoweredby, appLangList: $appLangList, isErpManager: $isErpManager, appNavbarPosPc: $appNavbarPosPc, appNavbarPosMobile: $appNavbarPosMobile, ocnTokenKey: $ocnTokenKey, fcmProjectId: $fcmProjectId, inboxAction: $inboxAction, iapCompanyEnrich: $iapCompanyEnrich, dbuuid: $dbuuid, multiLang: $multiLang}';
+  }
 
   Result({
     this.uid,

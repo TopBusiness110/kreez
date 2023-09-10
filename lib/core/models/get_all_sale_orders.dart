@@ -14,7 +14,7 @@ class GetAllSaleOrderModel {
   final int? current;
   final dynamic next;
   final int? totalPages;
-  final List<Result>? result;
+  final List<SaleOrderResult>? result;
 
   GetAllSaleOrderModel({
     this.count,
@@ -31,7 +31,7 @@ class GetAllSaleOrderModel {
     current: json["current"],
     next: json["next"],
     totalPages: json["total_pages"],
-    result: json["result"] == null ? [] : List<Result>.from(json["result"]!.map((x) => Result.fromJson(x))),
+    result: json["result"] == null ? [] : List<SaleOrderResult>.from(json["result"]!.map((x) => SaleOrderResult.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -44,14 +44,14 @@ class GetAllSaleOrderModel {
   };
 }
 
-class Result {
+class SaleOrderResult {
   final int? id;
   final String? displayName;
   final State? state;
   final String? writeDate;
   final double? amountTotal;
 
-  Result({
+  SaleOrderResult({
     this.id,
     this.displayName,
     this.state,
@@ -59,7 +59,12 @@ class Result {
     this.amountTotal,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
+  @override
+  String toString() {
+    return 'SaleOrderResult{id: $id, displayName: $displayName, state: $state, writeDate: $writeDate, amountTotal: $amountTotal}';
+  }
+
+  factory SaleOrderResult.fromJson(Map<String, dynamic> json) => SaleOrderResult(
     id: json["id"],
     displayName: json["display_name"],
     state: stateValues.map[json["state"]]!,

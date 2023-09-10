@@ -12,7 +12,7 @@ class CanceledOrdersTab extends StatelessWidget{
       itemCount: 3,
       itemBuilder: (context, index) {
 
-        return OrdersHistoryListItem(label: "tomato", image: ImageAssets.tomatoImage, price: "20 ج / ك", quantity: "3 kg");
+        return OrdersHistoryListItem(label: "tomato", date: "12/10", price: "20 ج / ك", quantity: "3 kg");
       },
 
     );

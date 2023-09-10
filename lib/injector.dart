@@ -32,7 +32,7 @@ Future<void> setup() async {
 
   serviceLocator.registerFactory(
     () => OrderHistoryCubit(
-      //serviceLocator(),
+      serviceLocator(),
     ),
   );
   serviceLocator.registerFactory(
@@ -62,49 +62,6 @@ Future<void> setup() async {
   );
 
 
-  // serviceLocator.registerFactory(
-  //       () => MyPostsCubit(
-  //     serviceLocator(),
-  //   ),
-  //
-  // );
-  // serviceLocator.registerFactory(
-  //       () => AddServiceCubit(
-  //     serviceLocator(),
-  //   ),
-  //
-  // );
-  // serviceLocator.registerFactory(
-  //       () => DetailsCubit(
-  //     serviceLocator(),
-  //   ),
-  //
-  // );
-  //
-  // serviceLocator.registerFactory(
-  //       () => PrivacyCubit(
-  //     serviceLocator(),
-  //   ),
-  //
-  // );
-  // serviceLocator.registerFactory(
-  //       () => ContactUsCubit(
-  //     serviceLocator(),
-  //   ),
-  //
-  // );
-  // serviceLocator.registerFactory(
-  //       () => NottificationCubit(
-  //     serviceLocator(),
-  //   ),
-  //
-  // );
-
-
-  ///////////////////////////////////////////////////////////////////////////////
-
-  //! External
-  // Shared Preferences
   final sharedPreferences = await SharedPreferences.getInstance();
   serviceLocator.registerLazySingleton(() => sharedPreferences);
 

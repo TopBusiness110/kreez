@@ -44,6 +44,8 @@
   "product_details": "تفاصيل المنتج",
   "categories": "التصنيفات",
   "yes": "نعم",
+  "current_orders": "الطلبات الحاليه",
+  "last_orders": "الطلبات السابقة",
   "sure_logout": "هل انت متأكد من رغبتك بتسجيل الخروج؟",
   "done_btn": "تـم",
   "back_btn": "رجوع",

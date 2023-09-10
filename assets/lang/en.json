@@ -32,6 +32,8 @@
  "sure_delete_account": "Are you sure you want to delete the account?",
  "yes_delete": "Yes Delete",
  "no": "No",
+ "current_orders": "Current Orders",
+ "last_orders": "Last Orders",
  "categories": "Categories",
  "product_details": "Product Details",
  "yes": "Yes",
