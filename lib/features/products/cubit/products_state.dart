@@ -4,3 +4,6 @@ part of 'products_cubit.dart';
 abstract class ProductsState {}
 
 class ProductsInitial extends ProductsState {}
+class LoadingProductState extends ProductsState {}
+class SuccessProductState extends ProductsState {}
+class FailureProductState extends ProductsState {}

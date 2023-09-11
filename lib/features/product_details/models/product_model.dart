@@ -5,11 +5,16 @@ class ProductModel{
   String? image;
   double? price;
   int? id;
-  double? quantity;
+  double quantity;
   dynamic inSale;
 
 
   ProductModel({this.name, this.description, this.unit, this.image,this.price,this.id,this.quantity=0,this.inSale});
+
+  addQuantity(){
+      quantity++;
+  }
+
 
   @override
   String toString() {

@@ -19,11 +19,11 @@ class CompletedOrdersTab extends StatelessWidget {
           itemCount: cubit.draftOrders.length,
           itemBuilder: (context, index) {
             return OrdersHistoryListItem(
-              label: "${cubit.draftOrders[index].state.toString().substring(6)}",
-              date:  "${cubit.draftOrders[index].writeDate.toString()}",
-              price: "${cubit.draftOrders[index].state}",
-              quantity: "${cubit.draftOrders[index].amountTotal
-              }",);
+              displayName: "${cubit.draftOrders[index].displayName}",
+              date:  "${cubit.draftOrders[index].writeDate.toString().toString().substring(0,10)}",
+              state: "${cubit.draftOrders[index].state.toString().substring(6)}",
+              amountTotal: "${cubit.draftOrders[index].amountTotal}",
+            );
           },);
       },
     );

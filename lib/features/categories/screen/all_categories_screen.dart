@@ -84,13 +84,7 @@ class CategoriesScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // CircleAvatar(
-                        //   radius:50,
-                        //     backgroundColor: AppColors.primary,
-                        //     child: CircleAvatar(
-                        //         radius:48,
-                        //         backgroundColor: AppColors.white,
-                        //         child: Image.asset(ImageAssets.strawberryImage,height: 10.h,))),
+
                         DecodedImage(base64String:allCategoriesModel?.result?[index].image1920 ),
                         Text("${allCategoriesModel?.result?[index].displayName}",style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             color: AppColors.black1,

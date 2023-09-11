@@ -112,9 +112,9 @@ class AppRoutes {
         );
 
       case Routes.productsRoute:
-        var args = settings.arguments as AllProductsModel;
+        var args = settings.arguments as AllCategoriesModel;
         return MaterialPageRoute(
-          builder: (context) =>   ProductsScreen(allProductsModel: args),
+          builder: (context) =>   ProductsScreen(allCategoriesModel: args),
         );
 
       case Routes.cartRoute:

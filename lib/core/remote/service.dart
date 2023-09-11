@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:kreez/core/models/all_categories_model.dart';
+import 'package:kreez/core/models/products_by_category_id.dart';
 import 'package:kreez/core/models/register_response_model.dart';
 import 'package:kreez/core/preferences/preferences.dart';
 
@@ -166,9 +167,7 @@ class ServiceApi {
   Future<Either<Failure, AuthModel>> createSaleOrder() async {
     String? sessionId = await Preferences.instance.getSessionId();
     AuthModel authModel = await Preferences.instance.getUserModel2();
-    print("(((((((((((((()))))))))))))))))))))))");
-    print(sessionId);
-    print(authModel);
+
     try {
       final response = await dio.post(
         EndPoints.createSaleOrderUrl,
@@ -247,6 +246,27 @@ class ServiceApi {
   }
 
     }
+
+  Future<Either<Failure,ProductsByCategoryIdModel>>  getProductsByCategoryId(int categoryId)async{
+
+    try{
+      String? sessionId = await Preferences.instance.getSessionId();
+      final response = await dio.get(
+        EndPoints.getProductsByCategoryIdUrl,
+        options: Options(
+          headers: {"Cookie": "session_id=$sessionId"},
+         ),
+        queryParameters: {
+          "query" : "{id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,description_sale,image_1920}",
+          "filter" : [["public_categ_ids", "=", [categoryId]]]
+        }
+      );
+      return Right(ProductsByCategoryIdModel.fromJson(response));
+
+    }on ServerException{
+      return Left(ServerFailure());
+    }
+  }
 
 
 

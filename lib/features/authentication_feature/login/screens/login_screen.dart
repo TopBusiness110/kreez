@@ -168,8 +168,7 @@ class LoginScreen extends StatelessWidget {
                         height: height * 0.03,
                       ),
                       TextButton(onPressed: (){
-                        Navigator.pushNamed(context,
-                            Routes.homeRoute);
+                        Navigator.pushNamed(context, Routes.homeRoute);
                       }, child: Text("as_guest".tr(),style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: AppColors.primary
                       ),)),

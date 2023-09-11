@@ -19,7 +19,7 @@ class DecodedImage extends StatelessWidget {
        image = Image.memory(bytes,width: 60,);
     }
     else{
-       image = Image.asset(ImageAssets.splashImage);
+       image = Image.asset(ImageAssets.splashImage,color: AppColors.primary,);
     }
 
 

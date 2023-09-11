@@ -29,7 +29,8 @@ class HomeCubit extends Cubit<HomeState> {
     getAllProducts();
 
   }
- // LoginResponseModel? loginResponseModel;
+  ProductModel? productModel;
+
   AuthModel? authModel;
   ServiceApi api;
   WidgetType selectedWidget = WidgetType.home;
@@ -144,8 +145,9 @@ class HomeCubit extends Cubit<HomeState> {
     response.fold(
             (l) => emit(AllProductsFailureState()),
             (r) {
-          emit(AllProductsSuccessState());
-          allProductsModel = r;
+              allProductsModel = r;
+
+              emit(AllProductsSuccessState());
           print("_______________________________________________________________");
           print(r.result);
         });
@@ -160,32 +162,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   }
 
-// late double quantity ;
-  // increaseQuantity2(){
-  //   print(quantity);
-  //   quantity++;
-  //   print("@@@@@@@@@@@@@@@@@@@@@@@");
-  //   print(quantity);
-  //   emit(IncreasingQuantity());
-  // }
-  // increaseQuantity(double quantityOfProduct){
-  //  quantityOfProduct++;
-  //   emit(IncreasingQuantity());
-  // }
-  //
-  // decreaseQuantity(ProductModel productModel){
-  //   double productQuantity = productModel.quantity!;
-  //   if(productQuantity==0){
-  //
-  //   }
-  //   else{
-  //     productQuantity--;
-  //     productModel.quantity = productQuantity;
-  //
-  //     print("###############################");
-  //     print(productModel.quantity);
-  //     emit(DecreasingQuantity());
-  //   }
-  // }
+
+
 
 }

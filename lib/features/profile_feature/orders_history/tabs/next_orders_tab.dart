@@ -17,10 +17,10 @@ class NextOrdersTab extends StatelessWidget {
           itemCount: cubit.otherOrders.length,
           itemBuilder: (context, index) {
             return OrdersHistoryListItem(
-                label: "${cubit.otherOrders[index].state.toString().substring(6)}",
-                date:  cubit.otherOrders[index].writeDate.toString(),
-                price: "${cubit.otherOrders[index].state}",
-                quantity: "${cubit.otherOrders[index].amountTotal}"
+              displayName: "${cubit.otherOrders[index].displayName}",
+              date:  "${cubit.otherOrders[index].writeDate.toString().toString().substring(0,10)}",
+              state: "${cubit.otherOrders[index].state.toString().substring(6)}",
+              amountTotal: "${cubit.otherOrders[index].amountTotal}",
             );
           },
 
