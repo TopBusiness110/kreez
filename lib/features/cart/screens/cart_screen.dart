@@ -11,253 +11,137 @@ import '../../../core/preferences/preferences.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_textfield.dart';
+import '../components/cart_list_item.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String? lang = easy.EasyLocalization.of(context)?.locale.countryCode;
-    return BlocConsumer<CartCubit, CartState>(
-      listener: (context, state) {
+    String? lang = easy.EasyLocalization
+        .of(context)
+        ?.locale
+        .countryCode;
 
-      },
+    return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
         CartCubit cubit = context.read<CartCubit>();
         return SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
-            child:
-            Container(
-              // color: Colors.lightBlue,
-              height: 88.h,
+          physics: NeverScrollableScrollPhysics(),
+          child: Container(
+            // color: Colors.lightBlue,
+            height: 88.h,
+            child: Column(
+              children: [
+              //appbar
+              Container(
+              width: double.infinity,
+              height: 15.h,
+              decoration: BoxDecoration(
+                  color: AppColors.green,
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20))),
               child: Column(
                 children: [
-                  Container(
-                    width: double.infinity,
-                    height: 15.h,
-                    decoration: BoxDecoration(
-                        color: AppColors.green,
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20))),
-                    child: Column(
+                  SizedBox(
+                    height: 0.1.h,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 0.1.h,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              CircleAvatar(
-                                radius: 22,
-                                backgroundColor: AppColors.white,
-                                child: Icon(
-                                  Icons.person,
-                                  size: 40,
-                                  color: AppColors.gray1,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Text("مرحبا , محمد",
-                                  style: Theme.of(context).textTheme.bodySmall),
-                            ],
+                        CircleAvatar(
+                          radius: 22,
+                          backgroundColor: AppColors.white,
+                          child: Icon(
+                            Icons.person,
+                            size: 40,
+                            color: AppColors.gray1,
                           ),
                         ),
-                        Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text("cart".tr(),
-                                style: Theme.of(context).textTheme.bodyLarge),
-                          ),
+                        const SizedBox(
+                          width: 15,
                         ),
+                        Text("مرحبا , محمد",
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .bodySmall),
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      physics: AlwaysScrollableScrollPhysics(),
-                      itemCount: cubit.cart.length,
-                      itemBuilder: (context, index) {
-                        var key = cubit.cart.keys.elementAt(index);
-                        ProductModel? product = cubit.cart[key];
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 2.0, horizontal: 8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(color: AppColors.gray,blurRadius: 5)
-                            ]
-
-                          ),
-                          child: Stack(
-                            children: [
-                              Card(
-                                child: Row(
-                                  //  contentPadding: const EdgeInsets.symmetric(vertical: 10,horizontal: 8),
-                                  children: [
-                                    SizedBox(
-                                       // width: 14.w,
-                                        child: DecodedImage2(
-                                          base64String: product?.image,
-                                        )),
-                                    //Image.asset("assets/images/strawberry.png",),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      children: [
-                                        Text("${product?.name}",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(
-                                                color:
-                                                AppColors.black1)),
-                                        Row(
-                                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 7.w,
-                                              height: 3.3.h,
-                                              decoration: BoxDecoration(
-                                                  color:
-                                                  AppColors.lightGreen,
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      5),
-                                                  border: Border.all(
-                                                      color: AppColors
-                                                          .primary)),
-                                              child: IconButton(
-                                                  padding: EdgeInsets.zero,
-                                                  icon: Icon(
-                                                    Icons.add,
-                                                    size: 15,
-                                                    color:
-                                                    AppColors.primary,
-                                                  ),
-                                                  onPressed: () {
-
-                                                 cubit.increaseQuantity(product!);
-                                                  }),
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.all(8),
-                                              alignment: Alignment.center,
-                                              width: 7.7.w,
-                                              height: 3.8.h,
-                                              decoration: BoxDecoration(
-                                                  color:
-                                                  AppColors.lightGreen,
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      5)),
-                                              child: Text(
-                                                  "${product?.quantity?.toInt().toString()}",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodySmall!
-                                                      .copyWith(
-                                                      color: AppColors
-                                                          .primary,
-                                                      fontSize: 12)),
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 7.w,
-                                              height: 3.3.h,
-                                              decoration: BoxDecoration(
-                                                  color:
-                                                  AppColors.lightGreen,
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      5),
-                                                  border: Border.all(
-                                                      color: AppColors
-                                                          .primary)),
-                                              child: IconButton(
-                                                  padding: EdgeInsets.zero,
-                                                  icon: Icon(
-                                                    Icons.remove,
-                                                    size: 15,
-                                                    color:
-                                                    AppColors.primary,
-                                                  ),
-                                                  onPressed: () {
-                                                    cubit.decreaseQuantity(product!);
-                                                  }),
-                                            ),
-                                          SizedBox(width: 15.w,),
-                                            Text("${product?.price}/${product?.unit}",
-                                                textDirection: TextDirection.ltr,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall!
-                                                    .copyWith(
-                                                    color: AppColors.primary)),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-
-
-                                  ],
-                                ),
-                              ),
-                              Positioned(
-                                left: -10,
-                                top: -10,
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.close_rounded,
-                                    color: AppColors.red,
-                                    size: 15,
-                                  ),
-                                  onPressed: () {
-                                    cubit.removeItem(product?.id);
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("cart".tr(),
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyLarge),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.all(1),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: AppColors.primary,width: 1.5)
-                    ),
-                    child: CustomButton(
-                        width: 70.w,
-                        backgroundColor: AppColors.white,
-                        textColor: AppColors.primary,
-                        text: "confirm".tr(),
-                        onPressed: () async {
-                        await cubit.createSaleOrder();
-                        int? orderId = await Preferences.instance.getSaleOrder();
-                         cubit.cart.forEach((key, value) async {
-                          await cubit.createSaleOrderLines(context,saleOrderId: orderId!, productId: key, productName: value.name??"", productQuantity: value.quantity??0);
-                         });
-
-                        }),
-                  ),
-                  SizedBox(height: 5.h,)
                 ],
               ),
             ),
+            Expanded(
+              child: ListView.builder(
+                physics: AlwaysScrollableScrollPhysics(),
+                itemCount: context
+                    .read<CartCubit>()
+                    .cart
+                    .length,
+                itemBuilder: (context, index) {
+                  var key =
+                  context
+                      .read<CartCubit>()
+                      .cart
+                      .keys
+                      .elementAt(index);
+                  ProductModel? product = context
+                      .read<CartCubit>()
+                      .cart[key];
+                  return CartListItem(
+                    product: product,
+                  );
+                },
+              ),
+            ),
+            //confirm button
 
+
+            Container(
+              padding: EdgeInsets.all(1),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: AppColors.primary, width: 1.5)),
+              child: CustomButton(
+                  width: 70.w,
+                  backgroundColor: AppColors.white,
+                  textColor: AppColors.primary,
+                  text: "confirm".tr(),
+                  onPressed: () async {
+                    await cubit.createSaleOrder();
+                    int? orderId =
+                    await Preferences.instance.getSaleOrder();
+                    cubit.cart.forEach((key, value) async {
+                      await cubit.createSaleOrderLines(context,
+                          saleOrderId: orderId!,
+                          productId: key,
+                          productName: value.name ?? "",
+                          productQuantity: value.quantity ?? 0);
+                    });
+                  }),
+            ),
+
+            SizedBox(
+            height: 5.h,
           )
-        ;
+          ],
+        )));
       },
     );
+
   }
 }

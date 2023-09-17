@@ -12,6 +12,7 @@ import 'core/api/base_api_consumer.dart';
 import 'core/api/dio_consumer.dart';
 import 'core/remote/service.dart';
 import 'features/cart/cubit/cart_cubit.dart';
+import 'features/cart/item_cubit/cart_list_item_cubit.dart';
 import 'features/home/product_item_cubit/product_item_cubit.dart';
 import 'features/product_details/cubit/product_details_cubit.dart';
 import 'features/products/cubit/products_cubit.dart';
@@ -63,6 +64,11 @@ Future<void> setup() async {
   );
   serviceLocator.registerFactory(
     () => ProductItemCubit(
+     // serviceLocator(),
+    ),
+  );
+  serviceLocator.registerFactory(
+    () => CartListItemCubit(
      // serviceLocator(),
     ),
   );

@@ -59,7 +59,6 @@ AuthModel? authModel;
           if(r.result!=null){
             emit(SuccessCreateOrderState());
             authModel = r;
-
              cart.clear();
           }
           else{
@@ -77,28 +76,28 @@ AuthModel? authModel;
     emit(RemovingItemState());
   }
 
-  increaseQuantity(ProductModel productModel){
-    double productQuantity = productModel.quantity!;
-    productQuantity++;
-    productModel.quantity = productQuantity;
+  // increaseQuantity(ProductModel productModel){
+  //   double productQuantity = productModel.quantity!;
+  //   productQuantity++;
+  //   productModel.quantity = productQuantity;
+  //
+  //   print("###############################");
+  //   print(productModel.quantity);
+  //   emit(IncreasingQuantityState());
+  // }
 
-    print("###############################");
-    print(productModel.quantity);
-    emit(IncreasingQuantityState());
-  }
-
-  decreaseQuantity(ProductModel productModel){
-    double productQuantity = productModel.quantity!;
-    if(productQuantity==0){
-
-    }
-   else{
-      productQuantity--;
-      productModel.quantity = productQuantity;
-
-      print("###############################");
-      print(productModel.quantity);
-      emit(DecreasingQuantityState());
-    }
-  }
+  // decreaseQuantity(ProductModel productModel){
+  //   double productQuantity = productModel.quantity!;
+  //   if(productQuantity==0){
+  //
+  //   }
+  //  else{
+  //     productQuantity--;
+  //     productModel.quantity = productQuantity;
+  //
+  //     print("###############################");
+  //     print(productModel.quantity);
+  //     emit(DecreasingQuantityState());
+  //   }
+  // }
 }

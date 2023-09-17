@@ -16,12 +16,8 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        ProductDetailsCubit cubit = context.read<ProductDetailsCubit>();
+   
+        
         return Scaffold(
           backgroundColor: AppColors.white,
           body: Column(
@@ -77,7 +73,10 @@ class ProductDetailsScreen extends StatelessWidget {
               SizedBox(
                 height: 5.h,
               ),
-              Padding(
+              BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
+  builder: (context, state) {
+    ProductDetailsCubit cubit = context.read<ProductDetailsCubit>();
+    return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -167,7 +166,9 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
+              );
+  },
+),
               SizedBox(
                 height: 5.h,
               ),
@@ -186,7 +187,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   text: "add_to_cart".tr(),
                   onPressed: () async {
 
-                  await  cubit.addToCart(productModel!, context);
+                  await  context.read<ProductDetailsCubit>().addToCart(productModel!, context);
 
                   }),
               SizedBox(
@@ -195,7 +196,6 @@ class ProductDetailsScreen extends StatelessWidget {
             ],
           ),
         );
-      },
-    );
+        
   }
 }

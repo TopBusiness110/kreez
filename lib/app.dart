@@ -11,6 +11,7 @@ import 'core/utils/app_strings.dart';
 import 'package:kreez/injector.dart' as injector;
 
 import 'features/cart/cubit/cart_cubit.dart';
+import 'features/cart/item_cubit/cart_list_item_cubit.dart';
 import 'features/home/product_item_cubit/product_item_cubit.dart';
 import 'features/product_details/cubit/product_details_cubit.dart';
 import 'features/products/cubit/products_cubit.dart';
@@ -63,6 +64,9 @@ class _KreezState extends State<Kreez> {
         ),
         BlocProvider(
           create: (_) => injector.serviceLocator<ProductItemCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<CartListItemCubit>(),
         ),
 
       ],
