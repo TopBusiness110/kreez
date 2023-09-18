@@ -1,8 +1,8 @@
 class ProductModel{
   String? name;
-  String? description;
+  dynamic description;
   String? unit;
-  String? image;
+  dynamic image;
   double? price;
   int? id;
   double quantity;

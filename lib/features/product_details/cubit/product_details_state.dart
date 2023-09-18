@@ -7,3 +7,4 @@ class ProductDetailsInitial extends ProductDetailsState {}
 class AddQuantityState extends ProductDetailsState {}
 class RemoveQuantityState extends ProductDetailsState {}
 class AddProductState extends ProductDetailsState {}
+class ZeroQuantity extends ProductDetailsState {}

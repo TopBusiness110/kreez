@@ -17,6 +17,8 @@ import 'features/home/product_item_cubit/product_item_cubit.dart';
 import 'features/product_details/cubit/product_details_cubit.dart';
 import 'features/products/cubit/products_cubit.dart';
 import 'features/profile_feature/orders_history/cubit/order_history_cubit.dart';
+import 'features/profile_feature/profile/cubit/profile_cubit.dart';
+import 'features/search_home/cubit/home_search_cubit.dart';
 
 // import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
 
@@ -70,6 +72,16 @@ Future<void> setup() async {
   serviceLocator.registerFactory(
     () => CartListItemCubit(
      // serviceLocator(),
+    ),
+  );
+  serviceLocator.registerFactory(
+    () => HomeSearchCubit(
+      serviceLocator(),
+    ),
+  );
+  serviceLocator.registerFactory(
+    () => ProfileCubit(
+      //serviceLocator(),
     ),
   );
 

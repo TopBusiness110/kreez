@@ -7,6 +7,8 @@ class EndPoints {
   static const String createSaleOrderLineUrl = '${baseUrl}api/sale.order.line';
   static const String getAllSaleOrderForPartnerUrl = '${baseUrl}api/sale.order/';
   static const String getProductsByCategoryIdUrl = '${baseUrl}api/product.product/';
+ // static const String searchProductUrl = '${baseUrl}api/product.product/';
+  static const String searchProductUrl = 'https://store.topbuziness.com/api/product.product/?query={id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,description_sale,image_1920}&filter=[["name", "=", "tomato"]]';
   static const String allProductsUrl = '${baseUrl}api/product.product/?query={id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,image_1920}&filter=[["is_published", "=", "True"]]';
 
   // static const String homeUrl = '${baseUrl}home';

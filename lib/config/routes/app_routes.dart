@@ -9,6 +9,7 @@ import 'package:kreez/features/product_details/models/product_model.dart';
 import 'package:kreez/features/product_details/screens/product_details_screen.dart';
 import 'package:kreez/features/products/screens/products_screen.dart';
 import 'package:kreez/features/profile_feature/change_password/screens/change_password_screen.dart';
+import 'package:kreez/features/search_home/screens/home_search_screen.dart';
 import '../../core/models/all_products_model.dart';
 import '../../core/utils/app_strings.dart';
 import '../../features/authentication_feature/forgot_password/screeens/forgot_password_screen.dart';
@@ -36,6 +37,7 @@ class Routes {
   static const String categoriesRoute = '/categories';
   static const String productsRoute = '/products';
   static const String cartRoute = '/cart';
+  static const String homeSearchRoute = '/homeSearch';
 
 }
 
@@ -115,6 +117,12 @@ class AppRoutes {
         var args = settings.arguments as AllCategoriesModel;
         return MaterialPageRoute(
           builder: (context) =>   ProductsScreen(allCategoriesModel: args),
+        );
+
+      case Routes.homeSearchRoute:
+
+        return MaterialPageRoute(
+          builder: (context) =>   HomeSearchScreen(),
         );
 
       case Routes.cartRoute:

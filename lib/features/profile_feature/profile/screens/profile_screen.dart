@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kreez/core/preferences/preferences.dart';
 import 'package:kreez/core/utils/app_colors.dart';
+import 'package:kreez/features/profile_feature/profile/cubit/profile_cubit.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../config/routes/app_routes.dart';
 import '../../orders_history/screens/orders_history_screen.dart';
@@ -9,15 +12,23 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatelessWidget {
    ProfileScreen({Key? key}) : super(key: key);
+
   final List<String> icons = ["assets/icons/password.svg","assets/icons/support.svg","assets/icons/orders.svg",
     "assets/icons/privacy.svg","assets/icons/logout.svg","assets/icons/delete.svg"];
+
   final List<String> labels=["change_password","support","order_history","privacy","logout","delete_account"];
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return Stack(
+    return BlocConsumer<ProfileCubit, ProfileState>(
+     listener: (context, state) {
+    // TODO: implement listener
+      },
+        builder: (context, state) {
+       ProfileCubit cubit = context.read<ProfileCubit>();
+      return Stack(
       children: [
         SizedBox(width: double.infinity, height: height * 0.88),
         Container(
@@ -74,14 +85,16 @@ class ProfileScreen extends StatelessWidget {
                       color: AppColors.gray,
                     )),
                 Text(
-                  "محمد محمود",
+                  "${cubit.authModel?.result?.name}",
+                 // "محمد محمود",
                   style: Theme.of(context)
                       .textTheme
                       .displayMedium!
                       .copyWith(color: AppColors.black1),
                 ),
                 Text(
-                  "01050487506",
+          "${cubit.authModel?.result?.username}",
+               //   "01050487506",
                   style: Theme.of(context)
                       .textTheme
                       .displayMedium!
@@ -135,7 +148,10 @@ class ProfileScreen extends StatelessWidget {
 
       ],
     );
+  },
+);
   }
+
    void showDeleteAlertDialog(BuildContext context) {
      showDialog(
        context: context,
@@ -234,6 +250,8 @@ class ProfileScreen extends StatelessWidget {
                child: ElevatedButton(
                  onPressed: () {
                    Navigator.pop(context);
+                   Preferences.instance.clearShared();
+                   Navigator.pushReplacementNamed(context, Routes.loginRoute);
 
                  },
                  style: ElevatedButton.styleFrom(

@@ -172,14 +172,15 @@ class ProductDetailsScreen extends StatelessWidget {
               SizedBox(
                 height: 5.h,
               ),
+              productModel?.description.runtimeType==String?
               Text(
-                productModel?.description ?? " ",
+                "${productModel?.description ?? " "}",
                 //"${productModel?.details}"
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!
                     .copyWith(color: AppColors.black1),
-              ),
+              ):Text(" "),
               CustomButton(
                   width: 70.w,
                   backgroundColor: AppColors.primary,

@@ -4,8 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/core/models/all_categories_model.dart';
 import 'package:kreez/core/models/all_products_model.dart';
 import 'package:kreez/core/utils/app_colors.dart';
+import 'package:kreez/features/product_details/models/product_model.dart';
 import 'package:kreez/features/products/cubit/products_cubit.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../home/components/home_product_item.dart';
 
 class ProductsScreen extends StatefulWidget {
   final AllCategoriesModel? allCategoriesModel;
@@ -105,6 +108,8 @@ class _ProductsScreenState extends State<ProductsScreen>  {
                itemBuilder: (context, index) {
                  return  InkWell(
                    onTap: () async {
+                     print("kkkk");
+                     print(widget.allCategoriesModel?.result?[index].id);
                    await  context.read<ProductsCubit>().getProductsByCategoryId(widget.allCategoriesModel?.result?[index].id??0);
                    },
                      child: Text(widget.allCategoriesModel!.result![index].name!,style: TextStyle(color: AppColors.primary),));
@@ -118,23 +123,30 @@ class _ProductsScreenState extends State<ProductsScreen>  {
               ),
             ),
             Container(
-              color: AppColors.purple1light,
+           margin: EdgeInsets.symmetric(horizontal: 12),
               height: 74.h,
                 child:
-              ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: cubit.productsByCategoryIdModel?.count??0,
-                itemBuilder: (context, index) {
+                GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      mainAxisExtent: 240
 
-                return Text(cubit.productsByCategoryIdModel!.result?[index].name??"no items",style: TextStyle(color: AppColors.black1),);
-              },)
-            //     TabBarView(
-            //       controller: cubit.tabController,
-            //   children: widget.allCategoriesModel!.result!.map((e) => Text(
-            //     // cubit.getProductsByCategoryId(e.id!)
-            //     cubit.productsByCategoryIdModel?.result?[cubit.tabController!.index].name.toString()??"99999999",style: TextStyle(color: AppColors.primary),
-            //   )).toList()
-           //  )
+                    ),
+                    itemCount:cubit.productsByCategoryIdModel?.count??0 ,
+                    itemBuilder: (context, index) {
+                     return HomeProductItem2(productModel:ProductModel(
+                         name:cubit.productsByCategoryIdModel!.result?[index].name,
+                     image: cubit.productsByCategoryIdModel!.result?[index].image1920,
+                     price: cubit.productsByCategoryIdModel!.result?[index].listPrice,
+                    // unit: cubit.productsByCategoryIdModel!.result?[index].currencyId.toString(),
+                         unit: "kg",
+                     id: cubit.productsByCategoryIdModel!.result?[index].id) ,
+                     );
+                    },)
+              // ListView.builder(
+
       )
           ],
         ),

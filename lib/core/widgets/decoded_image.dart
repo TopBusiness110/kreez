@@ -42,16 +42,20 @@ class DecodedImage2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ColorFilter removeBackgroundColorFilter = ColorFilter.mode(Colors.white.withOpacity(0.8), BlendMode.dstATop);
     Image image;
     if(base64String.runtimeType== String){
       Uint8List bytes = base64.decode(base64String);
-      image = Image.memory(bytes,width: 100,height: 150,);
+      image = Image.memory(bytes,width: 80,height: 100,);
     }
     else{
-      image = Image.asset("assets/images/splash.png",color: AppColors.primary,);
+      image = Image.asset("assets/images/splash.png",color: AppColors.primary,width: 80,height: 80,fit: BoxFit.cover,);
     }
 
 
-    return  image;
+    return
+      ColorFiltered(
+      colorFilter: removeBackgroundColorFilter,
+        child: image);
   }
 }

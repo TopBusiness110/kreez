@@ -2,6 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/features/cart/cubit/cart_cubit.dart';
 import 'package:meta/meta.dart';
@@ -32,11 +33,18 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   }
 
   addToCart(ProductModel productModel, BuildContext context){
-  context.read<CartCubit>().cart[productModel.id!] = productModel;
-  emit(AddProductState());
-  print(context.read<CartCubit>().cart);
-  Navigator.pushNamed(context, Routes.homeRoute);
-  quantity = 0;
+    if(productModel.quantity>0){
+      context.read<CartCubit>().cart[productModel.id!] = productModel;
+      emit(AddProductState());
+      print(context.read<CartCubit>().cart);
+      Navigator.pushNamed(context, Routes.homeRoute);
+      quantity = 0;
+    }
+    else{
+      emit(ZeroQuantity());
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Quantity = 0 ")));
+    }
+
   }
 
 }

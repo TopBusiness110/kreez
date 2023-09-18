@@ -16,6 +16,8 @@ import 'features/home/product_item_cubit/product_item_cubit.dart';
 import 'features/product_details/cubit/product_details_cubit.dart';
 import 'features/products/cubit/products_cubit.dart';
 import 'features/profile_feature/orders_history/cubit/order_history_cubit.dart';
+import 'features/profile_feature/profile/cubit/profile_cubit.dart';
+import 'features/search_home/cubit/home_search_cubit.dart';
 
 class Kreez extends StatefulWidget {
   const Kreez({Key? key}) : super(key: key);
@@ -67,6 +69,12 @@ class _KreezState extends State<Kreez> {
         ),
         BlocProvider(
           create: (_) => injector.serviceLocator<CartListItemCubit>(),
+        ),
+      BlocProvider(
+          create: (_) => injector.serviceLocator<HomeSearchCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<ProfileCubit>(),
         ),
 
       ],

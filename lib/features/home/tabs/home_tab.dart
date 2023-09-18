@@ -69,7 +69,10 @@ class HomeTab extends StatelessWidget {
                         const SizedBox(width: 12,),
                         Expanded(
                           child: CustomTextField(
-
+                          readOnly: true,
+                            onTap: () {
+                              Navigator.pushNamed(context, Routes.homeSearchRoute);
+                            },
                             prefixWidget: Icon(Icons.search,color: AppColors.primary,),
                             title: "search_product".tr(),
                             textInputType: TextInputType.text,

@@ -62,9 +62,10 @@ class Result {
   final dynamic descriptionSale;
   final dynamic image1920;
 
+
   @override
   String toString() {
-    return 'Result{id: $id, name: $name, }';
+    return 'Result{id: $id, name: $name, listPrice: $listPrice, currencyId: $currencyId, isPublished: $isPublished, uomName: $uomName, uomId: $uomId, publicCategIds: $publicCategIds, websiteRibbonId: $websiteRibbonId, descriptionSale: $descriptionSale}';
   }
 
   Result({

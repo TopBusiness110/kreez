@@ -252,14 +252,39 @@ class ServiceApi {
     try{
       String? sessionId = await Preferences.instance.getSessionId();
       final response = await dio.get(
-        EndPoints.getProductsByCategoryIdUrl,
+        'https://store.topbuziness.com/api/product.product/?query={id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,description_sale,image_1920}&filter=[["public_categ_ids", "=", [$categoryId]]]',
+       // EndPoints.getProductsByCategoryIdUrl,
         options: Options(
           headers: {"Cookie": "session_id=$sessionId"},
          ),
-        queryParameters: {
-          "query" : "{id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,description_sale,image_1920}",
-          "filter" : [["public_categ_ids", "=", [categoryId]]]
-        }
+        // queryParameters: {
+        //   "query" : "{id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,description_sale,image_1920}",
+        //   "filter" : [["public_categ_ids=[$categoryId]"]]
+        // }
+      );
+      return Right(ProductsByCategoryIdModel.fromJson(response));
+
+    }on ServerException{
+      return Left(ServerFailure());
+    }
+  }
+
+
+
+
+  Future<Either<Failure,ProductsByCategoryIdModel>>  searchProduct(String keyWord)async{
+
+    try{
+      String? sessionId = await Preferences.instance.getSessionId();
+      final response = await dio.get(
+        'https://store.topbuziness.com/api/product.product/?query={id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,description_sale,image_1920}&filter=[["name", "=", "$keyWord"]]',
+        //EndPoints.searchProductUrl,
+        options: Options(
+          headers: {"Cookie": "session_id=$sessionId"},
+         ),
+        // queryParameters: {
+        //   "query" : "{id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,description_sale,image_1920}",
+        //   "filter" : [["name", "=", "$keyWord"]]}
       );
       return Right(ProductsByCategoryIdModel.fromJson(response));
 
