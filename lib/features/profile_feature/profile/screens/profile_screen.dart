@@ -85,7 +85,7 @@ class ProfileScreen extends StatelessWidget {
                       color: AppColors.gray,
                     )),
                 Text(
-                  "${cubit.authModel?.result?.name}",
+                  "${cubit.authModel?.result?.name??""}",
                  // "محمد محمود",
                   style: Theme.of(context)
                       .textTheme
@@ -93,7 +93,7 @@ class ProfileScreen extends StatelessWidget {
                       .copyWith(color: AppColors.black1),
                 ),
                 Text(
-          "${cubit.authModel?.result?.username}",
+          "${cubit.authModel?.result?.username??""}",
                //   "01050487506",
                   style: Theme.of(context)
                       .textTheme

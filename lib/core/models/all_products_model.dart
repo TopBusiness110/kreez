@@ -158,7 +158,7 @@ class Result {
   List<int>? publicCategIds;
   dynamic websiteRibbonId;
   dynamic descriptionSale;
-  String? image1920;
+  dynamic image1920;
 
   @override
   String toString() {

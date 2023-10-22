@@ -15,6 +15,7 @@ class AllProductsFailureState extends HomeState {}
 class AllProductsSuccessState extends HomeState {}
 class LoadingAllProductsState extends HomeState {}
 class LoadingAllCategoriesState extends HomeState {}
+class GettingHomeUserNameState extends HomeState {}
 class IncreasingDecreasingQuchantity extends HomeState {
   final ProductModel productModel;
 

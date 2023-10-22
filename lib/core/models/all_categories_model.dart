@@ -51,6 +51,7 @@ class Result {
   dynamic image256;
   dynamic image128;
   bool? websiteId;
+  bool isSelected;
   bool? isSeoOptimized;
   bool? websiteMetaTitle;
   bool? websiteMetaDescription;
@@ -101,6 +102,7 @@ class Result {
     this.createDate,
     this.writeUid,
     this.writeDate,
+    this.isSelected = false,
   });
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(

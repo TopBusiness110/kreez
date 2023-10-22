@@ -25,11 +25,13 @@ enum WidgetType {
 }
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.api) : super(HomeInitial()){
+    getUserName();
     getAllCategories();
     getAllProducts();
 
   }
-  ProductModel? productModel;
+  TabController? tabsController;
+ProductModel? productModel;
 
   AuthModel? authModel;
   ServiceApi api;
@@ -50,16 +52,21 @@ class HomeCubit extends Cubit<HomeState> {
 
   AllCategoriesModel? allCategoriesModel;
   AllProductsModel? allProductsModel;
-
+  String? name;
   changeDotsIndicator(int index){
    sliderCurrentIndex = index;
    emit(DotsIndicatorChange());
   }
-
+  getUserName() async {
+    final AuthModel  user = await Preferences.instance.getUserModel2();
+    name = user.result.name;
+    emit(GettingHomeUserNameState());
+  }
 
   changeFABLocation(int index){
     if(index==2){
       currentIndex = 2;
+      tabsController?.index = 2;
       selectedWidget = WidgetType.profile;
       //******************************************************
       if(leftIcon==Icons.home){
@@ -82,6 +89,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
     else  if(index==1){
       currentIndex = 1;
+      tabsController?.index = 1;
       selectedWidget = WidgetType.home;
       floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked;
       icon = Icons.home;
@@ -91,6 +99,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
     else    if(index==0){
       currentIndex = 0;
+      tabsController?.index = 0;
       selectedWidget = WidgetType.cart;
      // selectedWidget = WidgetType.home;
       emit(CartScreenState());

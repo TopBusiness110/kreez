@@ -113,8 +113,28 @@ import 'package:kreez/core/utils/app_colors.dart';
 import 'package:kreez/core/widgets/custom_textfield.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../../cart/screens/cart_screen.dart';
+import '../../profile_feature/profile/screens/profile_screen.dart';
+import '../tabs/home_tab.dart';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+
+  @override
+  void initState() {
+    context.read<HomeCubit>().tabsController = TabController(length: 3, vsync: this);
+    context.read<HomeCubit>().tabsController?.index =1;
+    super.initState();
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -184,12 +204,21 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           body: SafeArea(
-            child: Column(
-              children: [
+            child:
+              TabBarView(
 
-                cubit.buildSelectedWidget(),
-              ],
-            ),
+                controller: cubit.tabsController,
+                  children: [
+                CartScreen(),
+                HomeTab(),
+                ProfileScreen()
+              ])
+            // Column(
+            //   children: [
+            //
+            //     cubit.buildSelectedWidget(),
+            //   ],
+            // ),
           ),
         );
       },

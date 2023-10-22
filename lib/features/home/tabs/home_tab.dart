@@ -42,6 +42,7 @@ class HomeTab extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   physics: AlwaysScrollableScrollPhysics(),
                   children: [
+                    // hello user
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -55,7 +56,7 @@ class HomeTab extends StatelessWidget {
                             width: 15,
                           ),
                           Text(
-                            "مرحبا , محمد",
+                            "مرحبا , ${cubit.name??""}",
                             style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               fontSize: 14,
                               color: AppColors.black,
@@ -64,6 +65,7 @@ class HomeTab extends StatelessWidget {
                         ],
                       ),
                     ),
+                    //search
                     Row(
                       children: [
                         const SizedBox(width: 12,),
@@ -136,7 +138,8 @@ class HomeTab extends StatelessWidget {
 
                     const SizedBox(height: 10,),
                     //categories
-                    HomeTitleItem(title: "categories".tr(),
+                    HomeTitleItem(
+                      title: "categories".tr(),
                       moreOnTap: (){
                         Navigator.pushNamed(context, Routes.categoriesRoute,arguments: cubit.allCategoriesModel);
                       },
@@ -171,11 +174,13 @@ class HomeTab extends StatelessWidget {
                     ),
 
                    //الأكثر مبيعا
-                    const HomeTitleItem(title: "الأكثر مبيعا",),
+                     HomeTitleItem(title: "الأكثر مبيعا",moreOnTap: () {
+                      Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                    },),
                     //الأكثر مبيعا list
-               (  state is LoadingAllProductsState)?
-                Center(child:CircularProgressIndicator(color: AppColors.primary,))   :
-                Container(
+                      (  state is LoadingAllProductsState)?
+                   Center(child:CircularProgressIndicator(color: AppColors.primary,))   :
+                   Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
                       height: 28.h,
                       child: ListView.separated(
@@ -207,7 +212,7 @@ class HomeTab extends StatelessWidget {
 
                  // المنتجات
                     HomeTitleItem(title: " المنتجات",moreOnTap: (){
-                      Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allProductsModel);
+                      Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
                     }),
                     // المنتجاتlist
                     (  state is LoadingAllProductsState)?
@@ -237,7 +242,9 @@ class HomeTab extends StatelessWidget {
                         },),
                     ),
 
-                    const  HomeTitleItem(title: " أحدث منتجات",),
+                      HomeTitleItem(title: " أحدث منتجات",moreOnTap: () {
+                      Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                    },),
                     (  state is LoadingAllProductsState)?
                     Center(child:CircularProgressIndicator(color: AppColors.primary,)):
                     Container(

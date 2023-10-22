@@ -48,7 +48,7 @@ class HomeProductItem2 extends StatelessWidget {
                   children: [
                     // Visibility(
                     //   visible:inSale.runtimeType==bool? inSale : false,
-                    productModel?.inSale.runtimeType==bool? productModel?.inSale==false?
+                    productModel?.inSale.runtimeType==bool? productModel?.inSale==true?
                     Row(
                       children: [
                         Container(
@@ -69,7 +69,8 @@ class HomeProductItem2 extends StatelessWidget {
                             )
                         ),
                       ],
-                    ):SizedBox(height: 3.6.h,):SizedBox(height: 3.6.h,),
+                    ):
+                    SizedBox(height: 3.6.h,):SizedBox(height: 3.6.h,),
                     DecodedImage2(base64String:productModel?.image ),
                     Text("${productModel?.name}",style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: AppColors.black,

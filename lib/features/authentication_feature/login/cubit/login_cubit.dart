@@ -12,7 +12,7 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this.api) : super(LoginInitial()){
-    api.postLoginAsAdmin2("admin", "admin");//step 1 fake login
+    api.postLoginAsAdmin2("api", "api");//step 1 fake login
   }
 
 

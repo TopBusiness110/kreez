@@ -59,7 +59,6 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen>with SingleTic
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
               ),
               child: Column(
-
                 children: [
                   SizedBox(height: height*0.05,),
                   Row(

@@ -1,9 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/features/cart/cubit/cart_cubit.dart';
-import 'package:kreez/features/cart/item_cubit/cart_list_item_cubit.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../core/utils/app_colors.dart';
 import '../../../core/widgets/decoded_image.dart';
 import '../../product_details/models/product_model.dart';
@@ -50,10 +49,9 @@ class CartListItem extends StatelessWidget {
                             .copyWith(
                             color:
                             AppColors.black1)),
-                    BlocBuilder<CartListItemCubit, CartListItemState>(
+                    BlocBuilder<CartCubit, CartState>(
                       builder: (context, state) {
-                        CartListItemCubit cubit = context.read<
-                            CartListItemCubit>();
+                        CartCubit cubit = context.read<CartCubit>();
                         return Row(
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -126,7 +124,7 @@ class CartListItem extends StatelessWidget {
                                     AppColors.primary,
                                   ),
                                   onPressed: () {
-                                    cubit.decreaseQuantity(product!);
+                                    cubit.decreaseQuantity(product!,context);
                                   }),
                             ),
                             SizedBox(width: 15.w,),

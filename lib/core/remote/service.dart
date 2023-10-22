@@ -25,12 +25,12 @@ class ServiceApi {
 
   ServiceApi(this.dio);
 
-  final odoo = OdooClient('https://store.topbuziness.com');
+  final odoo = OdooClient('https://kreezmart.com');
 
   Future<String> getSessionId(
       {required String phone, required String password}) async {
     final odoResponse =
-        await odoo.authenticate('store.topbuziness.com', phone, password);
+        await odoo.authenticate('kreezmart.com', phone, password);
     final sessionId = odoResponse.id;
     return sessionId;
   }
@@ -45,11 +45,11 @@ class ServiceApi {
           "params": {
             'login': phoneOrMail,
             "password": password,
-            "db": "store.topbuziness.com"
+            "db": "kreezmart.com"
           },
         },
       );
-      String sessionId = await getSessionId(phone: "admin", password: "admin");
+      String sessionId = await getSessionId(phone: "api", password: "api");
 
       await Preferences.instance.setSessionId(sessionId);
       await Preferences.instance.setUser2(AuthModel.fromJson(response));
@@ -74,7 +74,7 @@ class ServiceApi {
           "params": {
             'login': phoneOrMail,
             "password": password,
-            "db": "store.topbuziness.com"
+            "db": "kreezmart.com"
           },
         },
       );
@@ -252,7 +252,7 @@ class ServiceApi {
     try{
       String? sessionId = await Preferences.instance.getSessionId();
       final response = await dio.get(
-        'https://store.topbuziness.com/api/product.product/?query={id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,description_sale,image_1920}&filter=[["public_categ_ids", "=", [$categoryId]]]',
+        'https://kreezmart.com/api/product.product/?query={id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,description_sale,image_1920}&filter=[["public_categ_ids", "=", [$categoryId]]]',
        // EndPoints.getProductsByCategoryIdUrl,
         options: Options(
           headers: {"Cookie": "session_id=$sessionId"},
@@ -277,7 +277,7 @@ class ServiceApi {
     try{
       String? sessionId = await Preferences.instance.getSessionId();
       final response = await dio.get(
-        'https://store.topbuziness.com/api/product.product/?query={id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,description_sale,image_1920}&filter=[["name", "=", "$keyWord"]]',
+        'https://kreezmart.com/api/product.product/?query={id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,description_sale,image_1920}&filter=[["name", "=", "$keyWord"]]',
         //EndPoints.searchProductUrl,
         options: Options(
           headers: {"Cookie": "session_id=$sessionId"},
