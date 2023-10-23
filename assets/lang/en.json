@@ -96,7 +96,11 @@
  "about": "About",
  "contact_management": "Contact management application services",
  "you_can_contact": "You can contact with the Department of Application Services to provide Support, assistance and suggestions through data the following contact:",
- "all": "All"
+ "all": "All",
+ "order_number": "Order Number:",
+ "order_date": "Order Date:",
+ "total": "total: ",
+ "cart_empty": "Cart is empty"
 
 
 

@@ -13,6 +13,7 @@ import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/custom_textfield.dart';
 import '../../../core/widgets/decoded_image.dart';
+import '../../products/cubit/products_cubit.dart';
 import '../components/home_product_item.dart';
 import '../components/home_title_item.dart';
 
@@ -141,7 +142,9 @@ class HomeTab extends StatelessWidget {
                     HomeTitleItem(
                       title: "categories".tr(),
                       moreOnTap: (){
-                        Navigator.pushNamed(context, Routes.categoriesRoute,arguments: cubit.allCategoriesModel);
+                     //   Navigator.pushNamed(context, Routes.categoriesRoute,arguments: cubit.allCategoriesModel);
+                        Navigator.pushNamed(context, Routes.productsRoute,
+                            arguments: [cubit.allCategoriesModel,0]);
                       },
                     ),
                     //categories list
@@ -157,7 +160,12 @@ class HomeTab extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                              context.read<ProductsCubit>().getProductsByCategoryId(cubit.allCategoriesModel!.result![index].id!);
+
+                              //  Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                              Navigator.pushNamed(context, Routes.productsRoute,
+                                  arguments: [cubit.allCategoriesModel,cubit.allCategoriesModel?.result?[index].id,
+                                ]);
                             },
                             child: Column(
                               children: [
@@ -175,10 +183,12 @@ class HomeTab extends StatelessWidget {
 
                    //الأكثر مبيعا
                      HomeTitleItem(title: "الأكثر مبيعا",moreOnTap: () {
-                      Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                    //  Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                       Navigator.pushNamed(context, Routes.productsRoute,
+                           arguments: [cubit.allCategoriesModel,0]);
                     },),
                     //الأكثر مبيعا list
-                      (  state is LoadingAllProductsState)?
+                    state is LoadingAllProductsState?
                    Center(child:CircularProgressIndicator(color: AppColors.primary,))   :
                    Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
@@ -212,7 +222,9 @@ class HomeTab extends StatelessWidget {
 
                  // المنتجات
                     HomeTitleItem(title: " المنتجات",moreOnTap: (){
-                      Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                    //  Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                      Navigator.pushNamed(context, Routes.productsRoute,
+                          arguments: [cubit.allCategoriesModel,0]);
                     }),
                     // المنتجاتlist
                     (  state is LoadingAllProductsState)?
@@ -243,7 +255,9 @@ class HomeTab extends StatelessWidget {
                     ),
 
                       HomeTitleItem(title: " أحدث منتجات",moreOnTap: () {
-                      Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                     // Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                        Navigator.pushNamed(context, Routes.productsRoute,
+                            arguments: [cubit.allCategoriesModel,0]);
                     },),
                     (  state is LoadingAllProductsState)?
                     Center(child:CircularProgressIndicator(color: AppColors.primary,)):

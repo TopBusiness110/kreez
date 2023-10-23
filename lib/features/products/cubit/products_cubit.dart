@@ -15,6 +15,7 @@ part 'products_state.dart';
 class ProductsCubit extends Cubit<ProductsState> {
   ProductsCubit(this.api) : super(ProductsInitial()){
     getUserName();
+    getAllProducts();
   }
   TabController? tabController ;
   Color tabColor = AppColors.black;
@@ -23,6 +24,9 @@ class ProductsCubit extends Cubit<ProductsState> {
   bool all = true;
   AllProductsModel? allProductsModel;
   getAllProducts() async {
+    all=true;
+    allProductsModel=null;
+
     emit(LoadingAllProductState());
     final response =await api.getAllProducts();
     response.fold(
@@ -31,8 +35,7 @@ class ProductsCubit extends Cubit<ProductsState> {
           allProductsModel = r;
 
           emit(AllProductSuccessState());
-          print("_______________________________________________________________");
-          print(r.result);
+
         });
   }
 
@@ -43,24 +46,27 @@ class ProductsCubit extends Cubit<ProductsState> {
 
   changeTabColor(allCategories.Result result){
     result.isSelected = ! result.isSelected ;
-    print("is selected = ${result.isSelected}");
+
     emit(TabColorChanging());
   }
 
   ProductsByCategoryIdModel? productsByCategoryIdModel;
 
   getProductsByCategoryId(int categoryId) async {
-    emit(LoadingProductState());
+    print("object");
+    print(categoryId);
+    all=false;
+    productsByCategoryIdModel=null;
+    emit(LoadingAllProductState());
     final response = await api.getProductsByCategoryId(categoryId);
     response.fold((l) {
 
-      emit(FailureProductState());
+      emit(AllProductFailureState());
     },
             (r) {
-      emit(SuccessProductState());
+      emit(AllProductSuccessState());
       productsByCategoryIdModel = r;
-      print("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-      print(productsByCategoryIdModel);
+
             });
   }
 

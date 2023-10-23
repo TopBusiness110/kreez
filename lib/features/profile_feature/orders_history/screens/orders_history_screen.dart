@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/features/profile_feature/orders_history/cubit/order_history_cubit.dart';
-import 'package:kreez/features/profile_feature/orders_history/tabs/canceled_orders_tab.dart';
-import 'package:kreez/features/profile_feature/orders_history/tabs/completed_orders_tab.dart';
+import 'package:kreez/features/profile_feature/orders_history/tabs/prev_orders_tab.dart';
+import 'package:kreez/features/profile_feature/orders_history/tabs/current_orders_tab.dart';
 import 'package:kreez/features/profile_feature/orders_history/tabs/next_orders_tab.dart';
 
 import '../../../../core/utils/app_colors.dart';
@@ -104,7 +104,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen>with SingleTic
                  controller: cubit.tabController,
                   children: const [
                  CompletedOrdersTab(),
-                 NextOrdersTab(),
+                    PreviousOrdersTab(),
                //  CanceledOrdersTab()
               ],
             ))

@@ -113,10 +113,17 @@ class AppRoutes {
           builder: (context) =>   CategoriesScreen(allCategoriesModel: args),
         );
 
+     // case Routes.productsRoute:
+        //
+        // var args = settings.arguments as AllCategoriesModel;
+        // return MaterialPageRoute(
+        //   builder: (context) =>   ProductsScreen(allCategoriesModel: args),
+        // );
       case Routes.productsRoute:
-        var args = settings.arguments as AllCategoriesModel;
+
+        var args = settings.arguments as List<dynamic>;
         return MaterialPageRoute(
-          builder: (context) =>   ProductsScreen(allCategoriesModel: args),
+          builder: (context) =>   ProductsScreen(allCategoriesModel: args[0],id:args.length>1?args[1]:0),
         );
 
       case Routes.homeSearchRoute:

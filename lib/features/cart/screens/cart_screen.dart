@@ -80,6 +80,7 @@ class CartScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    cubit.cart.isNotEmpty?
                     Expanded(
                       child: ListView.builder(
                         physics: AlwaysScrollableScrollPhysics(),
@@ -97,10 +98,18 @@ class CartScreen extends StatelessWidget {
                           );
                         },
                       ),
+                    ):
+                    Column(
+                      children: [
+                        SizedBox(height: getSize(context)/3,),
+                        Center(child: Image.asset("assets/images/4.jpg",width: getSize(context)/2,)),
+                        Text("cart_empty".tr(),style: TextStyle(color: AppColors.primary),)
+                      ],
                     ),
                     //confirm button
 
                     // confirm btn
+                    cubit.cart.isNotEmpty?
                     Container(
                       padding: EdgeInsets.all(1),
                       decoration: BoxDecoration(
@@ -139,7 +148,7 @@ class CartScreen extends StatelessWidget {
                               );
                             }
                           }),
-                    ),
+                    ):SizedBox(),
 
                     SizedBox(
                       height: 5.h,

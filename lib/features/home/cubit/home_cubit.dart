@@ -157,8 +157,7 @@ ProductModel? productModel;
               allProductsModel = r;
 
               emit(AllProductsSuccessState());
-          print("_______________________________________________________________");
-          print(r.result);
+
         });
   }
 
@@ -166,7 +165,7 @@ ProductModel? productModel;
   addToCart(ProductModel productModel, BuildContext context){
     context.read<CartCubit>().cart[productModel.id!] = productModel;
     emit(AddProductFromHomeState());
-    print(context.read<CartCubit>().cart);
+
     Navigator.pushNamed(context, Routes.homeRoute);
 
   }
