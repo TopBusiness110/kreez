@@ -24,137 +24,144 @@ class CartScreen extends StatelessWidget {
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
         CartCubit cubit = context.read<CartCubit>();
-        return SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
-            child: Container(
-                // color: Colors.lightBlue,
-                height: 88.h,
-                child: Column(
-                  children: [
-                    //appbar
-                    Container(
-                      width: double.infinity,
-                      height: 15.h,
-                      decoration: BoxDecoration(
-                          color: AppColors.green,
-                          borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20))),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 0.1.h,
-                          ),
-                          //مرحبا
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                CircleAvatar(
-                                  radius: 22,
-                                  backgroundColor: AppColors.white,
-                                  child: Icon(
-                                    Icons.person,
-                                    size: 40,
-                                    color: AppColors.gray1,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Text("مرحبا , ${cubit.name ?? ""}",
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall),
-                              ],
+        return Container(
+          color: Colors.white,
+          margin: EdgeInsets.only(top: getSize(context)/14),
+          child:
+        // SingleChildScrollView(
+        //       physics: NeverScrollableScrollPhysics(),
+        //       child:
+              Container(
+                  // color: Colors.lightBlue,
+                  height: 88.h,
+                  child: Column(
+                    children: [
+                      //appbar
+                      Container(
+                        width: double.infinity,
+                        height: 15.h,
+                        decoration: BoxDecoration(
+                            color: AppColors.green,
+                            borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20))),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 0.1.h,
                             ),
-                          ),
-                          //cart text
-                          Center(
-                            child: Padding(
+                            //مرحبا
+                            Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text("cart".tr(),
-                                  style: Theme.of(context).textTheme.bodyLarge),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 22,
+                                    backgroundColor: AppColors.white,
+                                    child: Icon(
+                                      Icons.person,
+                                      size: 40,
+                                      color: AppColors.gray1,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  Text("مرحبا , ${cubit.name ?? ""}",
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall),
+                                ],
+                              ),
                             ),
-                          ),
+                            //cart text
+                            Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("cart".tr(),
+                                    style: Theme.of(context).textTheme.bodyLarge),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      cubit.cart.isNotEmpty?
+                      Expanded(
+                        child: ListView.builder(
+                          physics: AlwaysScrollableScrollPhysics(),
+                          itemCount: context.read<CartCubit>().cart.length,
+                          itemBuilder: (context, index) {
+                            var key = context
+                                .read<CartCubit>()
+                                .cart
+                                .keys
+                                .elementAt(index);
+                            ProductModel? product =
+                                context.read<CartCubit>().cart[key];
+                            return CartListItem(
+                              product: product,
+                            );
+                          },
+                        ),
+                      ):
+                      Column(
+                        children: [
+                          SizedBox(height: getSize(context)/3,),
+                          Center(child: Image.asset("assets/images/4.jpg",width: getSize(context)/2,)),
+                          Text("cart_empty".tr(),style: TextStyle(color: AppColors.primary),)
                         ],
                       ),
-                    ),
-                    cubit.cart.isNotEmpty?
-                    Expanded(
-                      child: ListView.builder(
-                        physics: AlwaysScrollableScrollPhysics(),
-                        itemCount: context.read<CartCubit>().cart.length,
-                        itemBuilder: (context, index) {
-                          var key = context
-                              .read<CartCubit>()
-                              .cart
-                              .keys
-                              .elementAt(index);
-                          ProductModel? product =
-                              context.read<CartCubit>().cart[key];
-                          return CartListItem(
-                            product: product,
-                          );
-                        },
-                      ),
-                    ):
-                    Column(
-                      children: [
-                        SizedBox(height: getSize(context)/3,),
-                        Center(child: Image.asset("assets/images/4.jpg",width: getSize(context)/2,)),
-                        Text("cart_empty".tr(),style: TextStyle(color: AppColors.primary),)
-                      ],
-                    ),
-                    //confirm button
+                      //confirm button
 
-                    // confirm btn
-                    cubit.cart.isNotEmpty?
-                    Container(
-                      padding: EdgeInsets.all(1),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border:
-                              Border.all(color: AppColors.primary, width: 1.5)),
-                      child: CustomButton(
-                          width: 70.w,
-                          backgroundColor: AppColors.white,
-                          textColor: AppColors.primary,
-                          text: "confirm".tr(),
-                          onPressed: () async {
-                            if (cubit.cart.isNotEmpty) {
-                              await cubit.createSaleOrder();
-                              int? orderId =
-                                  await Preferences.instance.getSaleOrder();
-                              cubit.cart.forEach((key, value) async {
-                                await cubit.createSaleOrderLines(context,
-                                    saleOrderId: orderId!,
-                                    productId: key,
-                                    productName: value.name ?? "",
-                                    productQuantity: value.quantity ?? 0);
-                              });
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(" Cart Is Empty !"),
-                                  behavior: SnackBarBehavior.floating,
-                                  margin: EdgeInsets.only(
-                                    bottom:  getSize(context)*1.5,
-                                    left: 10,
-                                    right: 10,
-                                  ) ,
-                                  duration: Duration(milliseconds: 1000),
-                                ),
-                              );
-                            }
-                          }),
-                    ):SizedBox(),
+                      // confirm btn
+                      cubit.cart.isNotEmpty?
+                      Container(
+                        padding: EdgeInsets.all(1),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            border:
+                                Border.all(color: AppColors.primary, width: 1.5)),
+                        child: CustomButton(
+                            width: 70.w,
+                            backgroundColor: AppColors.white,
+                            textColor: AppColors.primary,
+                            text: "confirm".tr(),
+                            onPressed: () async {
+                              if (cubit.cart.isNotEmpty) {
+                                await cubit.createSaleOrder();
+                                int? orderId =
+                                    await Preferences.instance.getSaleOrder();
+                                cubit.cart.forEach((key, value) async {
+                                  await cubit.createSaleOrderLines(context,
+                                      saleOrderId: orderId!,
+                                      productId: key,
+                                      productName: value.name ?? "",
+                                      productQuantity: value.quantity ?? 0);
+                                });
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(" Cart Is Empty !"),
+                                    behavior: SnackBarBehavior.floating,
+                                    margin: EdgeInsets.only(
+                                      bottom:  getSize(context)*1.5,
+                                      left: 10,
+                                      right: 10,
+                                    ) ,
+                                    duration: Duration(milliseconds: 1000),
+                                  ),
+                                );
+                              }
+                            }),
+                      ):SizedBox(),
 
-                    SizedBox(
-                      height: 5.h,
-                    )
-                  ],
-                )));
+                      SizedBox(
+                        height: 5.h,
+                      )
+                    ],
+                  )),
+          //),
+        );
       },
     );
   }

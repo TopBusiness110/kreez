@@ -26,6 +26,12 @@ class Preferences {
 
   }
 
+  Future<void> setPartnerId(int partner_id) async {
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setInt('partnerId',partner_id );
+    print("partner_id = $partner_id");
+  }
   Future<void> setSessionId(String sessionId) async {
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -60,6 +66,12 @@ class Preferences {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? sessionId = preferences.getString('sessionId');
     return sessionId;
+  }
+
+  Future<int?> getPartnerId() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    int? partnerId = preferences.getInt('partnerId');
+    return partnerId;
   }
 
   // Future<void> setFirstInstall() async {

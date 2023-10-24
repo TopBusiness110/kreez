@@ -1,6 +1,7 @@
 class EndPoints {
   static const String baseUrl = 'https://kreezmart.com/';
   static const String registerUrl = '${baseUrl}api/res.users/';
+  static const String getUserDateUrl = '${baseUrl}/api/res.users/';
   static const String loginUrl = '${baseUrl}auth';
   static const String allCategoriesUrl = '${baseUrl}api/product.public.category';
   static const String createSaleOrderUrl = '${baseUrl}api/sale.order/';

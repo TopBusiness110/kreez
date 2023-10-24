@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/config/routes/app_routes.dart';
 import 'package:kreez/core/widgets/custom_arrow_back.dart';
 import 'package:kreez/features/authentication_feature/register/cubit/register_cubit.dart';
-
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/widgets/copyright.dart';
@@ -22,6 +21,7 @@ class RegisterScreen extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     String? lang = easy.EasyLocalization.of(context)?.locale.countryCode;
+
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is RegisterFailureState) {
@@ -153,20 +153,6 @@ class RegisterScreen extends StatelessWidget {
                               ],
                             ),
 
-                            // CustomTextField(
-                            //   controller: cubit.cityController,
-                            //   validatorMessage: "Enter City name",
-                            //   title: "city".tr(),
-                            //   textInputType: TextInputType.text,
-                            //   backgroundColor: AppColors.lightGreen,
-                            //   textColor: AppColors.black2,
-                            //   prefixWidget: Icon(
-                            //     Icons.home_outlined,
-                            //     color: AppColors.primary,
-                            //   ),
-                            // ),
-                            //  SizedBox(height: height*0.1,),
-                            //password
                             CustomTextField(
                               controller: cubit.passwordController,
                               validatorMessage: "Enter password",

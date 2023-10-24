@@ -30,9 +30,8 @@ class HomeCubit extends Cubit<HomeState> {
     getAllProducts();
 
   }
-  TabController? tabsController;
-ProductModel? productModel;
-
+ // TabController? tabsController;
+  ProductModel? productModel;
   AuthModel? authModel;
   ServiceApi api;
   WidgetType selectedWidget = WidgetType.home;
@@ -64,61 +63,8 @@ ProductModel? productModel;
   }
 
   changeFABLocation(int index){
-    if(index==2){
-      currentIndex = 2;
-      tabsController?.index = 2;
-      selectedWidget = WidgetType.profile;
-      //******************************************************
-      if(leftIcon==Icons.home){
-        floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked;
-        icon = Icons.home;
-        leftIcon = Icons.person;
-        // selectedWidget = WidgetType.home;
-        emit(FABLocationChanged());
-
-      }
-     // ******************************************************
-    else{
-        floatingActionButtonLocation = FloatingActionButtonLocation.endDocked;
-        icon = Icons.person;
-        leftIcon = Icons.home;
-        rightIcon=Icons.shopping_cart;
-      //  selectedWidget = WidgetType.home;
-        emit(FABLocationChanged());
-      }
-    }
-    else  if(index==1){
-      currentIndex = 1;
-      tabsController?.index = 1;
-      selectedWidget = WidgetType.home;
-      floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked;
-      icon = Icons.home;
-     // selectedWidget = WidgetType.home;
-      emit(FABLocationChanged());
-
-    }
-    else    if(index==0){
-      currentIndex = 0;
-      tabsController?.index = 0;
-      selectedWidget = WidgetType.cart;
-     // selectedWidget = WidgetType.home;
-      emit(CartScreenState());
-      if(rightIcon==Icons.home){
-       // selectedWidget = WidgetType.home;
-        floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked;
-        icon = Icons.home;
-        rightIcon = Icons.shopping_cart;
-        emit(FABLocationChanged());
-      }
-      else{
-        floatingActionButtonLocation = FloatingActionButtonLocation.startDocked;
-        icon = Icons.shopping_cart;
-        rightIcon = Icons.home;
-        leftIcon = Icons.person;
-       // selectedWidget = WidgetType.home;
-        emit(FABLocationChanged());
-      }
-    }
+  currentIndex=index;
+  emit(FABLocationChanged());
 
   }
   Widget buildSelectedWidget() {

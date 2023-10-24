@@ -13,6 +13,8 @@ class ProfileCubit extends Cubit<ProfileState> {
   AuthModel? authModel;
   fetchUserData()async {
      authModel = await Preferences.instance.getUserModel2();
+     print("_________________________________________________________________________");
+     print(authModel?.result);
      emit(GettingAuthModelState());
 
 
