@@ -19,7 +19,7 @@ class CartCubit extends Cubit<CartState> {
     getUserName();
   }
   ServiceApi api;
-AuthModel? authModel;
+  AuthModel? authModel;
   Map<int,ProductModel> cart = {};
   AuthModel? createSaleOrderResponse ;
   String? name;
@@ -81,14 +81,14 @@ AuthModel? authModel;
     );
   }
 
-  increaseQuantity(ProductModel productModel){
+  increaseQuantity(ProductModel productModel) async {
     double productQuantity = productModel.quantity!;
     productQuantity++;
     productModel.quantity = productQuantity;
-
     print("###############################");
     print(productModel.quantity);
     emit(IncreasingQuantityState());
+
   }
 
   decreaseQuantity(ProductModel productModel, BuildContext context){

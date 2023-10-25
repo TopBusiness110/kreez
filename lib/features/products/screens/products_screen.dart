@@ -542,12 +542,15 @@ class _ProductsScreenState extends State<ProductsScreen>
                         context
                             .read<HomeCubit>()
                             .allProductsModel
-                            ?.count ?? 0):(
-                            context
-                                .read<HomeCubit>()
-                                .allCategoriesModel
-                                ?.count ?? 0
-                        ),
+                            ?.count ?? 0):
+                        cubit.productsByCategoryIdModel!
+                            .result?.length??0,
+                        // (
+                        //     context
+                        //         .read<HomeCubit>()
+                        //         .allCategoriesModel
+                        //         ?.count ?? 0
+                        // ),
                         itemBuilder: (context, index) {
                           return cubit.all==true?
                           HomeProductItem2(
@@ -571,7 +574,8 @@ class _ProductsScreenState extends State<ProductsScreen>
                                   .allProductsModel
                                   ?.result?[index].id),
                           ):
-                          HomeProductItem2(productModel: ProductModel(
+                          HomeProductItem2(
+                            productModel: ProductModel(
                               name: cubit.productsByCategoryIdModel!
                                   .result?[index].name,
                               image: cubit.productsByCategoryIdModel!

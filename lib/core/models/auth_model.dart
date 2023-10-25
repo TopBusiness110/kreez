@@ -518,8 +518,7 @@ class AuthModel {
     error: json["error"] == null ? null : Error.fromJson(json["error"]),
     result: json["result"] == null ? null :
     json["result"].runtimeType==int?
-    json["result"]:
-    Result.fromJson(json["result"]),
+    json["result"]: Result.fromJson(json["result"]),
   );
 
   Map<String, dynamic> toJson() => {

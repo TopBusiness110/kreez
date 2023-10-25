@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:kreez/core/models/auth_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/product_details/models/product_model.dart';
 import '../models/login_response_model.dart';
 
 class Preferences {
@@ -55,19 +56,16 @@ class Preferences {
     preferences.setBool('firstTime',firstTime );
     print("firstTime = $firstTime");
   }
-
   Future<bool?> getOnBoardingFirstTime() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool? firstTime = preferences.getBool('firstTime');
     return firstTime;
   }
-
   Future<String?> getSessionId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? sessionId = preferences.getString('sessionId');
     return sessionId;
   }
-
   Future<int?> getPartnerId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     int? partnerId = preferences.getInt('partnerId');
@@ -99,9 +97,52 @@ class Preferences {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString(
         'user2', jsonEncode(AuthModel.fromJson(authModel.toJson())));
-    print(await getUserModel2());
+   // print(await getUserModel2());
   }
+  //
+  // Future<void> setCart( Map<int,ProductModel> cart) async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   Map<int, dynamic> cartData = {};
+  //   cart.forEach((key, value) {
+  //     cartData[key] = value.toJson();
+  //   });
+  //   preferences.setString("cart", jsonEncode(cartData));
+  //   print(":) :) :) :) :) : ) ");
+  //   print("cart  = ${getCart()}");
+  // }
 
+  Future<void> setCart1(List<Map<int, ProductModel>> cart) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<int, dynamic> cartData = {};
+    // cart.forEach((key, value) {
+    //   cartData[key] = value.toJson();
+    // });
+    cart.forEach((element) {
+      element.forEach((key, value) {
+        cartData[key] = value.toJson();
+      });
+    });
+    print("____________________________________");
+    print(cartData);
+    String cartJson = jsonEncode(cartData);
+    print("____________________________________");
+    print("cart json = $cartJson");
+    await prefs.setString('cart', cartJson);
+  }
+   Future< Map<dynamic,ProductModel>> getCart ()async{
+     SharedPreferences preferences = await SharedPreferences.getInstance();
+     String? cartJson = preferences.getString("cart");
+
+     if(cartJson!=null){
+       Map<String, dynamic> cartData = jsonDecode(cartJson);
+       Map<String, ProductModel> cart = {};
+      cartData.forEach((key, value) {
+        cart[key] = ProductModel.fromJson(value);
+      });
+      return cart;
+     }
+     else return {};
+   }
 
  Future<void> clearShared()async{
    SharedPreferences preferences = await SharedPreferences.getInstance();

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kreez/core/preferences/preferences.dart';
 import 'package:kreez/features/cart/cubit/cart_cubit.dart';
 import 'package:meta/meta.dart';
 
@@ -19,6 +20,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   add(){
     quantity+=1;
+
     emit(AddQuantityState());
   }
 

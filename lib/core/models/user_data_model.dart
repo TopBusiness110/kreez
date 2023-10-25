@@ -25,11 +25,6 @@ class UserData {
     this.result,
   });
 
-  @override
-  String toString() {
-    return 'UserData{count: $count, prev: $prev, current: $current, next: $next, totalPages: $totalPages, result: $result}';
-  }
-
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
     count: json["count"],
     prev: json["prev"],
@@ -52,26 +47,23 @@ class UserData {
 class Result {
   final int? id;
   final String? name;
+  final int? partnerId;
 
   Result({
     this.id,
     this.name,
+    this.partnerId,
   });
-
-  @override
-  String toString() {
-
-    return 'Result{id: $id, name: $name}';
-
-  }
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
     id: json["id"],
     name: json["name"],
+    partnerId: json["partner_id"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
+    "partner_id": partnerId,
   };
 }

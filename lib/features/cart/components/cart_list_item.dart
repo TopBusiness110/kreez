@@ -76,8 +76,9 @@ class CartListItem extends StatelessWidget {
                                     color:
                                     AppColors.primary,
                                   ),
-                                  onPressed: () {
-                                    cubit.increaseQuantity(product!);
+                                  onPressed: () async {
+                                   await cubit.increaseQuantity(product!);
+                                   print("****************************");
                                   }),
                             ),
                             Container(

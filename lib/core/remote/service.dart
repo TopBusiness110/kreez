@@ -398,7 +398,7 @@ class ServiceApi {
     }
   }
 
-
+  int? partnerId;
   Future<Either<Failure, AuthModel>> postRegister2(
       String fullName, String password, String phone, String? email) async {
     try {
@@ -439,10 +439,11 @@ class ServiceApi {
      var data = await getUserData(result);
      data.fold((l) => null, (r) {
        userData = r;
-       Preferences.instance.setPartnerId(userData!.result![0].id!);
+       Preferences.instance.setPartnerId(userData!.result![0].partnerId!);
        //todo add partner id to shared preferences
 
      });
+       partnerId = await Preferences.instance.getPartnerId();
     //  await Preferences.instance.setPartnerId(userData.result[0].id)
       print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       print(userData);
@@ -461,7 +462,7 @@ class ServiceApi {
           headers: {"Cookie": "session_id=$sessionId"},
         ),
           queryParameters: {
-            "query":"{id, name}",
+            "query":"{id, name,partner_id}",
             "filter":[["id","=","$result"]]
           }
       );
@@ -509,20 +510,26 @@ class ServiceApi {
   Future<Either<Failure, AuthModel>> createSaleOrder() async {
     String? sessionId = await Preferences.instance.getSessionId();
     AuthModel authModel = await Preferences.instance.getUserModel2();
-
+ print("*****************************************************");
+ print("session id  = $sessionId");
     try {
       final response = await dio.post(
           EndPoints.createSaleOrderUrl,
           options: Options(
-            headers: {"Cookie": "session_id=$sessionId"},
+            headers: {"Cookie": "frontend_lang=en_US;session_id=$sessionId"},
           ),
           body: {
             "params": {
               "data": {
-                "partner_id": authModel.result!.partnerId,
+                //"partner_id": authModel.result!.partnerId,
+                "partner_id": 66,
                 "pricelist_id": 1,
                 "team_id":2,
                 "website_id":1
+                // "partner_id":partnerId,
+                // "pricelist_id": 1,
+                // "team_id":2,
+                // "website_id":1
               }
             }
           }
@@ -530,7 +537,9 @@ class ServiceApi {
         print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         print(error.toString());
       });
-
+      var r = response;
+      print("_____________________________________________________");
+      print(response);
       Preferences.instance.setSaleOrder(AuthModel.fromJson(response).result);
 
       return Right(AuthModel.fromJson(response));

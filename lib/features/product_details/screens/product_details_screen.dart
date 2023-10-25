@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kreez/features/cart/cubit/cart_cubit.dart';
 import 'package:kreez/features/product_details/cubit/product_details_cubit.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../core/preferences/preferences.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/decoded_image.dart';
@@ -189,6 +191,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   onPressed: () async {
 
                   await  context.read<ProductDetailsCubit>().addToCart(productModel!, context);
+             //  await   Preferences.instance.setCart1([context.read<CartCubit>().cart]);
 
                   }),
               SizedBox(
