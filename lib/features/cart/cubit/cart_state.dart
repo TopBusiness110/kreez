@@ -11,3 +11,6 @@ class RemovingItemState extends CartState {}
 class GettingUserNameState extends CartState {}
 class IncreasingQuantityState extends CartState {}
 class DecreasingQuantityState extends CartState {}
+class LoadingCartState extends CartState {}
+class EmptyCartState extends CartState {}
+class CartSuccessState extends CartState {}

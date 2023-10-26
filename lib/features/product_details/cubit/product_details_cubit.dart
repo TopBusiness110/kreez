@@ -33,12 +33,27 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       emit(RemoveQuantityState());
     }
   }
+//todo=>
+  // addToCart(ProductModel productModel, BuildContext context){
+  //   if(productModel.quantity>0){
+  //     context.read<CartCubit>().cart[productModel.id!] = productModel;
+  //     emit(AddProductState());
+  //     print(context.read<CartCubit>().cart);
+  //     Navigator.pushNamed(context, Routes.homeRoute);
+  //     quantity = 0;
+  //   }
+  //   else{
+  //     emit(ZeroQuantity());
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Quantity = 0 ")));
+  //   }
+  //
+  // }
 
   addToCart(ProductModel productModel, BuildContext context){
     if(productModel.quantity>0){
-      context.read<CartCubit>().cart[productModel.id!] = productModel;
+      context.read<CartCubit>().cart1?[productModel.id!] = productModel;
       emit(AddProductState());
-      print(context.read<CartCubit>().cart);
+      print(context.read<CartCubit>().cart1);
       Navigator.pushNamed(context, Routes.homeRoute);
       quantity = 0;
     }

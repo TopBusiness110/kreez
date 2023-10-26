@@ -17,10 +17,11 @@ part 'cart_state.dart';
 class CartCubit extends Cubit<CartState> {
   CartCubit(this.api) : super(CartInitial()){
     getUserName();
+    getCart();
   }
   ServiceApi api;
   AuthModel? authModel;
-  Map<int,ProductModel> cart = {};
+  //Map<int,ProductModel> cart = {};
   AuthModel? createSaleOrderResponse ;
   String? name;
 
@@ -56,30 +57,30 @@ class CartCubit extends Cubit<CartState> {
 
   }
 
-  createSaleOrderLines(BuildContext context,
-      {required int saleOrderId ,required int productId,required String productName,required double productQuantity}) async {
-       loadingDialog();
-       emit(LoadingCreateOrderState());
-    final response = await  api.createSaleOrderLines(orderId:saleOrderId ,productId: productId,productName:productName ,productQuantity: productQuantity);
-    response.fold(
-            (l) {
-          Navigator.pop(context);
-          emit(FailureCreateOrderState());
-        },
-            (r) {
-          Navigator.pop(context);
-          if(r.result!=null){
-            emit(SuccessCreateOrderState());
-            authModel = r;
-             cart.clear();
-          }
-          else{
-            emit(FailureCreateOrderState());
-          }
-
-        }
-    );
-  }
+  // createSaleOrderLines(BuildContext context,
+  //     {required int saleOrderId ,required int productId,required String productName,required double productQuantity}) async {
+  //      loadingDialog();
+  //      emit(LoadingCreateOrderState());
+  //   final response = await  api.createSaleOrderLines(orderId:saleOrderId ,productId: productId,productName:productName ,productQuantity: productQuantity);
+  //   response.fold(
+  //           (l) {
+  //         Navigator.pop(context);
+  //         emit(FailureCreateOrderState());
+  //       },
+  //           (r) {
+  //         Navigator.pop(context);
+  //         if(r.result!=null){
+  //           emit(SuccessCreateOrderState());
+  //           authModel = r;
+  //            cart.clear();
+  //         }
+  //         else{
+  //           emit(FailureCreateOrderState());
+  //         }
+  //
+  //       }
+  //   );
+  // }
 
   increaseQuantity(ProductModel productModel) async {
     double productQuantity = productModel.quantity!;
@@ -104,9 +105,26 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  removeItem(int? id){
-    cart.remove(id);
+  // removeItem(int? id){
+  //   cart.remove(id);
+  //   emit(RemovingItemState());
+  // }
+  removeItem(int? id) async {
+    cart1?.remove(id);
+  await  Preferences.instance.setCart(cart1!);
     emit(RemovingItemState());
+  }
+  Map<int,ProductModel> cart1={};
+  getCart()async{
+    print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    emit(LoadingCartState());
+   cart1 = await Preferences.instance.getCart()??{};
+   if(cart1.isEmpty){
+     emit(EmptyCartState());
+   }
+   else{
+       emit(CartSuccessState());
+   }
   }
 
 

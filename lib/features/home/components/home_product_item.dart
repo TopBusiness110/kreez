@@ -144,7 +144,6 @@ class HomeProductItem2 extends StatelessWidget {
                             child: IconButton(
                                 padding: EdgeInsets.zero,
                                 icon: Icon(Icons.remove,size: 15,color: AppColors.primary,),
-
                                 onPressed: (){
                                   cubit.decrease( productModel!,context);
 

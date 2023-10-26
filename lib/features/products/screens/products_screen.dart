@@ -586,14 +586,8 @@ class _ProductsScreenState extends State<ProductsScreen>
                               unit: "kg",
                               id: cubit.productsByCategoryIdModel!
                                   .result?[index].id),
-                          )
-                          ;
+                          );
                         },)
-
-
-
-
-                    // ListView.builder(
 
                   )
                 ],

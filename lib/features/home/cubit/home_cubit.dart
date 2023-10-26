@@ -108,13 +108,13 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
 
-  addToCart(ProductModel productModel, BuildContext context){
-    context.read<CartCubit>().cart[productModel.id!] = productModel;
-    emit(AddProductFromHomeState());
-
-    Navigator.pushNamed(context, Routes.homeRoute);
-
-  }
+  // addToCart(ProductModel productModel, BuildContext context){
+  //   context.read<CartCubit>().cart[productModel.id!] = productModel;
+  //   emit(AddProductFromHomeState());
+  //
+  //   Navigator.pushNamed(context, Routes.homeRoute);
+  //
+  // }
 
 
 

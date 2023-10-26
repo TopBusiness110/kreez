@@ -191,7 +191,8 @@ class ProductDetailsScreen extends StatelessWidget {
                   onPressed: () async {
 
                   await  context.read<ProductDetailsCubit>().addToCart(productModel!, context);
-             //  await   Preferences.instance.setCart1([context.read<CartCubit>().cart]);
+              // await   Preferences.instance.setCart(context.read<CartCubit>().cart);
+               await   Preferences.instance.setCart(context.read<CartCubit>().cart1!);
 
                   }),
               SizedBox(

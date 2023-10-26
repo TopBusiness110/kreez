@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../config/routes/app_routes.dart';
+import '../../../core/preferences/preferences.dart';
 import '../../cart/cubit/cart_cubit.dart';
 import '../../product_details/models/product_model.dart';
 
@@ -35,12 +36,16 @@ class ProductItemCubit extends Cubit<ProductItemState> {
 
 
   }
+//todo=>
+  // addToCart(ProductModel productModel, BuildContext context) async {
+  //   context.read<CartCubit>().cart[productModel.id!] = productModel;
+  //   await   Preferences.instance.setCart(context.read<CartCubit>().cart);
+  //   emit(AddProductState());
+  // }
 
-  addToCart(ProductModel productModel, BuildContext context){
-    context.read<CartCubit>().cart[productModel.id!] = productModel;
+  addToCart(ProductModel productModel, BuildContext context) async {
+    context.read<CartCubit>().cart1?[productModel.id!] = productModel;
+    await   Preferences.instance.setCart(context.read<CartCubit>().cart1!);
     emit(AddProductState());
-
-
-
   }
 }
