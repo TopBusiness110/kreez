@@ -210,7 +210,7 @@ class _HomeTabState extends State<HomeTab> {
                    Center(child:CircularProgressIndicator(color: AppColors.primary,))   :
                    Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: getSize(context)*0.6,
+                      height: getSize(context)*0.4,
                       child: ListView.separated(
                         separatorBuilder: (context, index) {
                           return SizedBox(width: getSize(context)*0.1,);
@@ -249,7 +249,7 @@ class _HomeTabState extends State<HomeTab> {
                     Center(child:CircularProgressIndicator(color: AppColors.primary,)):
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: getSize(context)*0.6,
+                      height: getSize(context)*0.4,
                       child: ListView.separated(
                         separatorBuilder: (context, index) {
                           return SizedBox(width: getSize(context)*0.09,);
@@ -281,8 +281,9 @@ class _HomeTabState extends State<HomeTab> {
                     Center(child:CircularProgressIndicator(color: AppColors.primary,)):
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                       height: getSize(context)*0.6,
+                       height: getSize(context)*0.4,
                       child: ListView.separated(
+
                         reverse: true,
                         separatorBuilder: (context, index) {
                           return SizedBox(width: getSize(context)*0.09,);

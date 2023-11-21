@@ -340,6 +340,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kreez/core/utils/app_colors.dart';
+import 'package:kreez/core/utils/get_size.dart';
 import 'package:kreez/core/widgets/custom_textfield.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
 
@@ -380,64 +381,68 @@ class _HomeScreenState extends State<HomeScreen>
         HomeCubit cubit = context.read<HomeCubit>();
         return Scaffold(
           extendBody: true,
-        //resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         //  backgroundColor: Colors.white,
           body: cubit.tabs[cubit.currentIndex],
-          bottomNavigationBar: AnimatedNotchBottomBar(
+          bottomNavigationBar: SizedBox(
+            height: 30,
+            width: getSize(context),
+            child: AnimatedNotchBottomBar(
 
-            //  pageController: cubit.tabsController,
-            color: AppColors.primary,
-            bottomBarWidth: double.infinity,
-            removeMargins: false,
-           // removeMargins: true,
+              //  pageController: cubit.tabsController,
+              color: AppColors.primary,
+              bottomBarWidth:100,
+              removeMargins: false,
+             // removeMargins: true,
 
-            notchColor: AppColors.primary,
-            itemLabelStyle: TextStyle(
-              color: Colors.white,
-              fontSize: 12
-            ),
-            bottomBarItems: [
-              const BottomBarItem(
-                inActiveItem: Icon(
-                  Icons.person,
-                  color:Colors.white,
-                ),
-                activeItem: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                ),
-                itemLabel: 'profile',
+              notchColor: AppColors.primary,
+              itemLabelStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 12
               ),
-              const BottomBarItem(
-                inActiveItem: Icon(
-                  Icons.home_filled,
-                  color:Colors.white,
+              bottomBarItems: [
+                const BottomBarItem(
+                  inActiveItem: Icon(
+                    Icons.person,
+                    color:Colors.white,
+                  ),
+                  activeItem: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                  ),
+                  itemLabel: 'profile',
                 ),
-                activeItem: Icon(
-                  Icons.home_filled,
-                  color: Colors.white,
+                const BottomBarItem(
+                  inActiveItem: Icon(
+                    Icons.home_filled,
+                    color:Colors.white,
+                  ),
+                  activeItem: Icon(
+                    Icons.home_filled,
+                    color: Colors.white,
+                  ),
+                  itemLabel: 'home',
                 ),
-                itemLabel: 'home',
-              ),
-              const BottomBarItem(
-                inActiveItem: Icon(
-                  Icons.shopping_cart,
-                  color: Colors.white,
+                const BottomBarItem(
+                  inActiveItem: Icon(
+                    Icons.shopping_cart,
+                    color: Colors.white,
+                  ),
+                  activeItem: Icon(
+                    Icons.shopping_cart,
+                    color: Colors.white,
+                  ),
+                  itemLabel: 'cart',
                 ),
-                activeItem: Icon(
-                  Icons.shopping_cart,
-                  color: Colors.white,
-                ),
-                itemLabel: 'cart',
-              ),
-            ],
-            notchBottomBarController: notchController,
-            onTap: (int value) {
-              cubit.changeFABLocation(value);
+              ],
+              notchBottomBarController: notchController,
+              onTap: (int value) {
+                cubit.changeFABLocation(value);
 // _pageController.jumpToPage(value);
 
-            },
+              },
 
+            ),
           ),
 
 
