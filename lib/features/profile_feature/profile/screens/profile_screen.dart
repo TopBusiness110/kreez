@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/core/preferences/preferences.dart';
 import 'package:kreez/core/utils/app_colors.dart';
 import 'package:kreez/features/profile_feature/profile/cubit/profile_cubit.dart';
-import 'package:sizer/sizer.dart';
 import '../../../../config/routes/app_routes.dart';
 import '../../../../core/utils/get_size.dart';
 import '../../orders_history/screens/orders_history_screen.dart';
@@ -190,8 +189,8 @@ class ProfileScreen extends StatelessWidget {
 
                  },
                  style: ElevatedButton.styleFrom(
-                   minimumSize: Size(30.w, 5.h),
-                   maximumSize: Size(33.w, 6.h),
+                   minimumSize: Size(getSize(context)*0.3 ,getSize(context)*0.1),
+                   maximumSize: Size(getSize(context)*0.33, getSize(context)*0.1),
                    backgroundColor: AppColors.red,
                  ),
                  child: Text(
@@ -210,8 +209,8 @@ class ProfileScreen extends StatelessWidget {
                  style: ElevatedButton.styleFrom(
 
                    backgroundColor: AppColors.primary,
-                   minimumSize: Size(30.w, 5.h),
-                   maximumSize: Size(33.w, 6.h),
+                     minimumSize: Size(getSize(context)*0.3 ,getSize(context)*0.1),
+                     maximumSize: Size(getSize(context)*0.33, getSize(context)*0.1)
                  ),
                  child: Text(
                    "no".tr(),
@@ -260,8 +259,8 @@ class ProfileScreen extends StatelessWidget {
 
                  },
                  style: ElevatedButton.styleFrom(
-                   minimumSize: Size(30.w, 5.h),
-                   maximumSize: Size(33.w, 6.h),
+                   minimumSize: Size(getSize(context)*0.3 ,getSize(context)*0.1),
+                   maximumSize: Size(getSize(context)*0.33, getSize(context)*0.1),
                    backgroundColor: AppColors.red,
                  ),
                  child: Text(
@@ -280,8 +279,8 @@ class ProfileScreen extends StatelessWidget {
                  style: ElevatedButton.styleFrom(
 
                    backgroundColor: AppColors.primary,
-                   minimumSize: Size(30.w, 5.h),
-                   maximumSize: Size(33.w, 6.h),
+                     minimumSize: Size(getSize(context)*0.3 ,getSize(context)*0.1),
+                     maximumSize: Size(getSize(context)*0.33, getSize(context)*0.1)
                  ),
                  child: Text(
                    "no".tr(),

@@ -4,9 +4,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kreez/core/utils/get_size.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
 import 'package:kreez/features/product_details/models/product_model.dart';
-import 'package:sizer/sizer.dart';
+
 
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
@@ -48,7 +49,7 @@ class _HomeTabState extends State<HomeTab> {
         return Stack(
           children: [
             SizedBox(
-              height: 87.h,
+            //  height: 87.h,
               child: RefreshIndicator(
                 onRefresh: () async {
                 await  refreshData(context);
@@ -129,7 +130,7 @@ class _HomeTabState extends State<HomeTab> {
                         pauseAutoPlayInFiniteScroll: true,
                         pauseAutoPlayOnManualNavigate: true,
                         pauseAutoPlayOnTouch: true,
-                        height: 15.h,
+                        height: getSize(context)*0.2,
                         viewportFraction: 1,
                         initialPage: 0,
                         enlargeCenterPage: true,
@@ -164,10 +165,10 @@ class _HomeTabState extends State<HomeTab> {
                     //categories list
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: 18.h,
+                      height: getSize(context)*0.8,
                       child: ListView.separated(
                         separatorBuilder: (context, index) {
-                          return SizedBox(width: 3.w,);
+                          return SizedBox(width: getSize(context)*0.3,);
                         },
                         itemCount:cubit.allCategoriesModel?.count??0,
                         scrollDirection: Axis.horizontal,
@@ -206,10 +207,10 @@ class _HomeTabState extends State<HomeTab> {
                    Center(child:CircularProgressIndicator(color: AppColors.primary,))   :
                    Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: 28.h,
+                      height: getSize(context)*1.2,
                       child: ListView.separated(
                         separatorBuilder: (context, index) {
-                          return SizedBox(width: 5.w,);
+                          return SizedBox(width: getSize(context)*0.1,);
                         },
                         itemCount: cubit.allProductsModel?.count??0,
                         scrollDirection: Axis.horizontal,
@@ -231,7 +232,7 @@ class _HomeTabState extends State<HomeTab> {
 
                     const SizedBox(height: 10,),
                     Padding(
-                        padding: EdgeInsets.only(left: 5.w),
+                        padding: EdgeInsets.only(left: getSize(context)*0.07),
                         child: Image.asset(ImageAssets.homeSaleImage)),
 
                  // المنتجات
@@ -245,10 +246,10 @@ class _HomeTabState extends State<HomeTab> {
                     Center(child:CircularProgressIndicator(color: AppColors.primary,)):
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: 28.h,
+                      height: getSize(context)*0.8,
                       child: ListView.separated(
                         separatorBuilder: (context, index) {
-                          return SizedBox(width: 5.w,);
+                          return SizedBox(width: getSize(context)*0.09,);
                         },
                         itemCount: cubit.allProductsModel?.count??0,
                         scrollDirection: Axis.horizontal,
@@ -277,11 +278,11 @@ class _HomeTabState extends State<HomeTab> {
                     Center(child:CircularProgressIndicator(color: AppColors.primary,)):
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: 28.h,
+                      height: getSize(context)*1.2,
                       child: ListView.separated(
                         reverse: true,
                         separatorBuilder: (context, index) {
-                          return SizedBox(width: 5.w,);
+                          return SizedBox(width: getSize(context)*0.0,);
                         },
                         itemCount: cubit.allProductsModel?.count??0,
                         scrollDirection: Axis.horizontal,

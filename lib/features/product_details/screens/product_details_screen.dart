@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/features/cart/cubit/cart_cubit.dart';
 import 'package:kreez/features/product_details/cubit/product_details_cubit.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../core/preferences/preferences.dart';
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/get_size.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/decoded_image.dart';
 import '../models/product_model.dart';
@@ -35,7 +35,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 5.h,
+                      height: getSize(context)*0.2,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -73,12 +73,12 @@ class ProductDetailsScreen extends StatelessWidget {
                 base64String: productModel?.image,
               ),
               SizedBox(
-                height: 5.h,
+                height: getSize(context)*0.3,
               ),
               BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-  builder: (context, state) {
-    ProductDetailsCubit cubit = context.read<ProductDetailsCubit>();
-    return Padding(
+            builder: (context, state) {
+             ProductDetailsCubit cubit = context.read<ProductDetailsCubit>();
+                return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,8 +110,8 @@ class ProductDetailsScreen extends StatelessWidget {
                     Spacer(),
                     Container(
                       alignment: Alignment.center,
-                      width: 5.w,
-                      height: 2.5.h,
+                      width: getSize(context)*0.3,
+                      height: getSize(context)*0.1,
                       decoration: BoxDecoration(
                           color: AppColors.lightGreen,
                           borderRadius: BorderRadius.circular(5),
@@ -132,8 +132,8 @@ class ProductDetailsScreen extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.all(8),
                       alignment: Alignment.center,
-                      width: 7.w,
-                      height: 3.2.h,
+                      width: getSize(context)*0.1,
+                      height:getSize(context)*0.1,
                       decoration: BoxDecoration(
                           color: AppColors.lightGreen,
                           borderRadius: BorderRadius.circular(5)),
@@ -147,8 +147,8 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                     Container(
                       alignment: Alignment.center,
-                      width: 5.w,
-                      height: 2.5.h,
+                      width: getSize(context)*0.1,
+                      height: getSize(context)*0.2,
                       decoration: BoxDecoration(
                           color: AppColors.lightGreen,
                           borderRadius: BorderRadius.circular(5),
@@ -172,7 +172,7 @@ class ProductDetailsScreen extends StatelessWidget {
   },
 ),
               SizedBox(
-                height: 5.h,
+                height:getSize(context)*0.1,
               ),
               productModel?.description.runtimeType==String?
               Text(
@@ -184,7 +184,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     .copyWith(color: AppColors.black1),
               ):Text(" "),
               CustomButton(
-                  width: 70.w,
+                  width: getSize(context)*0.7,
                   backgroundColor: AppColors.primary,
                   textColor: AppColors.white,
                   text: "add_to_cart".tr(),
@@ -196,7 +196,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
                   }),
               SizedBox(
-                height: 0.1.h,
+                height: getSize(context)*0.01,
               )
             ],
           ),

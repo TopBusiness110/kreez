@@ -18,7 +18,7 @@ class CustomSlider extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image(image: AssetImage(image),width: width*0.99,height: height*0.51,fit: BoxFit.cover,),
+          Image(image: AssetImage(image),width: width*0.99,height: height*0.55,fit: BoxFit.fill,),
           //SizedBox(height: height*0.05),
           Text(title, style: Theme.of(context).textTheme.displayLarge),
          // SizedBox(height: height*0.05),

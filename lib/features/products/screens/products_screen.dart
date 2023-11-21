@@ -325,7 +325,6 @@ import 'package:kreez/core/utils/get_size.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
 import 'package:kreez/features/product_details/models/product_model.dart';
 import 'package:kreez/features/products/cubit/products_cubit.dart';
-import 'package:sizer/sizer.dart';
 import '../../home/components/home_product_item.dart';
 
 class ProductsScreen extends StatefulWidget {
@@ -411,7 +410,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                     child: Column(
 
                       children: [
-                        SizedBox(height: 5.h,),
+                        SizedBox(height: getSize(context)*0.1,),
                         //appbar hi user
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -452,7 +451,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                   ),
                   //tab bar
                   SizedBox(
-                    height: 7.h,
+                    height: getSize(context)*0.6,
                     child:
                     TabBar(
                       indicatorSize: TabBarIndicatorSize.tab,
@@ -518,7 +517,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                   ),
                   Container(
                       margin: EdgeInsets.symmetric(horizontal: 12),
-                      height: 74.h,
+                      height: getSize(context)*0.8,
                       child:
                       // cubit.productsByCategoryIdModel?.count==0?
 

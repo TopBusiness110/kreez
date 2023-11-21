@@ -2,8 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/features/cart/cubit/cart_cubit.dart';
-import 'package:sizer/sizer.dart';
+
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/get_size.dart';
 import '../../../core/widgets/decoded_image.dart';
 import '../../product_details/models/product_model.dart';
 
@@ -57,8 +58,8 @@ class CartListItem extends StatelessWidget {
                           children: [
                             Container(
                               alignment: Alignment.center,
-                              width: 7.w,
-                              height: 3.3.h,
+                              width: 7,
+                              height: 3.3,
                               decoration: BoxDecoration(
                                   color:
                                   AppColors.lightGreen,
@@ -84,8 +85,8 @@ class CartListItem extends StatelessWidget {
                             Container(
                               margin: EdgeInsets.all(8),
                               alignment: Alignment.center,
-                              width: 7.7.w,
-                              height: 3.8.h,
+                              width: getSize(context)*0.4,
+                              height: getSize(context)*0.2,
                               decoration: BoxDecoration(
                                   color:
                                   AppColors.lightGreen,
@@ -105,8 +106,8 @@ class CartListItem extends StatelessWidget {
                             ),
                             Container(
                               alignment: Alignment.center,
-                              width: 7.w,
-                              height: 3.3.h,
+                              width: getSize(context)*0.2,
+                              height: getSize(context)*0.3,
                               decoration: BoxDecoration(
                                   color:
                                   AppColors.lightGreen,
@@ -128,7 +129,7 @@ class CartListItem extends StatelessWidget {
                                     cubit.decreaseQuantity(product!,context);
                                   }),
                             ),
-                            SizedBox(width: 15.w,),
+                            SizedBox(width: getSize(context)*0.15,),
                             Text("${product?.price}/${product?.unit}",
                                 textDirection: TextDirection.ltr,
                                 style: Theme

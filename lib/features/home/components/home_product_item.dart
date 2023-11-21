@@ -6,8 +6,9 @@ import 'package:kreez/core/widgets/decoded_image.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
 import 'package:kreez/features/home/product_item_cubit/product_item_cubit.dart';
 import 'package:kreez/features/product_details/models/product_model.dart';
-import 'package:sizer/sizer.dart';
+
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/get_size.dart';
 
 
 
@@ -39,7 +40,7 @@ class HomeProductItem2 extends StatelessWidget {
                       id: productModel?.id ));
             },
             child: Container(
-                width: 45.w,
+                width:getSize(context)*0.45,
                 decoration: BoxDecoration(
                     color: AppColors.lightGreen,
                     borderRadius: BorderRadius.circular(20)
@@ -70,7 +71,7 @@ class HomeProductItem2 extends StatelessWidget {
                         ),
                       ],
                     ):
-                    SizedBox(height: 3.6.h,):SizedBox(height: 3.6.h,),
+                    SizedBox(height: getSize(context)*0.2,):SizedBox(height: getSize(context)*0.3,),
                     DecodedImage2(base64String:productModel?.image ),
                     Text("${productModel?.name}",style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: AppColors.black,
@@ -102,8 +103,8 @@ class HomeProductItem2 extends StatelessWidget {
                         children: [
                           Container(
                             alignment: Alignment.center,
-                            width:10.w,
-                             height: 3.h,
+                            width:getSize(context)*0.1,
+                             height: getSize(context)*0.1,
                             decoration: BoxDecoration(
                                 color: AppColors.lightGreen,
                                 borderRadius: BorderRadius.circular(5),
@@ -121,8 +122,8 @@ class HomeProductItem2 extends StatelessWidget {
                           Container(
                             margin: const EdgeInsets.all(8),
                             alignment: Alignment.center,
-                            width:10.w,
-                            height: 3.2.h,
+                            width:getSize(context)*0.1,
+                            height: getSize(context)*0.1,
                             decoration:BoxDecoration(
                                 color: AppColors.lightGreen,
                                 borderRadius: BorderRadius.circular(5)
@@ -134,8 +135,8 @@ class HomeProductItem2 extends StatelessWidget {
                           ),
                           Container(
                             alignment: Alignment.center,
-                            width:10.w,
-                            height: 3.h,
+                            width:getSize(context)*0.1,
+                            height: getSize(context)*0.1,
                             decoration: BoxDecoration(
                                 color: AppColors.lightGreen,
                                 borderRadius: BorderRadius.circular(5),

@@ -174,7 +174,7 @@ import 'package:kreez/core/utils/get_size.dart';
 import 'package:kreez/core/widgets/decoded_image.dart';
 import 'package:kreez/features/cart/cubit/cart_cubit.dart';
 import 'package:kreez/features/product_details/models/product_model.dart';
-import 'package:sizer/sizer.dart';
+
 
 import '../../../config/routes/app_routes.dart';
 import '../../../core/preferences/preferences.dart';
@@ -210,13 +210,13 @@ class _CartScreenState extends State<CartScreen> {
           margin: EdgeInsets.only(top: getSize(context)/14),
           child:
           Container(
-              height: 88.h,
+              height: getSize(context)*0.9,
               child: Column(
                 children: [
                   //appbar
                   Container(
                     width: double.infinity,
-                    height: 15.h,
+                    height: getSize(context)*0.6,
                     decoration: BoxDecoration(
                         color: AppColors.green,
                         borderRadius: const BorderRadius.only(
@@ -225,7 +225,7 @@ class _CartScreenState extends State<CartScreen> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 0.1.h,
+                          height: getSize(context)*0.04,
                         ),
                         //مرحبا
                         Padding(
@@ -296,7 +296,7 @@ class _CartScreenState extends State<CartScreen> {
                         border:
                         Border.all(color: AppColors.primary, width: 1.5)),
                     child: CustomButton(
-                        width: 70.w,
+                        width: getSize(context)*0.7,
                         backgroundColor: AppColors.white,
                         textColor: AppColors.primary,
                         text: "confirm".tr(),
@@ -331,7 +331,7 @@ class _CartScreenState extends State<CartScreen> {
                   ):SizedBox(),
 
                   SizedBox(
-                    height: 5.h,
+                    height: getSize(context)*0.1,
                   )
                 ],
               )),

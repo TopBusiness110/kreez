@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kreez/core/utils/app_colors.dart';
-import 'package:sizer/sizer.dart';
+
 
 import '../../../config/routes/app_routes.dart';
 import '../../../core/models/all_categories_model.dart';
+import '../../../core/utils/get_size.dart';
 import '../../../core/widgets/decoded_image.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -27,7 +28,7 @@ class CategoriesScreen extends StatelessWidget {
             child: Column(
 
               children: [
-                SizedBox(height: 5.h,),
+                SizedBox(height: getSize(context)*0.1,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
