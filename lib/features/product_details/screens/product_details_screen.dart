@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/features/cart/cubit/cart_cubit.dart';
+import 'package:kreez/features/home/cubit/home_cubit.dart';
 import 'package:kreez/features/product_details/cubit/product_details_cubit.dart';
-
 import '../../../core/preferences/preferences.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/get_size.dart';
@@ -54,7 +54,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           const SizedBox(
                             width: 15,
                           ),
-                          Text("مرحبا , محمد",
+                          Text("مرحبا , ${context.read<HomeCubit>().name}",
                               style: Theme.of(context).textTheme.bodySmall),
                         ],
                       ),
@@ -110,7 +110,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     Spacer(),
                     Container(
                       alignment: Alignment.center,
-                      width: getSize(context)*0.3,
+                      width: getSize(context)*0.1,
                       height: getSize(context)*0.1,
                       decoration: BoxDecoration(
                           color: AppColors.lightGreen,
@@ -148,7 +148,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       width: getSize(context)*0.1,
-                      height: getSize(context)*0.2,
+                      height: getSize(context)*0.1,
                       decoration: BoxDecoration(
                           color: AppColors.lightGreen,
                           borderRadius: BorderRadius.circular(5),

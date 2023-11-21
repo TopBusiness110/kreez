@@ -7,8 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kreez/core/utils/get_size.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
 import 'package:kreez/features/product_details/models/product_model.dart';
-
-
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
@@ -165,10 +163,10 @@ class _HomeTabState extends State<HomeTab> {
                     //categories list
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: getSize(context)*0.8,
+                      height: getSize(context)*0.4,
                       child: ListView.separated(
                         separatorBuilder: (context, index) {
-                          return SizedBox(width: getSize(context)*0.3,);
+                          return SizedBox(width: getSize(context)/30,);
                         },
                         itemCount:cubit.allCategoriesModel?.count??0,
                         scrollDirection: Axis.horizontal,
@@ -184,12 +182,17 @@ class _HomeTabState extends State<HomeTab> {
                             },
                             child: Column(
                               children: [
-
                                 DecodedImage(base64String:cubit.allCategoriesModel?.result?[index].image1920 ),
-                                Text("${cubit.allCategoriesModel?.result?[index].displayName}",style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    color: AppColors.black1,
-                                    fontSize: 15
-                                ),)
+                                Flexible(
+                                  child: Container(width: getSize(context)/4,
+                                    child: Text("${cubit.allCategoriesModel?.result?[index].displayName}",
+                                      textAlign:TextAlign.center,
+                                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                        color: AppColors.black1,
+                                        fontSize: 12
+                                    ),),
+                                  ),
+                                )
                               ],
                             ),
                           );
@@ -207,7 +210,7 @@ class _HomeTabState extends State<HomeTab> {
                    Center(child:CircularProgressIndicator(color: AppColors.primary,))   :
                    Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: getSize(context)*1.2,
+                      height: getSize(context)*0.6,
                       child: ListView.separated(
                         separatorBuilder: (context, index) {
                           return SizedBox(width: getSize(context)*0.1,);
@@ -246,7 +249,7 @@ class _HomeTabState extends State<HomeTab> {
                     Center(child:CircularProgressIndicator(color: AppColors.primary,)):
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: getSize(context)*0.8,
+                      height: getSize(context)*0.6,
                       child: ListView.separated(
                         separatorBuilder: (context, index) {
                           return SizedBox(width: getSize(context)*0.09,);
@@ -278,11 +281,11 @@ class _HomeTabState extends State<HomeTab> {
                     Center(child:CircularProgressIndicator(color: AppColors.primary,)):
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: getSize(context)*1.2,
+                       height: getSize(context)*0.6,
                       child: ListView.separated(
                         reverse: true,
                         separatorBuilder: (context, index) {
-                          return SizedBox(width: getSize(context)*0.0,);
+                          return SizedBox(width: getSize(context)*0.09,);
                         },
                         itemCount: cubit.allProductsModel?.count??0,
                         scrollDirection: Axis.horizontal,

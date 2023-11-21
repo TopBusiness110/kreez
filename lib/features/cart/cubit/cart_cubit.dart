@@ -21,7 +21,7 @@ class CartCubit extends Cubit<CartState> {
   }
   ServiceApi api;
   AuthModel? authModel;
-  //Map<int,ProductModel> cart = {};
+ // Map<int,ProductModel> cart = {};
   AuthModel? createSaleOrderResponse ;
   String? name;
 
@@ -31,7 +31,7 @@ class CartCubit extends Cubit<CartState> {
     emit(GettingUserNameState());
   }
 
-
+bool cartIsEmpty = true;
 
   createSaleOrder()async{
     // loadingDialog();
@@ -57,30 +57,31 @@ class CartCubit extends Cubit<CartState> {
 
   }
 
-  // createSaleOrderLines(BuildContext context,
-  //     {required int saleOrderId ,required int productId,required String productName,required double productQuantity}) async {
-  //      loadingDialog();
-  //      emit(LoadingCreateOrderState());
-  //   final response = await  api.createSaleOrderLines(orderId:saleOrderId ,productId: productId,productName:productName ,productQuantity: productQuantity);
-  //   response.fold(
-  //           (l) {
-  //         Navigator.pop(context);
-  //         emit(FailureCreateOrderState());
-  //       },
-  //           (r) {
-  //         Navigator.pop(context);
-  //         if(r.result!=null){
-  //           emit(SuccessCreateOrderState());
-  //           authModel = r;
-  //            cart.clear();
-  //         }
-  //         else{
-  //           emit(FailureCreateOrderState());
-  //         }
-  //
-  //       }
-  //   );
-  // }
+  createSaleOrderLines(BuildContext context,
+      {required int saleOrderId ,required int productId,required String productName,required double productQuantity}) async {
+       loadingDialog();
+       emit(LoadingCreateOrderState());
+    final response = await  api.createSaleOrderLines(orderId:saleOrderId ,productId: productId,productName:productName ,productQuantity: productQuantity);
+    response.fold(
+            (l) {
+          Navigator.pop(context);
+          emit(FailureCreateOrderState());
+        },
+            (r) {
+          Navigator.pop(context);
+          if(r.result!=null){
+            emit(SuccessCreateOrderState());
+            successGetBar("تم انشاء امر البيع بنجاح");
+            authModel = r;
+             cart1.clear();
+          }
+          else{
+            emit(FailureCreateOrderState());
+          }
+
+        }
+    );
+  }
 
   increaseQuantity(ProductModel productModel) async {
     double productQuantity = productModel.quantity!;

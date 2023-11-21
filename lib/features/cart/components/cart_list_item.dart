@@ -58,8 +58,8 @@ class CartListItem extends StatelessWidget {
                           children: [
                             Container(
                               alignment: Alignment.center,
-                              width: 7,
-                              height: 3.3,
+                              width: getSize(context)*0.1,
+                              height: getSize(context)*0.1,
                               decoration: BoxDecoration(
                                   color:
                                   AppColors.lightGreen,
@@ -85,8 +85,8 @@ class CartListItem extends StatelessWidget {
                             Container(
                               margin: EdgeInsets.all(8),
                               alignment: Alignment.center,
-                              width: getSize(context)*0.4,
-                              height: getSize(context)*0.2,
+                              width: getSize(context)*0.1,
+                              height: getSize(context)*0.1,
                               decoration: BoxDecoration(
                                   color:
                                   AppColors.lightGreen,
@@ -106,8 +106,8 @@ class CartListItem extends StatelessWidget {
                             ),
                             Container(
                               alignment: Alignment.center,
-                              width: getSize(context)*0.2,
-                              height: getSize(context)*0.3,
+                              width: getSize(context)*0.1,
+                              height: getSize(context)*0.1,
                               decoration: BoxDecoration(
                                   color:
                                   AppColors.lightGreen,

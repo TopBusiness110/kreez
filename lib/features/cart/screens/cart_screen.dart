@@ -210,13 +210,13 @@ class _CartScreenState extends State<CartScreen> {
           margin: EdgeInsets.only(top: getSize(context)/14),
           child:
           Container(
-              height: getSize(context)*0.9,
+             // height: getSize(context)*1.4,
               child: Column(
                 children: [
                   //appbar
                   Container(
                     width: double.infinity,
-                    height: getSize(context)*0.6,
+                    height: getSize(context)*0.4,
                     decoration: BoxDecoration(
                         color: AppColors.green,
                         borderRadius: const BorderRadius.only(
@@ -289,6 +289,7 @@ class _CartScreenState extends State<CartScreen> {
 
                   // confirm btn
                   state is EmptyCartState?
+                  SizedBox():
                   Container(
                     padding: EdgeInsets.all(1),
                     decoration: BoxDecoration(
@@ -297,21 +298,22 @@ class _CartScreenState extends State<CartScreen> {
                         Border.all(color: AppColors.primary, width: 1.5)),
                     child: CustomButton(
                         width: getSize(context)*0.7,
+                        height:getSize(context)*0.1,
                         backgroundColor: AppColors.white,
                         textColor: AppColors.primary,
                         text: "confirm".tr(),
                         onPressed: () async {
                           if (cubit.cart1!.isNotEmpty) {
-                            // await cubit.createSaleOrder();
-                            // int? orderId =
-                            // await Preferences.instance.getSaleOrder();
-                            // cubit.cart1?.forEach((key, value) async {
-                            //   await cubit.createSaleOrderLines(context,
-                            //       saleOrderId: orderId!,
-                            //       productId: key,
-                            //       productName: value.name ?? "",
-                            //       productQuantity: value.quantity ?? 0);
-                            // });
+                            await cubit.createSaleOrder();
+                            int? orderId =
+                            await Preferences.instance.getSaleOrder();
+                            cubit.cart1?.forEach((key, value) async {
+                              await cubit.createSaleOrderLines(context,
+                                  saleOrderId: orderId!,
+                                  productId: key,
+                                  productName: value.name ?? "",
+                                  productQuantity: value.quantity ?? 0);
+                            });
                           }
                           else {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -328,10 +330,10 @@ class _CartScreenState extends State<CartScreen> {
                             );
                           }
                         }),
-                  ):SizedBox(),
+                  ),
 
                   SizedBox(
-                    height: getSize(context)*0.1,
+                    height: getSize(context)*0.25,
                   )
                 ],
               )),

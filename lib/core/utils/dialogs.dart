@@ -40,18 +40,18 @@ successGetBar(String? message) {
     messageText: Text(
       message ?? 'success'.tr,
       style: Get.textTheme.bodyMedium!.copyWith(
-        color: Colors.white,
+        color: Colors.green,
         height: 1.5,
       ),
     ),
     icon: const Icon(CupertinoIcons.checkmark_seal, color: Colors.white),
-    backgroundColor: AppColors.success,
+    backgroundColor: AppColors.white,
     barBlur: 5.0,
     borderRadius: 12.0,
     duration: const Duration(milliseconds: 2500),
     isDismissible: true,
     margin: const EdgeInsets.all(8.0),
-    snackPosition: SnackPosition.TOP,
+    snackPosition: SnackPosition.BOTTOM,
   ));
 }
 

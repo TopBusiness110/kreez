@@ -67,6 +67,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 return CustomSlider(title: slides[index].sliderTitle,description: slides[index].sliderText,image: slides[index].sliderImage,);
               },)
           ),
+          SizedBox(height: 10,),
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
