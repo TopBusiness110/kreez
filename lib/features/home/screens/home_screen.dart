@@ -385,7 +385,7 @@ class _HomeScreenState extends State<HomeScreen>
         //  backgroundColor: Colors.white,
           body: cubit.tabs[cubit.currentIndex],
           bottomNavigationBar: SizedBox(
-            height: 30,
+            height: getSize(context)/5,
             width: getSize(context),
             child: AnimatedNotchBottomBar(
 

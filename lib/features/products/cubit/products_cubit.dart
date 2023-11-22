@@ -23,6 +23,7 @@ class ProductsCubit extends Cubit<ProductsState> {
   String? name;
   bool all = true;
   AllProductsModel? allProductsModel;
+
   getAllProducts() async {
     all=true;
     allProductsModel=null;
