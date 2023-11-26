@@ -72,7 +72,7 @@ class HomeProductItem2 extends StatelessWidget {
                       ],
                     ):
                     SizedBox(height: getSize(context)*0.01,):SizedBox(height: getSize(context)*0.1,),
-                    DecodedImage2(base64String:productModel?.image ),
+                    Flexible(child: DecodedImage2(base64String:productModel?.image )),
                     Text("${productModel?.name}",style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: AppColors.black,
                       fontSize: 14

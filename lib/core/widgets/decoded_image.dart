@@ -15,7 +15,7 @@ class DecodedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Image image;
-    if(base64String.runtimeType== String){
+    if(base64String.runtimeType == String){
       Uint8List bytes = base64.decode(base64String);
        image = Image.memory(bytes,fit: BoxFit.cover,height: getSize(context)/4,);
     }
@@ -26,22 +26,26 @@ class DecodedImage extends StatelessWidget {
 
     return
       CircleAvatar(
-        radius:getSize(context)/7,
-        backgroundColor: AppColors.primary,
-        child:
-      ClipRRect(
-        borderRadius: BorderRadius.circular(getSize(context)/7),
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: SizedBox(
-          height: getSize(context)/3.7,
-            width: getSize(context)/3.7,
-            child: image),
-      )
-        // CircleAvatar(
-        // radius:48,
-        // backgroundColor: AppColors.red,
-        // child: image,)
-      ,);
+        radius:getSize(context)/6.8,
+        backgroundColor: AppColors.green,
+        child: CircleAvatar(
+          radius:getSize(context)/7,
+          backgroundColor: AppColors.white,
+          child:
+        ClipRRect(
+          borderRadius: BorderRadius.circular(getSize(context)/7),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: SizedBox(
+            height: getSize(context)/3.7,
+              width: getSize(context)/3.7,
+              child: image),
+        )
+          // CircleAvatar(
+          // radius:48,
+          // backgroundColor: AppColors.red,
+          // child: image,)
+        ,),
+      );
   }
 }
 

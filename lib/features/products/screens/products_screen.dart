@@ -394,66 +394,67 @@ class _ProductsScreenState extends State<ProductsScreen>
         return Scaffold(
             backgroundColor: AppColors.white,
             body:
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  //appBar
-                  Container(
-                    width: double.infinity,
-                    //  height:15.h,
-                    decoration: BoxDecoration(
-                        color: AppColors.green,
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20))
-                    ),
-                    child: Column(
-
-                      children: [
-                        SizedBox(height: getSize(context)*0.1,),
-                        //appbar hi user
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              CircleAvatar(
-                                radius: 22,
-                                backgroundColor: AppColors.white,
-                                child: Icon(
-                                  Icons.person,
-                                  size: 40,
-                                  color: AppColors.gray1,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Text(
-                                  "مرحبا , ${cubit.name ?? ""}",
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .bodySmall
-                              ),
-                            ],
-                          ),
-                        ),
-                        Center(child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("products".tr(), style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyLarge),
-                        ),),
-                      ],
-                    ),
+            Column(
+              children: [
+                //appBar
+                Container(
+                  width: double.infinity,
+                  //  height:15.h,
+                  decoration: BoxDecoration(
+                      color: AppColors.green,
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20))
                   ),
-                  //tab bar
-                  SizedBox(
-                    height: getSize(context)*0.6,
-                    child:
-                    TabBar(
+                  child: Column(
+
+                    children: [
+                      SizedBox(height: getSize(context)*0.1,),
+                      //appbar hi user
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 22,
+                              backgroundColor: AppColors.white,
+                              child: Icon(
+                                Icons.person,
+                                size: 40,
+                                color: AppColors.gray1,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                                "مرحبا , ${cubit.name ?? ""}",
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .bodySmall
+                            ),
+                          ],
+                        ),
+                      ),
+                      Center(child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("products".tr(), style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyLarge),
+                      ),),
+                    ],
+                  ),
+                ),
+                //tab bar
+                SizedBox(
+                //  height: getSize(context)*0.6,
+                  child:
+                  Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: TabBar(
                       indicatorSize: TabBarIndicatorSize.tab,
                       indicatorColor: AppColors.primary,
                       labelColor: AppColors.primary,
@@ -513,11 +514,14 @@ class _ProductsScreenState extends State<ProductsScreen>
                       ),
 
                     ),
-
                   ),
-                  Container(
+
+                ),
+                Flexible(
+                  child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 12),
-                      height: getSize(context)*0.8,
+                    //  height: getSize(context)*1.5,
+
                       child:
                       // cubit.productsByCategoryIdModel?.count==0?
 
@@ -528,11 +532,16 @@ class _ProductsScreenState extends State<ProductsScreen>
                       state is AllProductFailureState
                       ?Center(child: CircularProgressIndicator(
                         color: AppColors.primary,),):
-                      GridView.builder(
+                      GridView.builder(shrinkWrap: true,
+
+                            physics: const BouncingScrollPhysics(),
+
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 10,
+
                             crossAxisSpacing: 10,
+
                             mainAxisExtent: 240
 
                         ),
@@ -588,9 +597,9 @@ class _ProductsScreenState extends State<ProductsScreen>
                           );
                         },)
 
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ));
       },
     );

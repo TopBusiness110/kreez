@@ -33,6 +33,10 @@ class _HomeTabState extends State<HomeTab> {
     // TODO: implement initState
     super.initState();
     context.read<HomeCubit>().getUserName();
+    context.read<HomeCubit>().getAllProducts();
+    context.read<HomeCubit>().getAllCategories();
+
+
   }
 
 
@@ -210,7 +214,7 @@ class _HomeTabState extends State<HomeTab> {
                    Center(child:CircularProgressIndicator(color: AppColors.primary,))   :
                    Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: getSize(context)*0.4,
+                      height: getSize(context)*0.6,
                       child: ListView.separated(
                         separatorBuilder: (context, index) {
                           return SizedBox(width: getSize(context)*0.1,);
@@ -249,7 +253,7 @@ class _HomeTabState extends State<HomeTab> {
                     Center(child:CircularProgressIndicator(color: AppColors.primary,)):
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: getSize(context)*0.4,
+                      height: getSize(context)*0.6,
                       child: ListView.separated(
                         separatorBuilder: (context, index) {
                           return SizedBox(width: getSize(context)*0.09,);
@@ -281,7 +285,7 @@ class _HomeTabState extends State<HomeTab> {
                     Center(child:CircularProgressIndicator(color: AppColors.primary,)):
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 12),
-                       height: getSize(context)*0.4,
+                      height: getSize(context)*0.6,
                       child: ListView.separated(
 
                         reverse: true,

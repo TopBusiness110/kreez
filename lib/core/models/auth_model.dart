@@ -648,7 +648,7 @@ class Result {
   final String? appNavbarPosPc;
   final String? appNavbarPosMobile;
   final bool? ocnTokenKey;
-  final bool? fcmProjectId;
+  final dynamic fcmProjectId;
   final int? inboxAction;
   final bool? iapCompanyEnrich;
   final String? dbuuid;

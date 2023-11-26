@@ -25,10 +25,9 @@ enum WidgetType {
 }
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.api) : super(HomeInitial()){
-    getUserName();
-    getAllCategories();
-    getAllProducts();
-
+    // getUserName();
+    // getAllCategories();
+    // getAllProducts();
   }
  // TabController? tabsController;
   ProductModel? productModel;
@@ -57,8 +56,8 @@ class HomeCubit extends Cubit<HomeState> {
    emit(DotsIndicatorChange());
   }
   getUserName() async {
-    final AuthModel  user = await Preferences.instance.getUserModel2();
-    name = user.result.name;
+    final AuthModel?  user = await Preferences.instance.getUserModel2();
+    name = user?.result.name??"";
     emit(GettingHomeUserNameState());
   }
 
@@ -91,6 +90,8 @@ class HomeCubit extends Cubit<HomeState> {
             (r) {
               emit(AllCategoriesSuccessState());
               allCategoriesModel = r;
+              print("***************************************************");
+              print(r);
             });
   }
 
