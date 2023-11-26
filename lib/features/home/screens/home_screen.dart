@@ -343,7 +343,6 @@ import 'package:kreez/core/utils/app_colors.dart';
 import 'package:kreez/core/utils/get_size.dart';
 import 'package:kreez/core/widgets/custom_textfield.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
-
 import '../../cart/screens/cart_screen.dart';
 import '../../profile_feature/profile/screens/profile_screen.dart';
 import '../tabs/home_tab.dart';
@@ -381,12 +380,13 @@ class _HomeScreenState extends State<HomeScreen>
         HomeCubit cubit = context.read<HomeCubit>();
         return Scaffold(
           extendBody: true,
-        // resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: true,
         //  backgroundColor: Colors.white,
           body: cubit.tabs[cubit.currentIndex],
           bottomNavigationBar: SizedBox(
-            height: getSize(context)/5,
-            width: getSize(context),
+            // height: 400,
+            // width: getSize(context),
+            // removeMargins: true,
             child: AnimatedNotchBottomBar(
 
               //  pageController: cubit.tabsController,

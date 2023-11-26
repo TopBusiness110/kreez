@@ -216,7 +216,7 @@ class _CartScreenState extends State<CartScreen> {
                   //appbar
                   Container(
                     width: double.infinity,
-                    height: getSize(context)*0.4,
+                    height: getSize(context)*0.33,
                     decoration: BoxDecoration(
                         color: AppColors.green,
                         borderRadius: const BorderRadius.only(
@@ -279,12 +279,14 @@ class _CartScreenState extends State<CartScreen> {
                       },
                     ),
                   ):
-                  Column(
-                    children: [
-                      SizedBox(height: getSize(context)/3,),
-                      Center(child: Image.asset("assets/images/4.jpg",width: getSize(context)/2,)),
-                      Text("cart_empty".tr(),style: TextStyle(color: AppColors.primary),)
-                    ],
+                  Expanded(
+                    child: Column(
+                      children: [
+                       // SizedBox(height: getSize(context)/7,),
+                        Center(child: Image.asset("assets/images/4.jpg",width: getSize(context)/2,)),
+                        Text("cart_empty".tr(),style: TextStyle(color: AppColors.primary),)
+                      ],
+                    ),
                   ),
 
                   // confirm btn
@@ -333,7 +335,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
 
                   SizedBox(
-                    height: getSize(context)*0.25,
+                    height: getSize(context)*0.19   ,
                   )
                 ],
               )),

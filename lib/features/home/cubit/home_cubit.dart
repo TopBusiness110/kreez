@@ -92,7 +92,8 @@ class HomeCubit extends Cubit<HomeState> {
               allCategoriesModel = r;
               print("***************************************************");
               print(r);
-            });
+              print("**************************${r.result}");
+r.result!.map((e) => print(e.image1920)) ;           });
   }
 
   getAllProducts() async {
