@@ -8,20 +8,24 @@ import '../utils/app_colors.dart';
 
 class DecodedImage extends StatelessWidget {
   int index ;
-   DecodedImage({super.key,required this.base64String,this.index = 0});
+   DecodedImage({super.key,required this.base64String,this.index = 0,required this.context});
   final dynamic base64String ;
-
+  BuildContext context;
+Widget convertImage(){
+  Image image;
+  if(base64String.runtimeType == String){
+    Uint8List bytes = base64.decode(base64String);
+    image = Image.memory(Uint8List.fromList(bytes));
+      //  Image.memory(bytes,fit: BoxFit.cover,height: getSize(context)/4,);
+  }
+  else{
+    image = Image.asset(ImageAssets.splashImage,color: AppColors.primary,);
+  }
+return image;
+}
 
   @override
   Widget build(BuildContext context) {
-    Image image;
-    if(base64String.runtimeType == String){
-      Uint8List bytes = base64.decode(base64String);
-       image = Image.memory(bytes,fit: BoxFit.cover,height: getSize(context)/4,);
-    }
-    else{
-       image = Image.asset(ImageAssets.splashImage,color: AppColors.primary,);
-    }
 
 
     return
@@ -38,7 +42,7 @@ class DecodedImage extends StatelessWidget {
           child: SizedBox(
             height: getSize(context)/3.7,
               width: getSize(context)/3.7,
-              child: image),
+              child: convertImage()),
         )
           // CircleAvatar(
           // radius:48,
@@ -50,27 +54,39 @@ class DecodedImage extends StatelessWidget {
 }
 
 
-class DecodedImage2 extends StatelessWidget {
-  const DecodedImage2({super.key,required this.base64String});
+class DecodedImage2 extends StatefulWidget {
+   DecodedImage2({super.key,required this.base64String});
   final dynamic base64String ;
+
+  @override
+  State<DecodedImage2> createState() => _DecodedImage2State();
+}
+
+class _DecodedImage2State extends State<DecodedImage2> {
+  @override
+  void initState() {
+    convertImage();
+    super.initState();
+  }
 
 
   @override
   Widget build(BuildContext context) {
-    ColorFilter removeBackgroundColorFilter = ColorFilter.mode(Colors.white.withOpacity(0.8), BlendMode.dstATop);
+
+    return convertImage();
+  }
+
+  Widget convertImage() {
     Image image;
-    if(base64String.runtimeType== String){
-      Uint8List bytes = base64.decode(base64String);
-      image = Image.memory(bytes,width: 80,height: 100,);
+
+    if(widget.base64String.runtimeType== String){
+      Uint8List bytes = base64.decode(widget.base64String);
+      // image = Image.memory(bytes,width: 80,height: 100,);
+      image = Image.memory(Uint8List.fromList(bytes));
     }
     else{
-      image = Image.asset("assets/images/splash.png",color: AppColors.primary,width: 80,height: 80,fit: BoxFit.cover,);
+      image = Image.asset("assets/images/splash.png",color: AppColors.primary,);
     }
-
-
-    return
-      ColorFiltered(
-      colorFilter: removeBackgroundColorFilter,
-        child: image);
+    return image;
   }
 }

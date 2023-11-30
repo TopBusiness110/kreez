@@ -312,8 +312,7 @@ class _CartScreenState extends State<CartScreen> {
                           onPressed: () async {
                             if (cubit.cart1!.isNotEmpty) {
                               await cubit.createSaleOrder();
-                              int? orderId =
-                              await Preferences.instance.getSaleOrder();
+                              int? orderId = await Preferences.instance.getSaleOrder();
                               cubit.cart1?.forEach((key, value) async {
                                 await cubit.createSaleOrderLines(context,
                                     saleOrderId: orderId!,

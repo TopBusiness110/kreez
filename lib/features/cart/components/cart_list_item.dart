@@ -31,11 +31,13 @@ class CartListItem extends StatelessWidget {
             child: Row(
               //  contentPadding: const EdgeInsets.symmetric(vertical: 10,horizontal: 8),
               children: [
-                SizedBox(
-                  // width: 14.w,
-                    child: DecodedImage2(
-                      base64String: product?.image,
-                    )),
+                Flexible(
+                  child: SizedBox(
+                    // width: 14.w,
+                      child: DecodedImage2(
+                        base64String: product?.image,
+                      )),
+                ),
                 //Image.asset("assets/images/strawberry.png",),
                 const SizedBox(
                   width: 10,

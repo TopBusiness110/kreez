@@ -19,61 +19,60 @@ import '../../profile_feature/profile/screens/profile_screen.dart';
 import '../tabs/home_tab.dart';
 
 part 'home_state.dart';
+
 enum WidgetType {
   home,
   cart,
   profile,
 }
+
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this.api) : super(HomeInitial()){
+  HomeCubit(this.api) : super(HomeInitial()) {
     // getUserName();
     // getAllCategories();
     // getAllProducts();
   }
- // TabController? tabsController;
+  // TabController? tabsController;
   ProductModel? productModel;
   AuthModel? authModel;
   ServiceApi api;
   WidgetType selectedWidget = WidgetType.home;
-  List<Widget> tabs = [ProfileScreen(),HomeTab(),CartScreen()];
-  NotchBottomBarController  notchController = NotchBottomBarController(index: 1);
+  List<Widget> tabs = [ProfileScreen(), HomeTab(), CartScreen()];
+  NotchBottomBarController notchController = NotchBottomBarController(index: 1);
   int sliderCurrentIndex = 0;
   final List<String> sliderImageList = [
     ImageAssets.homeSlider1Image,
     ImageAssets.homeSlider2Image,
     ImageAssets.homeSlider1Image,
   ];
-  FloatingActionButtonLocation? floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked;
+  FloatingActionButtonLocation? floatingActionButtonLocation =
+      FloatingActionButtonLocation.centerDocked;
   IconData? icon = Icons.home;
   int currentIndex = 1;
   int selectedIndex = 0;
-  IconData? leftIcon =Icons.person;
-  IconData? rightIcon =  Icons.shopping_cart;
+  IconData? leftIcon = Icons.person;
+  IconData? rightIcon = Icons.shopping_cart;
 
   AllCategoriesModel? allCategoriesModel;
   AllProductsModel? allProductsModel;
   String? name;
 
-
-  changeDotsIndicator(int index){
-   sliderCurrentIndex = index;
-   emit(DotsIndicatorChange());
+  changeDotsIndicator(int index) {
+    // emit(DotsIndicatorChange666());
+    sliderCurrentIndex = index;
   }
 
-
   getUserName() async {
-    final AuthModel?  user = await Preferences.instance.getUserModel2();
-    name = user?.result.name??"";
+    final AuthModel? user = await Preferences.instance.getUserModel2();
+    name = user?.result.name ?? "";
     emit(GettingHomeUserNameState());
   }
 
-  changeFABLocation(int index){
+  changeFABLocation(int index) {
     emit(FABLocationChanged2());
-  currentIndex=index;
-  emit(FABLocationChanged());
-
+    currentIndex = index;
+    emit(FABLocationChanged());
   }
-
 
   Widget buildSelectedWidget() {
     // emit(HomeScreenState());
@@ -82,10 +81,10 @@ class HomeCubit extends Cubit<HomeState> {
         //emit(HomeScreenState());
         return HomeTab();
       case WidgetType.cart:
-       // emit(CartScreenState());
+        // emit(CartScreenState());
         return CartScreen();
       case WidgetType.profile:
-       // emit(ProfileScreenState());
+        // emit(ProfileScreenState());
         return ProfileScreen();
     }
   }
@@ -93,31 +92,26 @@ class HomeCubit extends Cubit<HomeState> {
   getAllCategories() async {
     emit(LoadingAllCategoriesState());
     authModel = await Preferences.instance.getUserModel2();
-    final response =await api.getAllCategories();
-    response.fold(
-            (l) => emit(AllCategoriesFailureState()),
-            (r) {
-              emit(AllCategoriesSuccessState());
-              allCategoriesModel = r;
-              print("***************************************************");
-              print(r);
-              print("**************************${r.result}");
-r.result!.map((e) => print(e.image1920)) ;           });
+    final response = await api.getAllCategories();
+    response.fold((l) => emit(AllCategoriesFailureState()), (r) {
+      emit(AllCategoriesSuccessState());
+      allCategoriesModel = r;
+      print("***************************************************");
+      print(r);
+      print("**************************${r.result}");
+      r.result!.map((e) => print(e.image1920));
+    });
   }
 
   getAllProducts() async {
     emit(LoadingAllProductsState());
-    final response =await api.getAllProducts();
-    response.fold(
-            (l) => emit(AllProductsFailureState()),
-            (r) {
-              allProductsModel = r;
+    final response = await api.getAllProducts();
+    response.fold((l) => emit(AllProductsFailureState()), (r) {
+      allProductsModel = r;
 
-              emit(AllProductsSuccessState());
-
-        });
+      emit(AllProductsSuccessState());
+    });
   }
-
 
   // addToCart(ProductModel productModel, BuildContext context){
   //   context.read<CartCubit>().cart[productModel.id!] = productModel;
@@ -126,8 +120,4 @@ r.result!.map((e) => print(e.image1920)) ;           });
   //   Navigator.pushNamed(context, Routes.homeRoute);
   //
   // }
-
-
-
-
 }

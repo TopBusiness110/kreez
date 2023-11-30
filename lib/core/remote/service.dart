@@ -512,6 +512,7 @@ class ServiceApi {
     AuthModel authModel = await Preferences.instance.getUserModel2();
  print("*****************************************************");
  print("session id  = $sessionId");
+ print("partner id  = ${authModel.result.partnerId}");
     try {
       final response = await dio.post(
           EndPoints.createSaleOrderUrl,
@@ -521,9 +522,9 @@ class ServiceApi {
           body: {
             "params": {
               "data": {
-                //"partner_id": authModel.result!.partnerId,
-                "partner_id": 66,
-                "pricelist_id": 1,
+                "partner_id": authModel.result!.partnerId,
+              //  "partner_id": 66,
+                "pricelist_id": 3,
                 "team_id":2,
                 "website_id":1
                 // "partner_id":partnerId,

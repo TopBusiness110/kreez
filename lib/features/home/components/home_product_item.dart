@@ -17,15 +17,14 @@ class HomeProductItem2 extends StatelessWidget {
 
   ProductModel? productModel;
   HomeProductItem2({super.key,this.productModel});
-
-  int index=0;
+  //
+  // int index=0;
 
   @override
   Widget build(BuildContext context) {
     return
           InkWell(
             onTap: () {
-
               Navigator.pushNamed(context, Routes.productDetailsRoute,
                   arguments: ProductModel(
                     quantity:productModel?.quantity??0 ,
@@ -70,7 +69,9 @@ class HomeProductItem2 extends StatelessWidget {
                       ],
                     ):
                     SizedBox(height: getSize(context)*0.01,):SizedBox(height: getSize(context)*0.1,),
-                    Flexible(child: DecodedImage2(base64String:productModel?.image )),
+                     Flexible(child: DecodedImage2(base64String:productModel?.image )),
+
+
                     Text("${productModel?.name}",style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: AppColors.black,
                       fontSize: 14

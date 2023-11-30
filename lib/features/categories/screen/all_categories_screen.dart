@@ -86,7 +86,7 @@ class CategoriesScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
 
-                        DecodedImage(base64String:allCategoriesModel?.result?[index].image1920 ),
+                        DecodedImage(base64String:allCategoriesModel?.result?[index].image1920,context: context, ),
                         Text("${allCategoriesModel?.result?[index].displayName}",style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             color: AppColors.black1,
                             fontSize: 15
