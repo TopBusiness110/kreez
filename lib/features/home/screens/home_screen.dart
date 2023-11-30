@@ -347,7 +347,9 @@ import 'package:kreez/features/home/cubit/home_cubit.dart';
 import '../../cart/screens/cart_screen.dart';
 import '../../profile_feature/profile/screens/profile_screen.dart';
 import '../tabs/home_tab.dart';
-List<Widget> pages =   [  ProfileScreen(),HomeTab(),CartScreen(),];
+
+List<Widget> pages = [ ProfileScreen(), HomeTab(), CartScreen(),];
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -359,11 +361,11 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
 
   /// Controller to handle PageView and also handles initial page
- // final _pageController = PageController(initialPage: 0);
-  int currentIndex = 1;
+  // final _pageController = PageController(initialPage: 0);
+   int currentIndex = 1;
 
   /// Controller to handle bottom nav bar and also handles initial page
-  final notchController = NotchBottomBarController(index: 1);
+
 
   @override
   void initState() {
@@ -381,68 +383,75 @@ class _HomeScreenState extends State<HomeScreen>
         HomeCubit cubit = context.read<HomeCubit>();
         return Scaffold(
           extendBody: true,
-        // resizeToAvoidBottomInset: false,
-        //  backgroundColor: Colors.white,
+          // resizeToAvoidBottomInset: false,
+          //  backgroundColor: Colors.white,
           body: cubit.tabs[cubit.currentIndex],
-          bottomNavigationBar: SizedBox(
-            height: getSize(context)/5,
-            width: getSize(context),
-            child: AnimatedNotchBottomBar(
 
-              //  pageController: cubit.tabsController,
-              color: AppColors.primary,
-              bottomBarWidth:100,
-              removeMargins: false,
-             // removeMargins: true,
 
-              notchColor: AppColors.primary,
-              itemLabelStyle: TextStyle(
-                color: Colors.white,
-                fontSize: 12
-              ),
-              bottomBarItems: [
-                const BottomBarItem(
-                  inActiveItem: Icon(
-                    Icons.person,
-                    color:Colors.white,
+          bottomNavigationBar:
+          BlocBuilder<HomeCubit, HomeState>(
+            builder: (context, state) {
+              return SizedBox(
+                height: getSize(context) / 5,
+                width: getSize(context),
+                child: AnimatedNotchBottomBar(
+
+                  // pageController: cubit.tabsController,
+                  color: AppColors.primary,
+                  bottomBarWidth: getSize(context),
+                  removeMargins: false,
+                  // removeMargins: true,
+
+                  notchColor: AppColors.primary,
+                  itemLabelStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12
                   ),
-                  activeItem: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                  ),
-                  itemLabel: 'profile',
-                ),
-                const BottomBarItem(
-                  inActiveItem: Icon(
-                    Icons.home_filled,
-                    color:Colors.white,
-                  ),
-                  activeItem: Icon(
-                    Icons.home_filled,
-                    color: Colors.white,
-                  ),
-                  itemLabel: 'home',
-                ),
-                const BottomBarItem(
-                  inActiveItem: Icon(
-                    Icons.shopping_cart,
-                    color: Colors.white,
-                  ),
-                  activeItem: Icon(
-                    Icons.shopping_cart,
-                    color: Colors.white,
-                  ),
-                  itemLabel: 'cart',
-                ),
-              ],
-              notchBottomBarController: notchController,
-              onTap: (int value) {
-                cubit.changeFABLocation(value);
+                  bottomBarItems: [
+                    const BottomBarItem(
+                      inActiveItem: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
+                      activeItem: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
+                      itemLabel: 'profile',
+                    ),
+                    const BottomBarItem(
+                      inActiveItem: Icon(
+                        Icons.home_filled,
+                        color: Colors.white,
+                      ),
+                      activeItem: Icon(
+                        Icons.home_filled,
+                        color: Colors.white,
+                      ),
+                      itemLabel: 'home',
+                    ),
+                    const BottomBarItem(
+                      inActiveItem: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.white,
+                      ),
+                      activeItem: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.white,
+                      ),
+                      itemLabel: 'cart',
+                    ),
+                  ],
+                  notchBottomBarController: cubit.notchController,
+                  onTap: (int value) {
+                    cubit.changeFABLocation(value);
 // _pageController.jumpToPage(value);
 
-              },
+                  },
 
-            ),
+                ),
+              );
+            },
           ),
 
 

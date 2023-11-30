@@ -1,3 +1,4 @@
+import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +36,7 @@ class HomeCubit extends Cubit<HomeState> {
   ServiceApi api;
   WidgetType selectedWidget = WidgetType.home;
   List<Widget> tabs = [ProfileScreen(),HomeTab(),CartScreen()];
+  NotchBottomBarController  notchController = NotchBottomBarController(index: 1);
   int sliderCurrentIndex = 0;
   final List<String> sliderImageList = [
     ImageAssets.homeSlider1Image,
@@ -51,10 +53,14 @@ class HomeCubit extends Cubit<HomeState> {
   AllCategoriesModel? allCategoriesModel;
   AllProductsModel? allProductsModel;
   String? name;
+
+
   changeDotsIndicator(int index){
    sliderCurrentIndex = index;
    emit(DotsIndicatorChange());
   }
+
+
   getUserName() async {
     final AuthModel?  user = await Preferences.instance.getUserModel2();
     name = user?.result.name??"";
@@ -66,6 +72,8 @@ class HomeCubit extends Cubit<HomeState> {
   emit(FABLocationChanged());
 
   }
+
+
   Widget buildSelectedWidget() {
     // emit(HomeScreenState());
     switch (selectedWidget) {

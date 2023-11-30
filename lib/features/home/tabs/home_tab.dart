@@ -61,26 +61,33 @@ class _HomeTabState extends State<HomeTab> {
                   physics: AlwaysScrollableScrollPhysics(),
                   children: [
                     // hello user
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.person,
-                            color: AppColors.gray,
-                          ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            "مرحبا , ${cubit.name??""}",
-                            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              fontSize: 14,
-                              color: AppColors.black,
+                    InkWell(
+                      onTap:(){
+                        //todo=> go to profile tab
+                        context.read<HomeCubit>().changeFABLocation(0);
+                        context.read<HomeCubit>().notchController.jumpTo(0);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.person,
+                              color: AppColors.gray,
                             ),
-                          ),
-                        ],
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              "مرحبا , ${cubit.name??""}",
+                              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                                fontSize: 14,
+                                color: AppColors.black,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     //search

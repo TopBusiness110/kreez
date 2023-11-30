@@ -171,16 +171,12 @@ import 'package:easy_localization/easy_localization.dart' as easy;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/core/utils/get_size.dart';
-import 'package:kreez/core/widgets/decoded_image.dart';
 import 'package:kreez/features/cart/cubit/cart_cubit.dart';
+import 'package:kreez/features/home/cubit/home_cubit.dart';
 import 'package:kreez/features/product_details/models/product_model.dart';
-
-
-import '../../../config/routes/app_routes.dart';
 import '../../../core/preferences/preferences.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/custom_textfield.dart';
 import '../components/cart_list_item.dart';
 
 class CartScreen extends StatefulWidget {
@@ -228,27 +224,35 @@ class _CartScreenState extends State<CartScreen> {
                           height: getSize(context)*0.04,
                         ),
                         //مرحبا
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              CircleAvatar(
-                                radius: 22,
-                                backgroundColor: AppColors.white,
-                                child: Icon(
-                                  Icons.person,
-                                  size: 40,
-                                  color: AppColors.gray1,
+                        InkWell(
+                          onTap: () {
+                            //todo=> go to profile tab
+                            context.read<HomeCubit>().changeFABLocation(0);
+                            context.read<HomeCubit>().notchController.jumpTo(0);
+
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                CircleAvatar(
+                                  radius: 22,
+                                  backgroundColor: AppColors.white,
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 40,
+                                    color: AppColors.gray1,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Text("مرحبا , ${cubit.name ?? ""}",
-                                  style:
-                                  Theme.of(context).textTheme.bodySmall),
-                            ],
+                                const SizedBox(
+                                  width: 15,
+                                ),
+                                Text("مرحبا , ${cubit.name ?? ""}",
+                                    style:
+                                    Theme.of(context).textTheme.bodySmall),
+                              ],
+                            ),
                           ),
                         ),
                         //cart text
