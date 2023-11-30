@@ -22,7 +22,8 @@ class ProductDetailsScreen extends StatelessWidget {
         
         return Scaffold(
           backgroundColor: AppColors.white,
-          body: Column(
+          body: ListView(
+
             children: [
               Container(
                 width: double.infinity,
@@ -69,11 +70,13 @@ class ProductDetailsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              DecodedImage2(
-                base64String: productModel?.image,
-              ),
-              SizedBox(
-                height: getSize(context)*0.3,
+              Container(
+                height: getSize(context)/2,
+                width: getSize(context)/2,
+                child: DecodedImage2(
+
+                  base64String: productModel?.image,
+                ),
               ),
               BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
             builder: (context, state) {
@@ -183,20 +186,25 @@ class ProductDetailsScreen extends StatelessWidget {
                     .bodyLarge!
                     .copyWith(color: AppColors.black1),
               ):Text(" "),
-              CustomButton(
-                  width: getSize(context)*0.7,
-                  backgroundColor: AppColors.primary,
-                  textColor: AppColors.white,
-                  text: "add_to_cart".tr(),
-                  onPressed: () async {
+              Padding(
+                padding:  EdgeInsets.symmetric(
+              horizontal: getSize(context)/22
+              ),
+                child: CustomButton(
+                    width: getSize(context)*0.7,
+                    backgroundColor: AppColors.primary,
+                    textColor: AppColors.white,
+                    text: "add_to_cart".tr(),
+                    onPressed: () async {
 
-                  await  context.read<ProductDetailsCubit>().addToCart(productModel!, context);
-              // await   Preferences.instance.setCart(context.read<CartCubit>().cart);
-               await   Preferences.instance.setCart(context.read<CartCubit>().cart1!);
+                    await  context.read<ProductDetailsCubit>().addToCart(productModel!, context);
+                // await   Preferences.instance.setCart(context.read<CartCubit>().cart);
+                 await   Preferences.instance.setCart(context.read<CartCubit>().cart1!);
 
-                  }),
+                    }),
+              ),
               SizedBox(
-                height: getSize(context)*0.01,
+                height: getSize(context)/2,
               )
             ],
           ),

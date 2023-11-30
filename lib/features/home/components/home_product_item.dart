@@ -23,8 +23,6 @@ class HomeProductItem2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-
-
           InkWell(
             onTap: () {
 
@@ -40,7 +38,7 @@ class HomeProductItem2 extends StatelessWidget {
                       id: productModel?.id ));
             },
             child: Container(
-                width:getSize(context)*0.45,
+                width:getSize(context)*0.55,
                 decoration: BoxDecoration(
                     color: AppColors.lightGreen,
                     borderRadius: BorderRadius.circular(20)
