@@ -381,7 +381,13 @@ class _ProductsScreenState extends State<ProductsScreen>
 
 
   }
-
+@override
+  void dispose() {
+  context
+      .read<ProductsCubit>()
+      .tabController?.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
 

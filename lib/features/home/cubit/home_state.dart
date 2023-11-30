@@ -5,6 +5,7 @@ abstract class HomeState {}
 
 class HomeInitial extends HomeState {}
 class FABLocationChanged extends HomeState {}
+class FABLocationChanged2 extends HomeState {}
 class ProfileScreenState extends HomeState {}
 class HomeScreenState extends HomeState {}
 class CartScreenState extends HomeState {}

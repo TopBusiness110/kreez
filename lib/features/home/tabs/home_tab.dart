@@ -63,7 +63,7 @@ class _HomeTabState extends State<HomeTab> {
                     // hello user
                     InkWell(
                       onTap:(){
-                        //todo=> go to profile tab
+                        // go to profile tab
                         context.read<HomeCubit>().changeFABLocation(0);
                         context.read<HomeCubit>().notchController.jumpTo(0);
                       },

@@ -347,8 +347,6 @@ import '../../cart/screens/cart_screen.dart';
 import '../../profile_feature/profile/screens/profile_screen.dart';
 import '../tabs/home_tab.dart';
 
-List<Widget> pages = [ ProfileScreen(), HomeTab(), CartScreen(),];
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -357,7 +355,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
+ {
+
+   List<Widget> pages = [ ProfileScreen(), HomeTab(), CartScreen(),];
 
   /// Controller to handle PageView and also handles initial page
   // final _pageController = PageController(initialPage: 0);
@@ -366,14 +366,11 @@ class _HomeScreenState extends State<HomeScreen>
   /// Controller to handle bottom nav bar and also handles initial page
 
 
-  @override
-  void initState() {
-    // context.read<HomeCubit>().tabsController =
-    //     TabController(length: 3, vsync: this);
-    // context.read<HomeCubit>().tabsController?.index = 1;
-    super.initState();
+@override
+  void dispose() {
+  context.read<HomeCubit>().notchController.dispose();
+    super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
@@ -384,7 +381,7 @@ class _HomeScreenState extends State<HomeScreen>
           extendBody: true,
           // resizeToAvoidBottomInset: false,
           //  backgroundColor: Colors.white,
-          body: cubit.tabs[cubit.currentIndex],
+          body: SafeArea(child: cubit.tabs[cubit.currentIndex]),
 
 
           bottomNavigationBar:
@@ -443,8 +440,12 @@ class _HomeScreenState extends State<HomeScreen>
                   ],
                   notchBottomBarController: cubit.notchController,
                   onTap: (int value) {
-                    cubit.changeFABLocation(value);
-// _pageController.jumpToPage(value);
+                    cubit.currentIndex=value;
+                    setState(() {
+
+                    });
+                    // cubit.changeFABLocation(value);
+                    // cubit.notchController.jumpTo(value);
 
                   },
 
@@ -457,5 +458,6 @@ class _HomeScreenState extends State<HomeScreen>
         );
       },
     );
+
   }
 }

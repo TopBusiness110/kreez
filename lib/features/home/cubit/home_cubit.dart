@@ -68,6 +68,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   changeFABLocation(int index){
+    emit(FABLocationChanged2());
   currentIndex=index;
   emit(FABLocationChanged());
 

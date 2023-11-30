@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kreez/config/routes/app_routes.dart';
 import 'package:kreez/features/cart/cubit/cart_cubit.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
 import 'package:kreez/features/product_details/cubit/product_details_cubit.dart';
+import 'package:kreez/features/profile_feature/profile/screens/profile_screen.dart';
 import '../../../core/preferences/preferences.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/get_size.dart';
@@ -38,26 +40,36 @@ class ProductDetailsScreen extends StatelessWidget {
                     SizedBox(
                       height: getSize(context)*0.2,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            radius: 22,
-                            backgroundColor: AppColors.white,
-                            child: Icon(
-                              Icons.person,
-                              size: 40,
-                              color: AppColors.gray1,
+                    InkWell(
+                      onTap: () {
+                        //todo=> go to profile tab
+
+
+                        // context.read<HomeCubit>().changeFABLocation(0);
+                        // context.read<HomeCubit>().notchController.jumpTo(0);
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 22,
+                              backgroundColor: AppColors.white,
+                              child: Icon(
+                                Icons.person,
+                                size: 40,
+                                color: AppColors.gray1,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Text("مرحبا , ${context.read<HomeCubit>().name}",
-                              style: Theme.of(context).textTheme.bodySmall),
-                        ],
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Text("مرحبا , ${context.read<HomeCubit>().name}",
+                                style: Theme.of(context).textTheme.bodySmall),
+                          ],
+                        ),
                       ),
                     ),
                     Center(
