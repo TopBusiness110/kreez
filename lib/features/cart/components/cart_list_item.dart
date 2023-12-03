@@ -20,14 +20,14 @@ class CartListItem extends StatelessWidget {
           vertical: 2.0, horizontal: 8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(color: AppColors.gray, blurRadius: 5)
-          ]
+        boxShadow: [BoxShadow(color: Colors.grey.shade400, blurRadius: 2,spreadRadius: 0,offset: Offset(1,1))],
+
 
       ),
       child: Stack(
         children: [
           Card(
+
             child: Row(
               //  contentPadding: const EdgeInsets.symmetric(vertical: 10,horizontal: 8),
               children: [

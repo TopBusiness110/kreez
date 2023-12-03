@@ -416,6 +416,12 @@ class _ProductsScreenState extends State<ProductsScreen>
 
                     children: [
                       SizedBox(height: getSize(context)*0.1,),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(onPressed: (){
+                          Navigator.pop(context);
+                        }, icon: Icon(Icons.arrow_forward,color: Colors.white,)),
+                      ),
                       //appbar hi user
                       Padding(
                         padding: const EdgeInsets.all(8.0),

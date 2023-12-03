@@ -310,7 +310,8 @@ class _CartScreenState extends State<CartScreen> {
                           textColor: AppColors.primary,
                           text: "confirm".tr(),
                           onPressed: () async {
-                            if (cubit.cart1!.isNotEmpty) {
+                            String? sessionIdTrueUser = await  Preferences.instance.getSessionIdTrueUser();
+                            if (cubit.cart1!.isNotEmpty&&sessionIdTrueUser!=null) {
                               await cubit.createSaleOrder();
                               int? orderId = await Preferences.instance.getSaleOrder();
                               cubit.cart1?.forEach((key, value) async {
@@ -321,10 +322,10 @@ class _CartScreenState extends State<CartScreen> {
                                     productQuantity: value.quantity ?? 0);
                               });
                             }
-                            else {
+                            else if(cubit.cart1!.isEmpty){
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text(" Cart Is Empty !"),
+                                  content: Text(" Cart Is Empty ! "),
                                   behavior: SnackBarBehavior.floating,
                                   margin: EdgeInsets.only(
                                     bottom:  getSize(context)*1.5,
@@ -334,6 +335,19 @@ class _CartScreenState extends State<CartScreen> {
                                   duration: Duration(milliseconds: 1000),
                                 ),
                               );
+                            }
+                            else{
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("first_make_account".tr()),
+                                    behavior: SnackBarBehavior.floating,
+                                    margin: EdgeInsets.only(
+                                      bottom:  getSize(context)*1.5,
+                                      left: 10,
+                                      right: 10,
+                                    ) ,
+                                    duration: Duration(milliseconds: 2000),
+                                  ));
                             }
                           }),
                     ),

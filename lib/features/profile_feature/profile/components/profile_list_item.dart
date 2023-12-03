@@ -21,9 +21,8 @@ class ProfileListItem extends StatelessWidget{
       // width: width*0.9,
       height: height * 0.08,
       decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(color: AppColors.black1, blurRadius: 3)
-        ],
+        boxShadow: [BoxShadow(color: Colors.grey.shade400, blurRadius: 2,spreadRadius: 0,offset: Offset(1,1))],
+
         color: AppColors.white,
         borderRadius: BorderRadius.circular(10),
         //  border: Border.all(color: AppColors.gray.withOpacity(0.5),width: 0.5)

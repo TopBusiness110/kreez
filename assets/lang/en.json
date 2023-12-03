@@ -100,7 +100,8 @@
  "order_number": "Order Number:",
  "order_date": "Order Date:",
  "total": "total: ",
- "cart_empty": "Cart is empty"
+ "cart_empty": "Cart is empty",
+ "first_make_account": "You must make account first"
 
 
 

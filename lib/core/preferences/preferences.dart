@@ -33,12 +33,34 @@ class Preferences {
     preferences.setInt('partnerId',partner_id );
     print("partner_id = $partner_id");
   }
+
+
   Future<void> setSessionId(String sessionId) async {
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('sessionId',sessionId );
     print("sessionId = $sessionId");
   }
+  Future<String?> getSessionId() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? sessionId = preferences.getString('sessionId');
+    return sessionId;
+  }
+  //*********************************************************
+
+  Future<void> setSessionIdTruUser(String sessionId) async {
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('sessionIdTrueUser',sessionId );
+    print("sessionIdTrueUser = $sessionId");
+  }
+  Future<String?> getSessionIdTrueUser() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? sessionId = preferences.getString('sessionIdTrueUser');
+    return sessionId;
+  }
+
+
   Future<void> isAdmin(bool is_admin) async {
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -61,11 +83,7 @@ class Preferences {
     bool? firstTime = preferences.getBool('firstTime');
     return firstTime;
   }
-  Future<String?> getSessionId() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String? sessionId = preferences.getString('sessionId');
-    return sessionId;
-  }
+
   Future<int?> getPartnerId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     int? partnerId = preferences.getInt('partnerId');

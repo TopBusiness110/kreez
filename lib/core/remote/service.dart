@@ -320,6 +320,7 @@ import '../error/exceptions.dart';
 import '../error/failures.dart';
 import '../models/all_products_model.dart';
 import '../models/auth_model.dart';
+import '../models/check_user_model.dart';
 import '../models/get_all_sale_orders.dart';
 import '../models/login_response_model.dart';
 import 'package:odoo_rpc/odoo_rpc.dart';
@@ -339,6 +340,7 @@ class ServiceApi {
     final odoResponse =
     await odoo.authenticate('kreezmart.com', phone, password);
     final sessionId = odoResponse.id;
+    print("getSessionId = $sessionId");
     return sessionId;
   }
 
@@ -370,8 +372,8 @@ class ServiceApi {
 
   Future<Either<Failure, AuthModel>> postLoginAsTrueUser2(
       String phoneOrMail, String password) async {
-    try {
-      String? sessionId = await Preferences.instance.getSessionId();
+    try {                //todo may be only session id
+      String? sessionId = await Preferences.instance.getSessionIdTrueUser();
       final response = await dio.post(
         EndPoints.loginUrl,
         options: Options(
@@ -386,9 +388,9 @@ class ServiceApi {
         },
       );
 
-      sessionId = await getSessionId(phone: phoneOrMail, password: password);
+      String?   sessionId2 = await getSessionId(phone: phoneOrMail, password: password);
 
-      await Preferences.instance.setSessionId(sessionId);
+      await Preferences.instance.setSessionIdTruUser(sessionId2);
       await Preferences.instance.setUser2(AuthModel.fromJson(response));
       await Preferences.instance.isAdmin(false); //todo-->
 
@@ -402,7 +404,10 @@ class ServiceApi {
   Future<Either<Failure, AuthModel>> postRegister2(
       String fullName, String password, String phone, String? email) async {
     try {
+      print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#");
       String? sessionId = await Preferences.instance.getSessionId();
+      print("####################################");
+      print("sessionId =$sessionId ");
       final response = await dio.post(
         EndPoints.registerUrl,
         options: Options(
@@ -422,8 +427,11 @@ class ServiceApi {
         print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         print("error is $error");
       });
-      sessionId = await getSessionId(phone: phone, password: password);
-      await Preferences.instance.setSessionId(sessionId);
+
+      String?  sessionId2 = await getSessionId(phone: phone, password: password);
+      print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^6");
+      print("sessionId2 = $sessionId2");
+      await Preferences.instance.setSessionIdTruUser(sessionId2);
       await Preferences.instance.isAdmin(false);
       Either either =  await postLoginAsTrueUser2(phone, password);
       AuthModel? authModel;
@@ -467,6 +475,28 @@ class ServiceApi {
           }
       );
     return Right(UserData.fromJson(response));
+
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+
+  }
+
+  Future<Either<Failure,CheckUserModel>> checkUser(String phone)async{
+    try{
+      String? sessionId = await Preferences.instance.getSessionId();
+      final response = await dio.get(
+          EndPoints.checkUserUrl+"?query={id, name,partner_id}"+'&filter=[["login","=","$phone"]]',
+
+          options: Options(
+            headers: {"Cookie": "session_id=$sessionId"},
+          ),
+          // queryParameters: {
+          //   "query":"{id, name,partner_id}",
+          //   "filter":[["login","=","0107777777"]]
+          // }
+      );
+      return Right(CheckUserModel.fromJson(response));
 
     } on ServerException {
       return Left(ServerFailure());
@@ -524,7 +554,7 @@ class ServiceApi {
               "data": {
                 "partner_id": authModel.result!.partnerId,
               //  "partner_id": 66,
-                "pricelist_id": 3,
+                "pricelist_id": 1,
                 "team_id":2,
                 "website_id":1
                 // "partner_id":partnerId,
