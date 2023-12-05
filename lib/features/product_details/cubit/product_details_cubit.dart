@@ -50,12 +50,12 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   // }
 
   addToCart(ProductModel productModel, BuildContext context){
-    if(productModel.quantity>0){
+    if(productModel.quantity!>0){
       context.read<CartCubit>().cart1?[productModel.id!] = productModel;
       emit(AddProductState());
       print(context.read<CartCubit>().cart1);
       Navigator.pushNamed(context, Routes.homeRoute);
-      quantity = 0;
+      //quantity = 0;
     }
     else{
       emit(ZeroQuantity());

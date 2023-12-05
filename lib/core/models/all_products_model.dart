@@ -155,6 +155,7 @@ class Result {
   bool? isPublished;
   String? uomName;
   int? uomId;
+  double? count;
   List<int>? publicCategIds;
   dynamic websiteRibbonId;
   dynamic descriptionSale;
@@ -168,6 +169,7 @@ class Result {
   Result({
     this.id,
     this.name,
+    this.count=0,
     this.listPrice,
     this.currencyId,
     this.isPublished,
@@ -187,6 +189,7 @@ class Result {
     isPublished: json["is_published"],
     uomName: json["uom_name"],
     uomId: json["uom_id"],
+    count: json["count"],
     publicCategIds: json["public_categ_ids"] == null ? [] : List<int>.from(json["public_categ_ids"]!.map((x) => x)),
     websiteRibbonId: json["website_ribbon_id"],
     descriptionSale: json["description_sale"],
@@ -196,7 +199,9 @@ class Result {
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
+    "count":count,
     "list_price": listPrice,
+
     "currency_id": currencyId,
     "is_published": isPublished,
     "uom_name": uomName,

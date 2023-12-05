@@ -1,12 +1,14 @@
 
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/config/routes/app_routes.dart';
+import 'package:kreez/core/utils/app_strings.dart';
 import 'package:kreez/core/widgets/decoded_image.dart';
 import 'package:kreez/features/home/cubit/home_cubit.dart';
 import 'package:kreez/features/home/product_item_cubit/product_item_cubit.dart';
 import 'package:kreez/features/product_details/models/product_model.dart';
-
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/get_size.dart';
 
@@ -69,7 +71,9 @@ class HomeProductItem2 extends StatelessWidget {
                       ],
                     ):
                     SizedBox(height: getSize(context)*0.01,):SizedBox(height: getSize(context)*0.1,),
-                     Flexible(child: DecodedImage2(base64String:productModel?.image )),
+                     Flexible(child: SizedBox(
+                     //  width: getSize(context)/3,
+                         child: DecodedImage2(base64String:productModel?.image, ))),
 
 
                     Text("${productModel?.name}",style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -173,6 +177,29 @@ class HomeProductItem2 extends StatelessWidget {
             ),
           );
       }
+
+
+  Future<void> removeImageBackground(String imageUrl) async {
+    final response = await http.post(
+      Uri.parse('https://api.remove.bg/v1.0/removebg'),
+      headers: {
+        'X-Api-Key': AppStrings.imageApiKey,
+      },
+      body: json.encode({
+        'image_url': imageUrl,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      // Image background removed successfully.
+      // You can now display or save the processed image.
+      print('Image background removed successfully!');
+    } else {
+      // Handle API error.
+      print('Error removing image background: ${response.body}');
+    }
+  }
+
 
 
 }

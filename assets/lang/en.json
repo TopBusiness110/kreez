@@ -101,8 +101,6 @@
  "order_date": "Order Date:",
  "total": "total: ",
  "cart_empty": "Cart is empty",
- "first_make_account": "You must make account first"
-
-
-
+ "first_make_account": "You must make account first",
+ "not_registered": "you are not registered yet ,you can register first"
 }

@@ -1,5 +1,3 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,72 +13,66 @@ import '../../product_details/models/product_model.dart';
 part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
-  CartCubit(this.api) : super(CartInitial()){
+  CartCubit(this.api) : super(CartInitial()) {
     getUserName();
     getCart();
   }
+
   ServiceApi api;
   AuthModel? authModel;
- // Map<int,ProductModel> cart = {};
-  AuthModel? createSaleOrderResponse ;
+
+  // Map<int,ProductModel> cart = {};
+  AuthModel? createSaleOrderResponse;
+
   String? name;
 
   getUserName() async {
-    final AuthModel  user = await Preferences.instance.getUserModel2();
+    final AuthModel user = await Preferences.instance.getUserModel2();
     name = user.result.name;
     emit(GettingUserNameState());
   }
 
-bool cartIsEmpty = true;
+  bool cartIsEmpty = true;
 
-  createSaleOrder()async{
+  createSaleOrder() async {
     // loadingDialog();
     // emit(LoadingCreateOrderState());
-    final response =await api.createSaleOrder();
+    final response = await api.createSaleOrder();
 
-    response.fold(
-            (l) {
-
-      },
-            (r) {
-
-            if(r.result!=null){
-
-              createSaleOrderResponse = r;
-            }
-            else{
-
-            }
-
-            }
-    );
-
+    response.fold((l) {}, (r) {
+      if (r.result != null) {
+        createSaleOrderResponse = r;
+      } else {}
+    });
   }
 
   createSaleOrderLines(BuildContext context,
-      {required int saleOrderId ,required int productId,required String productName,required double productQuantity}) async {
-       loadingDialog();
-       emit(LoadingCreateOrderState());
-    final response = await  api.createSaleOrderLines(orderId:saleOrderId ,productId: productId,productName:productName ,productQuantity: productQuantity);
-    response.fold(
-            (l) {
+      {required int saleOrderId,
+      required int productId,
+      required String productName,
+      required double productQuantity}) async {
+    loadingDialog();
+    emit(LoadingCreateOrderState());
+    final response = await api.createSaleOrderLines(
+        orderId: saleOrderId,
+        productId: productId,
+        productName: productName,
+        productQuantity: productQuantity);
+    response.fold((l) {
+      Navigator.pop(context);
+      emit(FailureCreateOrderState());
+    }, (r) {
+      if (r.result != null) {
+        authModel = r;
+        Preferences.instance.clearCart().then((e) {
+          cart1.clear();
           Navigator.pop(context);
-          emit(FailureCreateOrderState());
-        },
-            (r) {
-          Navigator.pop(context);
-          if(r.result!=null){
-            emit(SuccessCreateOrderState());
-            successGetBar("تم انشاء امر البيع بنجاح");
-            authModel = r;
-             cart1.clear();
-          }
-          else{
-            emit(FailureCreateOrderState());
-          }
-
-        }
-    );
+        });
+        emit(SuccessCreateOrderState());
+      } else {
+        emit(FailureCreateOrderState());
+      }
+    });
   }
 
   increaseQuantity(ProductModel productModel) async {
@@ -90,16 +82,14 @@ bool cartIsEmpty = true;
     print("###############################");
     print(productModel.quantity);
     emit(IncreasingQuantityState());
-
   }
 
-  decreaseQuantity(ProductModel productModel, BuildContext context){
+  decreaseQuantity(ProductModel productModel, BuildContext context) {
     double productQuantity = productModel.quantity!;
-    if(productQuantity==1){
+    if (productQuantity == 1) {
       removeItem(productModel.id);
-     // removeItem(productModel,context);
-    }
-    else{
+      // removeItem(productModel,context);
+    } else {
       productQuantity--;
       productModel.quantity = productQuantity;
       emit(DecreasingQuantityState());
@@ -112,21 +102,20 @@ bool cartIsEmpty = true;
   // }
   removeItem(int? id) async {
     cart1?.remove(id);
-  await  Preferences.instance.setCart(cart1!);
+    await Preferences.instance.setCart(cart1!);
     emit(RemovingItemState());
   }
-  Map<int,ProductModel> cart1={};
-  getCart()async{
+
+  Map<int, ProductModel> cart1 = {};
+
+  getCart() async {
     print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     emit(LoadingCartState());
-   cart1 = await Preferences.instance.getCart()??{};
-   if(cart1.isEmpty){
-     emit(EmptyCartState());
-   }
-   else{
-       emit(CartSuccessState());
-   }
+    cart1 = await Preferences.instance.getCart() ?? {};
+    if (cart1.isEmpty) {
+      emit(EmptyCartState());
+    } else {
+      emit(CartSuccessState());
+    }
   }
-
-
 }

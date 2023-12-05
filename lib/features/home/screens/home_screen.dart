@@ -335,6 +335,8 @@
 //   }
 // }
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -354,23 +356,25 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
- {
-
-   List<Widget> pages = [ ProfileScreen(), HomeTab(), CartScreen(),];
+class _HomeScreenState extends State<HomeScreen> {
+  List<Widget> pages = [
+    ProfileScreen(),
+    HomeTab(),
+    CartScreen(),
+  ];
 
   /// Controller to handle PageView and also handles initial page
   // final _pageController = PageController(initialPage: 0);
-   int currentIndex = 1;
+  int currentIndex = 1;
 
   /// Controller to handle bottom nav bar and also handles initial page
 
-
-@override
+  @override
   void dispose() {
-  context.read<HomeCubit>().notchController.dispose();
+    context.read<HomeCubit>().notchController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
@@ -383,81 +387,74 @@ class _HomeScreenState extends State<HomeScreen>
           //  backgroundColor: Colors.white,
           body: SafeArea(child: cubit.tabs[cubit.currentIndex]),
 
-
-          bottomNavigationBar:
-          BlocBuilder<HomeCubit, HomeState>(
+          bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
+              var cubit = context.read<HomeCubit>();
               return SizedBox(
                 height: getSize(context) / 5,
                 width: getSize(context),
-                child: AnimatedNotchBottomBar(
+                child: CurvedNavigationBar(index: cubit.currentIndex,
 
+                  key: cubit.bottomNavigationKey,
                   // pageController: cubit.tabsController,
                   color: AppColors.primary,
-                  bottomBarWidth: getSize(context),
-                  removeMargins: false,
-                  // removeMargins: true,
-
-                  notchColor: AppColors.primary,
-                  itemLabelStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12
-                  ),
-                  bottomBarItems: [
-                    const BottomBarItem(
-                      inActiveItem: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      activeItem: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      itemLabel: 'profile',
-                    ),
-                    const BottomBarItem(
-                      inActiveItem: Icon(
-                        Icons.home_filled,
-                        color: Colors.white,
-                      ),
-                      activeItem: Icon(
-                        Icons.home_filled,
-                        color: Colors.white,
-                      ),
-                      itemLabel: 'home',
-                    ),
-                    const BottomBarItem(
-                      inActiveItem: Icon(
-                        Icons.shopping_cart,
-                        color: Colors.white,
-                      ),
-                      activeItem: Icon(
-                        Icons.shopping_cart,
-                        color: Colors.white,
-                      ),
-                      itemLabel: 'cart',
-                    ),
+                  backgroundColor: Colors.transparent,
+                  // bottomBarWidth: getSize(context),
+                  // // removeMargins: true,
+                  //
+                  // notchColor: AppColors.primary,
+                  // itemLabelStyle: TextStyle(
+                  //     color: Colors.white,
+                  //     fontSize: 12
+                  // ),
+                  items: [
+                    CurvedNavigationBarItem(
+                        child: Icon(
+                          Icons.person,
+                          color: Colors.white,
+                        ),
+                        // activeItem: Icon(
+                        //   Icons.person,
+                        //   color: Colors.white,
+                        // ),
+                        label: 'profile',
+                        labelStyle: TextStyle(fontSize: getSize(context) / 28)),
+                    CurvedNavigationBarItem(
+                        child: Icon(
+                          Icons.home_filled,
+                          color: Colors.white,
+                        ),
+                        // activeItem: Icon(
+                        //   Icons.home_filled,
+                        //   color: Colors.white,
+                        // ),
+                        label: 'home',
+                        labelStyle: TextStyle(fontSize: getSize(context) / 28)),
+                    CurvedNavigationBarItem(
+                        child: Icon(
+                          Icons.shopping_cart,
+                          color: Colors.white,
+                        ),
+                        // activeItem: Icon(
+                        //   Icons.shopping_cart,
+                        //   color: Colors.white,
+                        // ),
+                        label: 'cart',
+                        labelStyle: TextStyle(fontSize: getSize(context) / 28)),
                   ],
-                  notchBottomBarController: cubit.notchController,
+                  // : cubit.notchController,
                   onTap: (int value) {
-                    cubit.currentIndex=value;
-                    setState(() {
-
-                    });
+                    cubit.currentIndex = value;
+                    setState(() {});
                     // cubit.changeFABLocation(value);
                     // cubit.notchController.jumpTo(value);
-
                   },
-
                 ),
               );
             },
           ),
-
-
         );
       },
     );
-
   }
 }

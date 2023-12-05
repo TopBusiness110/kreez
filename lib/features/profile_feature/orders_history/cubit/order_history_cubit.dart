@@ -8,7 +8,7 @@ part 'order_history_state.dart';
 
 class OrderHistoryCubit extends Cubit<OrderHistoryState> {
   OrderHistoryCubit(this.api) : super(OrderHistoryInitial()){
-    getAllSaleOrder();
+    //getAllSaleOrder();
   }
 
   TabController? tabController ;
@@ -37,15 +37,24 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
 
   void filterData(GetAllSaleOrderModel? getAllSaleOrderModel){
     List<SaleOrderResult>? result = getAllSaleOrderModel?.result;
-
-    for(int i=0;i<result!.length ; i++){
-      if(result[i].state.toString()=="State.DRAFT"){
-        draftOrders.add(result[i]);
-      }
-      else{
-        otherOrders.add(result[i]);
+    // otherOrders =[];
+    // draftOrders =[];
+    //
+    if(result!.length!=otherOrders.length
+    +draftOrders.length){
+      print('ssssssssssssssssssssssssssssssss');
+      otherOrders =[];
+      draftOrders =[];
+      for(int i=0;i<result!.length ; i++){
+        if(result[i].state.toString()=="State.DRAFT"){
+          draftOrders.add(result[i]);
+        }
+        else{
+          otherOrders.add(result[i]);
+        }
       }
     }
+
     // getAllSaleOrderModel?.result?.forEach((result) {
     //   if(result.state.toString()=="draft"){
     //     draftOrders.add(result);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kreez/core/models/all_categories_model.dart';
 import 'package:kreez/features/cart/screens/cart_screen.dart';
+import 'package:kreez/features/cart/screens/redirect_to_sign.dart';
 import 'package:kreez/features/categories/screen/all_categories_screen.dart';
 
 import 'package:kreez/features/home/screens/home_screen.dart';
@@ -38,6 +39,7 @@ class Routes {
   static const String productsRoute = '/products';
   static const String cartRoute = '/cart';
   static const String homeSearchRoute = '/homeSearch';
+  static const String redirectToSignInRoute = '/redirectUserScreen';
 
 }
 
@@ -135,6 +137,11 @@ class AppRoutes {
       case Routes.cartRoute:
         return MaterialPageRoute(
           builder: (context) =>  const CartScreen(),
+        );
+
+      case Routes.redirectToSignInRoute:
+        return MaterialPageRoute(
+          builder: (context) =>  const RedirectToSignUp(),
         );
 
       default:

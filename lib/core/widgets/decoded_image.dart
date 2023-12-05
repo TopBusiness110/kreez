@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:kreez/core/utils/app_strings.dart';
 import 'package:kreez/core/utils/assets_manager.dart';
 import 'package:kreez/core/utils/get_size.dart';
-
 import '../utils/app_colors.dart';
+import 'package:http/http.dart' as http;
+
 
 class DecodedImage extends StatelessWidget {
   int index ;
@@ -15,7 +17,12 @@ Widget convertImage(){
   Image image;
   if(base64String.runtimeType == String){
     Uint8List bytes = base64.decode(base64String);
+
     image = Image.memory(Uint8List.fromList(bytes));
+
+    // Remove white background
+     //img.fill(image, img.getColor(255, 255, 255, 255));
+
       //  Image.memory(bytes,fit: BoxFit.cover,height: getSize(context)/4,);
   }
   else{
@@ -77,16 +84,40 @@ class _DecodedImage2State extends State<DecodedImage2> {
   }
 
   Widget convertImage() {
-    Image image;
+    Widget image;
 
     if(widget.base64String.runtimeType== String){
       Uint8List bytes = base64.decode(widget.base64String);
       // image = Image.memory(bytes,width: 80,height: 100,);
-      image = Image.memory(Uint8List.fromList(bytes));
+      image = Padding(
+        padding:  EdgeInsets.all(8.0),
+        child: Image.memory(Uint8List.fromList(bytes),),
+      );
     }
     else{
       image = Image.asset("assets/images/splash.png",color: AppColors.primary,);
     }
     return image;
   }
+  Future<void> removeImageBackground(String imageUrl) async {
+    final response = await http.post(
+      Uri.parse('https://api.remove.bg/v1.0/removebg'),
+      headers: {
+        'X-Api-Key': AppStrings.imageApiKey,
+      },
+      body: json.encode({
+        'image_url': imageUrl,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      // Image background removed successfully.
+      // You can now display or save the processed image.
+      print('Image background removed successfully!');
+    } else {
+      // Handle API error.
+      print('Error removing image background: ${response.body}');
+    }
+  }
+
 }

@@ -16,6 +16,7 @@ class ImageAssets {
   static const String homeSlider1Image = '$imagePath/home_slider1.png';
   static const String homeSlider2Image = '$imagePath/home_slider2.png';
   static const String homeSaleImage = '$imagePath/home_sale.png';
+  static const String notRegisteredImage = '$imagePath/not_register.png';
 
 
   // icons

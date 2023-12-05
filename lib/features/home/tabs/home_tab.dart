@@ -60,10 +60,11 @@ class _HomeTabState extends State<HomeTab> {
                             onTap: () {
                               // go to profile tab
                               context.read<HomeCubit>().changeFABLocation(0);
-                              context
-                                  .read<HomeCubit>()
-                                  .notchController
-                                  .jumpTo(0);
+                              // context
+                              //     .read<HomeCubit>()
+                              //     .notchController
+                              //     .jumpTo(0);
+                              // cubit.currentIndex=2;
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -237,7 +238,8 @@ class _HomeTabState extends State<HomeTab> {
                                           ?.result?[index].listPrice,
                                       name: cubit.allProductsModel
                                           ?.result?[index].name,
-                                      quantity: 0,
+                                      quantity:cubit.allProductsModel
+                                          ?.result?[index].count??0,
                                       image: cubit.allProductsModel
                                           ?.result?[index].image1920,
                                       description: cubit.allProductsModel

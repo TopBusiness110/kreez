@@ -5,15 +5,14 @@ class ProductModel{
   dynamic image;
   double? price;
   int? id;
-  double quantity;
+  double? quantity;
   dynamic inSale;
 
+  ProductModel({this.name, this.description, this.unit, this.image,this.price,this.id,this.quantity,this.inSale});
 
-  ProductModel({this.name, this.description, this.unit, this.image,this.price,this.id,this.quantity=0,this.inSale});
-
-  addQuantity(){
-      quantity++;
-  }
+  // addQuantity(){
+  //     quantity++;
+  // }
   //from json method
   factory ProductModel.fromJson(Map<String,dynamic> json){
     return ProductModel(
@@ -23,7 +22,7 @@ class ProductModel{
          image:json["image"],
          price:json["price"].toDouble(),
          id:json["id"],
-         quantity:json["quantity"].toDouble(),
+         // quantity:json["quantity"].toDouble(),
          inSale:json["inSale"],
     );
   }

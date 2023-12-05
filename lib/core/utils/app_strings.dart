@@ -1,7 +1,7 @@
 class AppStrings {
   static const String appName = 'app_name';
 
-  // static const String googleApiKey = '';
+   static const String imageApiKey = 'ozxmUU2W6FVVUU8PHA9Siz2z';
   static const String fontFamily = 'Hacen Tunisia';
   static const String noRouteFound = 'No Route Found';
   static const String ok = 'Ok';

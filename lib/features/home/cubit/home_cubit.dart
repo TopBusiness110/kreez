@@ -1,5 +1,6 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:bloc/bloc.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/core/models/all_categories_model.dart';
@@ -39,6 +40,8 @@ class HomeCubit extends Cubit<HomeState> {
   WidgetType selectedWidget = WidgetType.home;
   List<Widget> tabs = [ProfileScreen(), HomeTab(), CartScreen()];
   NotchBottomBarController notchController = NotchBottomBarController(index: 1);
+  GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
+
   int sliderCurrentIndex = 0;
   final List<String> sliderImageList = [
     ImageAssets.homeSlider1Image,

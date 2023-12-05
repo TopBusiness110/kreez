@@ -14,12 +14,12 @@ class ProductItemCubit extends Cubit<ProductItemState> {
   ProductItemCubit() : super(ProductItemInitial());
 
   decrease(ProductModel productModel,BuildContext context){
-    double quantity = productModel.quantity;
+    double quantity = productModel.quantity!;
     if(quantity==0){
 
     }
     else{
-      productModel.quantity=productModel.quantity-1;
+      productModel.quantity=productModel.quantity!-1;
      emit(DecreaseState());
 
     }
@@ -27,12 +27,12 @@ class ProductItemCubit extends Cubit<ProductItemState> {
   }
 
   increase(ProductModel productModel,BuildContext context){
-    double quantity = productModel.quantity;
+    double quantity = productModel.quantity!;
     quantity++;
     productModel.quantity =quantity ;
-   emit(IncreaseState());
    addToCart(productModel, context);
 
+    emit(IncreaseState());
 
 
   }

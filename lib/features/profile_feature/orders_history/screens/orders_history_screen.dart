@@ -22,6 +22,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen>with SingleTic
   void initState() {
     super.initState();
     context.read<OrderHistoryCubit>().tabController = TabController(length: 2, vsync: this);
+    context.read<OrderHistoryCubit>().getAllSaleOrder();
   }
 
   // @override

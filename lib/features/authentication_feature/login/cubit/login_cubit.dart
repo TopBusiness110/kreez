@@ -129,7 +129,7 @@ class LoginCubit extends Cubit<LoginState> {
 
             },
                 (r) {
-              Navigator.pop(context);
+              Navigator.pop(context); 
               if(r.result==null){
                 emit(LoginFailureState());
                 // loginErrorModel = r as LoginErrorModel;

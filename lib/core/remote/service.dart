@@ -419,7 +419,7 @@ class ServiceApi {
               "name": fullName,
               'login': phone,
               "password": password,
-              "sel_groups_1_9_10":10
+              //"sel_groups_1_9_10":10
             }
           },
         },
@@ -465,14 +465,14 @@ class ServiceApi {
     try{
       String? sessionId = await Preferences.instance.getSessionId();
       final response = await dio.get(
-        EndPoints.getUserDateUrl,
+        EndPoints.getUserDateUrl+'?query={id, name,partner_id}&filter=[["id","=","$result"]]',
         options: Options(
           headers: {"Cookie": "session_id=$sessionId"},
         ),
-          queryParameters: {
-            "query":"{id, name,partner_id}",
-            "filter":[["id","=","$result"]]
-          }
+          // queryParameters: {
+          //   "query":"{id, name,partner_id}",
+          //   "filter":[["id","=","$result"]]
+          // }
       );
     return Right(UserData.fromJson(response));
 
@@ -615,14 +615,14 @@ class ServiceApi {
       AuthModel authModel = await Preferences.instance.getUserModel2();
       final partnerId = authModel.result.partnerId;
       final response = await  dio.get(
-          EndPoints.getAllSaleOrderForPartnerUrl,
+          EndPoints.getAllSaleOrderForPartnerUrl+'?filter=[["partner_id", "=",$partnerId]]&query={id,display_name,state,write_date,amount_total}',
           options: Options(
             headers: {"Cookie": "session_id=$sessionId"},
           ),
-          queryParameters: {
-            "query":"{id,display_name,state,write_date,amount_total}",
-            "filter":[["partner_id", "=",partnerId]]
-          }
+          // queryParameters: {
+          //   "query":"{id,display_name,state,write_date,amount_total}",
+          //
+          // }
       );
       return Right(GetAllSaleOrderModel.fromJson(response));
     } on ServerException{

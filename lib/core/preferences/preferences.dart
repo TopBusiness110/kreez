@@ -154,6 +154,17 @@ class Preferences {
     }
     return {};
   }
+
+
+  Future clearCart()async{
+try{
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  await preferences.remove("cart");
+}catch(e){
+  return null;
+}
+
+  }
    // Future< Map<dynamic,ProductModel>> getCart ()async{
    //   SharedPreferences preferences = await SharedPreferences.getInstance();
    //   String? cartJson = preferences.getString("cart");
