@@ -98,15 +98,19 @@ class ProductDetailsScreen extends StatelessWidget {
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "${productModel?.name}",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(color: AppColors.black1),
+                    Expanded(
+                      child: Text(
+                        "${productModel?.name}",
+                        maxLines: 1,
+                        overflow:TextOverflow.ellipsis ,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: AppColors.black1),
+                      ),
                     ),
                     const SizedBox(
-                      width: 20,
+                      width: 10,
                     ),
                     Text(
                       "${productModel?.unit}",
@@ -122,7 +126,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           .bodyLarge!
                           .copyWith(color: AppColors.black1),
                     ),
-                    Spacer(),
+                  //  Spacer(),
                     Container(
                       alignment: Alignment.center,
                       width: getSize(context)*0.1,

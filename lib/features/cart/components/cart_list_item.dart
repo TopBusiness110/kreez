@@ -16,20 +16,22 @@ class CartListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8),
+      padding: EdgeInsets.symmetric(horizontal: 8 ),
+      // margin: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
         boxShadow: [
           BoxShadow(
-              color: Colors.grey.shade400,
+              color: Colors.grey.shade100,
               blurRadius: 2,
               spreadRadius: 0,
-              offset: Offset(1, 1))
+              offset: Offset(1, 3))
         ],
       ),
       child: Stack(
         children: [
-          Card(
+          Card(        color: Colors.white,
             child: Row(
               //  contentPadding: const EdgeInsets.symmetric(vertical: 10,horizontal: 8),
               children: [
@@ -45,95 +47,97 @@ class CartListItem extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                Column(mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("${product?.name}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(color: AppColors.black1)),
-                    BlocBuilder<CartCubit, CartState>(
-                      builder: (context, state) {
-                        CartCubit cubit = context.read<CartCubit>();
-                        return Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // add btn
-                            Container(
-                              alignment: Alignment.center,
-                              width: getSize(context) * 0.1,
-                              height: getSize(context) * 0.1,
-                              decoration: BoxDecoration(
-                                  color: AppColors.lightGreen,
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color: AppColors.primary)),
-                              child: IconButton(
-                                  padding: EdgeInsets.zero,
-                                  icon: Icon(
-                                    Icons.add,
-                                    size: 15,
-                                    color: AppColors.primary,
-                                  ),
-                                  onPressed: () async {
-                                    await cubit.increaseQuantity(product!);
-                                    print("****************************");
-                                  }),
-                            ),
-                            // quantity
-                            Container(
-                              margin: EdgeInsets.all(8),
-                              alignment: Alignment.center,
-                              width: getSize(context) * 0.1,
-                              height: getSize(context) * 0.1,
-                              decoration: BoxDecoration(
-                                  color: AppColors.lightGreen,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Text(
-                                  "${product?.quantity?.toInt().toString()}",
+                Container( color: Colors.transparent,
+                  child: Column(mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("${product?.name}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(color: AppColors.black1)),
+                      BlocBuilder<CartCubit, CartState>(
+                        builder: (context, state) {
+                          CartCubit cubit = context.read<CartCubit>();
+                          return Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // add btn
+                              Container(
+                                alignment: Alignment.center,
+                                width: getSize(context) * 0.1,
+                                height: getSize(context) * 0.1,
+                                decoration: BoxDecoration(
+                                    color: AppColors.lightGreen,
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(color: AppColors.primary)),
+                                child: IconButton(
+                                    padding: EdgeInsets.zero,
+                                    icon: Icon(
+                                      Icons.add,
+                                      size: 15,
+                                      color: AppColors.primary,
+                                    ),
+                                    onPressed: () async {
+                                      await cubit.increaseQuantity(product!,context);
+                                      print("****************************");
+                                    }),
+                              ),
+                              // quantity
+                              Container(
+                                margin: EdgeInsets.all(8),
+                                alignment: Alignment.center,
+                                width: getSize(context) * 0.1,
+                                height: getSize(context) * 0.1,
+                                decoration: BoxDecoration(
+                                    color: AppColors.lightGreen,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Text(
+                                    "${product?.quantity}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                            color: AppColors.primary,
+                                            fontSize: 12)),
+                              ),
+                              // remove btn
+                              Container(
+                                alignment: Alignment.center,
+                                width: getSize(context) * 0.1,
+                                height: getSize(context) * 0.1,
+                                decoration: BoxDecoration(
+                                    color: AppColors.lightGreen,
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(color: AppColors.primary)),
+                                child: IconButton(
+                                    padding: EdgeInsets.zero,
+                                    icon: Icon(
+                                      Icons.remove,
+                                      size: 15,
+                                      color: AppColors.primary,
+                                    ),
+                                    onPressed: () {
+                                      cubit.decreaseQuantity(product!, context);
+                                    }),
+                              ),
+
+                              SizedBox(
+                                width: getSize(context) * 0.15,
+                              ),
+                              //unit
+                              Text("${product?.price}/${product?.unit}",
+                                  textDirection: TextDirection.ltr,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
-                                      .copyWith(
-                                          color: AppColors.primary,
-                                          fontSize: 12)),
-                            ),
-                            // remove btn
-                            Container(
-                              alignment: Alignment.center,
-                              width: getSize(context) * 0.1,
-                              height: getSize(context) * 0.1,
-                              decoration: BoxDecoration(
-                                  color: AppColors.lightGreen,
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color: AppColors.primary)),
-                              child: IconButton(
-                                  padding: EdgeInsets.zero,
-                                  icon: Icon(
-                                    Icons.remove,
-                                    size: 15,
-                                    color: AppColors.primary,
-                                  ),
-                                  onPressed: () {
-                                    cubit.decreaseQuantity(product!, context);
-                                  }),
-                            ),
-
-                            SizedBox(
-                              width: getSize(context) * 0.15,
-                            ),
-                            //unit
-                            Text("${product?.price}/${product?.unit}",
-                                textDirection: TextDirection.ltr,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(color: AppColors.primary)),
-                          ],
-                        );
-                      },
-                    ),
-                  ],
+                                      .copyWith(color: AppColors.primary)),
+                            ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

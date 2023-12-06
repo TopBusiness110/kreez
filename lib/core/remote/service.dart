@@ -661,7 +661,7 @@ class ServiceApi {
     try{
       String? sessionId = await Preferences.instance.getSessionId();
       final response = await dio.get(
-        'https://kreezmart.com/api/product.product/?query={id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,description_sale,image_1920}&filter=[["name", "=", "$keyWord"]]',
+        'https://kreezmart.com/api/product.product/?query={id,name,list_price,currency_id,is_published,uom_name,uom_id,public_categ_ids,website_ribbon_id,description_sale,image_1920}&filter=[["name", "=like", "%$keyWord%"],["is_published", "=", true]]',
         //EndPoints.searchProductUrl,
         options: Options(
           headers: {"Cookie": "session_id=$sessionId"},

@@ -357,6 +357,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  GlobalKey<CurvedNavigationBarState> homeKey1 = GlobalKey(debugLabel: "home");
   List<Widget> pages = [
     ProfileScreen(),
     HomeTab(),
@@ -383,7 +384,7 @@ class _HomeScreenState extends State<HomeScreen> {
         HomeCubit cubit = context.read<HomeCubit>();
         return Scaffold(
           extendBody: true,
-          // resizeToAvoidBottomInset: false,
+          // resizeToAvoidBottomInset: true,
           //  backgroundColor: Colors.white,
           body: SafeArea(child: cubit.tabs[cubit.currentIndex]),
 
@@ -393,9 +394,9 @@ class _HomeScreenState extends State<HomeScreen> {
               return SizedBox(
                 height: getSize(context) / 5,
                 width: getSize(context),
-                child: CurvedNavigationBar(index: cubit.currentIndex,
-
-                  key: cubit.bottomNavigationKey,
+                child: CurvedNavigationBar(
+                  index: cubit.currentIndex,
+                  key: homeKey1,
                   // pageController: cubit.tabsController,
                   color: AppColors.primary,
                   backgroundColor: Colors.transparent,
@@ -435,19 +436,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           Icons.shopping_cart,
                           color: Colors.white,
                         ),
-                        // activeItem: Icon(
-                        //   Icons.shopping_cart,
-                        //   color: Colors.white,
-                        // ),
+
                         label: 'cart',
                         labelStyle: TextStyle(fontSize: getSize(context) / 28)),
                   ],
                   // : cubit.notchController,
                   onTap: (int value) {
-                    cubit.currentIndex = value;
-                    setState(() {});
-                    // cubit.changeFABLocation(value);
-                    // cubit.notchController.jumpTo(value);
+                    cubit.changeBottomNavigationBar(value);
+                  //  cubit.currentIndex = value;
+                   // setState(() {});
+
                   },
                 ),
               );

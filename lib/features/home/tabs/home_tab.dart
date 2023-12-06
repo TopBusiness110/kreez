@@ -14,6 +14,7 @@ import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/custom_textfield.dart';
 import '../../../core/widgets/decoded_image.dart';
 import '../../products/cubit/products_cubit.dart';
+import '../../search_home/cubit/home_search_cubit.dart';
 import '../components/home_product_item.dart';
 import '../components/home_title_item.dart';
 
@@ -102,6 +103,7 @@ class _HomeTabState extends State<HomeTab> {
                                 child: CustomTextField(
                                   readOnly: true,
                                   onTap: () {
+                                    context.read<HomeSearchCubit>().productsByCategoryIdModel = null ;
                                     Navigator.pushNamed(
                                         context, Routes.homeSearchRoute);
                                   },
@@ -244,7 +246,7 @@ class _HomeTabState extends State<HomeTab> {
                                           ?.result?[index].image1920,
                                       description: cubit.allProductsModel
                                           ?.result?[index].descriptionSale,
-                                      inSale: cubit.allProductsModel
+                                      ribbon: cubit.allProductsModel
                                           ?.result?[index].websiteRibbonId,
                                       unit: cubit.allProductsModel
                                           ?.result?[index].uomName),
@@ -305,7 +307,7 @@ class _HomeTabState extends State<HomeTab> {
                                                   .allProductsModel
                                                   ?.result?[index]
                                                   .descriptionSale,
-                                              inSale: cubit
+                                              ribbon: cubit
                                                   .allProductsModel
                                                   ?.result?[index]
                                                   .websiteRibbonId,
@@ -358,7 +360,7 @@ class _HomeTabState extends State<HomeTab> {
                                                   .allProductsModel
                                                   ?.result?[index]
                                                   .descriptionSale,
-                                              inSale: cubit
+                                              ribbon: cubit
                                                   .allProductsModel
                                                   ?.result?[index]
                                                   .websiteRibbonId,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kreez/core/utils/get_size.dart';
 
 import '../../../core/utils/app_colors.dart';
 
@@ -15,18 +16,21 @@ class HomeTitleItem extends StatelessWidget {
         Row(
           children: [
             Container(
-              width: 12,
-              height: 35,
+              width: getSize(context)*0.04,
+              height: getSize(context)*0.09,
               decoration: BoxDecoration(
                   color: AppColors.primary,
                   borderRadius: const BorderRadius.only(topLeft: Radius.circular(10),bottomLeft:Radius.circular(10) )
               ),
             ),
             const SizedBox(width: 6,),
-            Text(title,style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: AppColors.black,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Text(title,style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: AppColors.black,
 
-            ),),
+              ),),
+            ),
           ],
         ),
         InkWell(

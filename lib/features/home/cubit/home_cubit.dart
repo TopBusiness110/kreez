@@ -40,7 +40,7 @@ class HomeCubit extends Cubit<HomeState> {
   WidgetType selectedWidget = WidgetType.home;
   List<Widget> tabs = [ProfileScreen(), HomeTab(), CartScreen()];
   NotchBottomBarController notchController = NotchBottomBarController(index: 1);
-  GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
+
 
   int sliderCurrentIndex = 0;
   final List<String> sliderImageList = [
@@ -60,9 +60,18 @@ class HomeCubit extends Cubit<HomeState> {
   AllProductsModel? allProductsModel;
   String? name;
 
+
+
+
   changeDotsIndicator(int index) {
     // emit(DotsIndicatorChange666());
     sliderCurrentIndex = index;
+  }
+ // int currentFAB = 0 ;
+  changeBottomNavigationBar(int index) {
+
+    currentIndex  = index;
+    emit(BottomIndicatorChange());
   }
 
   getUserName() async {

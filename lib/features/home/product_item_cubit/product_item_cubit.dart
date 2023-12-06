@@ -26,12 +26,13 @@ class ProductItemCubit extends Cubit<ProductItemState> {
     addToCart(productModel, context);
   }
 
-  increase(ProductModel productModel,BuildContext context){
+  increase(ProductModel productModel,BuildContext context) async {
     double quantity = productModel.quantity!;
     quantity++;
     productModel.quantity =quantity ;
-   addToCart(productModel, context);
-
+  await addToCart(productModel, context);
+   print("add + ");
+   print("productModel = $productModel");
     emit(IncreaseState());
 
 
@@ -45,7 +46,10 @@ class ProductItemCubit extends Cubit<ProductItemState> {
 
   addToCart(ProductModel productModel, BuildContext context) async {
     context.read<CartCubit>().cart1?[productModel.id!] = productModel;
+    print("add to cart ***************************************");
+    print(context.read<CartCubit>().cart1);
     await   Preferences.instance.setCart(context.read<CartCubit>().cart1!);
+
     emit(AddProductState());
   }
 }

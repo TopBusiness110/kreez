@@ -55,7 +55,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       emit(AddProductState());
       print(context.read<CartCubit>().cart1);
       Navigator.pushNamed(context, Routes.homeRoute);
-      //quantity = 0;
+      quantity = 0;
     }
     else{
       emit(ZeroQuantity());

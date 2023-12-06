@@ -1,13 +1,14 @@
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kreez/core/models/auth_model.dart';
 import 'package:kreez/core/preferences/preferences.dart';
 import 'package:kreez/core/remote/service.dart';
 import 'package:meta/meta.dart';
-
-import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/dialogs.dart';
+import '../../home/product_item_cubit/product_item_cubit.dart';
 import '../../product_details/models/product_model.dart';
 
 part 'cart_state.dart';
@@ -35,7 +36,7 @@ class CartCubit extends Cubit<CartState> {
   bool cartIsEmpty = true;
 
   createSaleOrder() async {
-    // loadingDialog();
+     loadingDialog();
     // emit(LoadingCreateOrderState());
     final response = await api.createSaleOrder();
 
@@ -51,7 +52,7 @@ class CartCubit extends Cubit<CartState> {
       required int productId,
       required String productName,
       required double productQuantity}) async {
-    loadingDialog();
+  //  loadingDialog();
     emit(LoadingCreateOrderState());
     final response = await api.createSaleOrderLines(
         orderId: saleOrderId,
@@ -64,27 +65,34 @@ class CartCubit extends Cubit<CartState> {
     }, (r) {
       if (r.result != null) {
         authModel = r;
+        //todo=>
+        // cart1.clear();
+        // Navigator.pop(context);
         Preferences.instance.clearCart().then((e) {
           cart1.clear();
           Navigator.pop(context);
+          emit(SuccessCreateOrderState());
         });
         emit(SuccessCreateOrderState());
       } else {
+        Navigator.pop(context);
         emit(FailureCreateOrderState());
       }
     });
   }
 
-  increaseQuantity(ProductModel productModel) async {
+  increaseQuantity(ProductModel productModel,BuildContext context) async {
     double productQuantity = productModel.quantity!;
     productQuantity++;
     productModel.quantity = productQuantity;
     print("###############################");
+    //todo => add this new quantity to the cart
+    await context.read<ProductItemCubit>().addToCart(productModel, context);
     print(productModel.quantity);
     emit(IncreasingQuantityState());
   }
 
-  decreaseQuantity(ProductModel productModel, BuildContext context) {
+  decreaseQuantity(ProductModel productModel, BuildContext context) async {
     double productQuantity = productModel.quantity!;
     if (productQuantity == 1) {
       removeItem(productModel.id);
@@ -92,6 +100,8 @@ class CartCubit extends Cubit<CartState> {
     } else {
       productQuantity--;
       productModel.quantity = productQuantity;
+      //todo => add this new quantity to the cart
+      await context.read<ProductItemCubit>().addToCart(productModel, context);
       emit(DecreasingQuantityState());
     }
   }
@@ -112,6 +122,7 @@ class CartCubit extends Cubit<CartState> {
     print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     emit(LoadingCartState());
     cart1 = await Preferences.instance.getCart() ?? {};
+    print(cart1);
     if (cart1.isEmpty) {
       emit(EmptyCartState());
     } else {

@@ -8,7 +8,9 @@ import 'package:kreez/features/search_home/cubit/home_search_cubit.dart';
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
+import '../../../core/utils/get_size.dart';
 import '../../../core/widgets/custom_textfield.dart';
+import '../../home/components/home_product_item.dart';
 
 class HomeSearchScreen extends StatelessWidget {
   const HomeSearchScreen({super.key});
@@ -73,17 +75,47 @@ class HomeSearchScreen extends StatelessWidget {
                             id:  cubit.productsByCategoryIdModel?.result?[index].id,
                             price: cubit.productsByCategoryIdModel?.result?[index].listPrice,
                             image: cubit.productsByCategoryIdModel?.result?[index].image1920,
-                           // unit: cubit.productsByCategoryIdModel?.result?[index].currencyId.toString(),
-                            unit: "kg",
+                            unit: cubit.productsByCategoryIdModel?.result?[index].currencyId.toString(),
+                           // unit: "kg",
                             name: cubit.productsByCategoryIdModel?.result?[index].name,
                             description: cubit.productsByCategoryIdModel?.result?[index].descriptionSale
                           ));
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("${cubit.productsByCategoryIdModel?.result?[index].name??"no data"}",
-                          style: TextStyle(color: AppColors.black1),),
-                        ),
+                        child:
+                        Container(
+                          padding: EdgeInsets.all(8),
+                          margin: const EdgeInsets.symmetric(horizontal: 12),
+                          height: getSize(context) * 0.6,
+                          child:
+                          HomeProductItem2(
+                            productModel: ProductModel(
+                                id: cubit
+                                    .productsByCategoryIdModel?.result?[index].id,
+                                price: cubit.productsByCategoryIdModel
+                                    ?.result?[index].listPrice,
+                                name: cubit.productsByCategoryIdModel
+                                    ?.result?[index].name,
+                                quantity:0,
+                                // cubit.productsByCategoryIdModel
+                                //     ?.result?[index].??0,
+                                image: cubit.productsByCategoryIdModel
+                                    ?.result?[index].image1920,
+                                description: cubit.productsByCategoryIdModel
+                                    ?.result?[index].descriptionSale,
+                                ribbon: cubit.productsByCategoryIdModel
+                                    ?.result?[index].websiteRibbonId,
+                                unit: "kg"
+                              // cubit.productsByCategoryIdModel
+                              //     ?.result?[index].uomName.toString()??"kg"
+                            ),
+                          )
+                        )
+
+                        // Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: Text("${cubit.productsByCategoryIdModel?.result?[index].name??"no data"}",
+                        //   style: TextStyle(color: AppColors.black1),),
+                        // ),
                       );
                   },),
                 )

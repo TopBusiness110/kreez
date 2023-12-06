@@ -30,7 +30,7 @@ class HomeProductItem2 extends StatelessWidget {
               Navigator.pushNamed(context, Routes.productDetailsRoute,
                   arguments: ProductModel(
                     quantity:productModel?.quantity??0 ,
-                      inSale: productModel?.inSale,
+                      ribbon: productModel?.ribbon,
                       name:productModel?.name,
                       image:productModel?.image,
                       description: productModel?.description,
@@ -48,7 +48,7 @@ class HomeProductItem2 extends StatelessWidget {
                   children: [
                     // Visibility(
                     //   visible:inSale.runtimeType==bool? inSale : false,
-                    productModel?.inSale.runtimeType==bool? productModel?.inSale==true?
+                    productModel?.ribbon.runtimeType==int?
                     Row(
                       children: [
                         Container(
@@ -64,13 +64,13 @@ class HomeProductItem2 extends StatelessWidget {
                             child:Row(
                               children: [
                                 // Text("10%",style: Theme.of(context).textTheme.bodySmall,),
-                                Text(" تخفيض",style: Theme.of(context).textTheme.bodySmall,),
+                                Text("${productModel?.ribbon==4?'جديد':productModel?.ribbon==3?'انتهي من المخزن':productModel?.ribbon==2?'نفذت الكميه':'تخفيض'}",style: Theme.of(context).textTheme.bodySmall,),
                               ],
                             )
                         ),
                       ],
                     ):
-                    SizedBox(height: getSize(context)*0.01,):SizedBox(height: getSize(context)*0.1,),
+                    SizedBox(height: getSize(context)*0.01,),
                      Flexible(child: SizedBox(
                      //  width: getSize(context)/3,
                          child: DecodedImage2(base64String:productModel?.image, ))),

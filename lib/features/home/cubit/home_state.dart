@@ -10,6 +10,7 @@ class ProfileScreenState extends HomeState {}
 class HomeScreenState extends HomeState {}
 class CartScreenState extends HomeState {}
 class DotsIndicatorChange666 extends HomeState {}
+class BottomIndicatorChange extends HomeState {}
 class AllCategoriesFailureState extends HomeState {}
 class AllCategoriesSuccessState extends HomeState {}
 class AllProductsFailureState extends HomeState {}
