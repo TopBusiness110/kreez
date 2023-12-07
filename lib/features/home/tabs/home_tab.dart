@@ -42,353 +42,358 @@ class _HomeTabState extends State<HomeTab> {
         HomeCubit cubit = context.read<HomeCubit>();
         return state is LoadingAllProductsState
             ? Center(
-                child: CircularProgressIndicator(
-                color: AppColors.primary,
-              ))
+            child: CircularProgressIndicator(
+              color: AppColors.primary,
+            ))
             : Stack(
-                children: [
-                  SizedBox(
-                    //  height: 87.h,
-                    child: RefreshIndicator(
-                      onRefresh: () async {
-                        await refreshData(context);
+          children: [
+            SizedBox(
+              //  height: 87.h,
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  await refreshData(context);
+                },
+                child: ListView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  children: [
+                    // hello user
+                    InkWell(
+                      onTap: () {
+                        // go to profile tab
+                        context.read<HomeCubit>().changeFABLocation(0);
+                        // context
+                        //     .read<HomeCubit>()
+                        //     .notchController
+                        //     .jumpTo(0);
+                        // cubit.currentIndex=2;
                       },
-                      child: ListView(
-                        physics: AlwaysScrollableScrollPhysics(),
-                        children: [
-                          // hello user
-                          InkWell(
-                            onTap: () {
-                              // go to profile tab
-                              context.read<HomeCubit>().changeFABLocation(0);
-                              // context
-                              //     .read<HomeCubit>()
-                              //     .notchController
-                              //     .jumpTo(0);
-                              // cubit.currentIndex=2;
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Icons.person,
-                                    color: AppColors.gray,
-                                  ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  Text(
-                                    "مرحبا , ${cubit.name ?? ""}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontSize: 14,
-                                          color: AppColors.black,
-                                        ),
-                                  ),
-                                ],
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.person,
+                              color: AppColors.gray,
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              "مرحبا , ${cubit.name ?? ""}",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                fontSize: 14,
+                                color: AppColors.black,
                               ),
                             ),
-                          ),
-                          //search
-                          Row(
-                            children: [
-                              const SizedBox(
-                                width: 12,
-                              ),
-                              Expanded(
-                                child: CustomTextField(
-                                  readOnly: true,
-                                  onTap: () {
-                                    context.read<HomeSearchCubit>().productsByCategoryIdModel = null ;
-                                    Navigator.pushNamed(
-                                        context, Routes.homeSearchRoute);
-                                  },
-                                  prefixWidget: Icon(
-                                    Icons.search,
-                                    color: AppColors.primary,
-                                  ),
-                                  title: "search_product".tr(),
-                                  textInputType: TextInputType.text,
-                                  backgroundColor: AppColors.green1,
-                                  textColor: AppColors.gray,
-                                ),
-                              ),
-                              Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  width: getSize(context)/10,
-                                  height: getSize(context)/10,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.primary,
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Padding(
-                                      padding: EdgeInsets.all(8),
-                                      child: SvgPicture.asset(
-                                        ImageAssets.filterIcon,
-                                        width: 10,
-                                        height: 5,
-                                      ))),
-                            ],
-                          ),
-                          BannerScreen(),
-
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          //categories
-                          HomeTitleItem(
-                            title: "categories".tr(),
-                            moreOnTap: () {
-                              //   Navigator.pushNamed(context, Routes.categoriesRoute,arguments: cubit.allCategoriesModel);
-                              Navigator.pushNamed(context, Routes.productsRoute,
-                                  arguments: [cubit.allCategoriesModel, 0]);
-                            },
-                          ),
-                          //categories list
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 12),
-                            height: getSize(context) * 0.4,
-                            child: ListView.separated(
-                              separatorBuilder: (context, index) {
-                                return SizedBox(
-                                  width: getSize(context) / 30,
-                                );
-                              },
-                              itemCount: cubit.allCategoriesModel?.count ?? 0,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () {
-                                    context
-                                        .read<ProductsCubit>()
-                                        .getProductsByCategoryId(cubit
-                                            .allCategoriesModel!
-                                            .result![index]
-                                            .id!);
-
-                                    //  Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
-                                    Navigator.pushNamed(
-                                        context, Routes.productsRoute,
-                                        arguments: [
-                                          cubit.allCategoriesModel,
-                                          cubit.allCategoriesModel
-                                              ?.result?[index].id,
-                                        ]);
-                                  },
-                                  child: Column(
-                                    children: [
-                                      DecodedImage(
-                                          base64String: cubit.allCategoriesModel
-                                              ?.result?[index].image1920,
-                                          context: context),
-                                      Flexible(
-                                        child: Container(
-                                          width: getSize(context) / 4,
-                                          child: Text(
-                                            "${cubit.allCategoriesModel?.result?[index].displayName}",
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium!
-                                                .copyWith(
-                                                    color: AppColors.black1,
-                                                    fontSize: 12),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-
-                          //الأكثر مبيعا
-                          HomeTitleItem(
-                            title: "الأكثر مبيعا",
-                            moreOnTap: () {
-                              //  Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
-                              Navigator.pushNamed(context, Routes.productsRoute,
-                                  arguments: [cubit.allCategoriesModel, 0]);
-                            },
-                          ),
-                          //الأكثر مبيعا list
-
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 12),
-                            height: getSize(context) * 0.6,
-                            child: ListView.separated(
-                              separatorBuilder: (context, index) {
-                                return SizedBox(
-                                  width: getSize(context) * 0.1,
-                                );
-                              },
-                              itemCount: cubit.allProductsModel?.count ?? 0,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return HomeProductItem2(
-                                  productModel: ProductModel(
-                                      id: cubit
-                                          .allProductsModel?.result?[index].id,
-                                      price: cubit.allProductsModel
-                                          ?.result?[index].listPrice,
-                                      name: cubit.allProductsModel
-                                          ?.result?[index].name,
-                                      quantity:cubit.allProductsModel
-                                          ?.result?[index].count??0,
-                                      image: cubit.allProductsModel
-                                          ?.result?[index].image1920,
-                                      description: cubit.allProductsModel
-                                          ?.result?[index].descriptionSale,
-                                      ribbon: cubit.allProductsModel
-                                          ?.result?[index].websiteRibbonId,
-                                      unit: cubit.allProductsModel
-                                          ?.result?[index].uomName),
-                                );
-                              },
-                            ),
-                          ),
-
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                              padding: EdgeInsets.only(
-                                  left: getSize(context) * 0.07),
-                              child: Image.asset(ImageAssets.homeSaleImage)),
-
-                          // المنتجات
-                          HomeTitleItem(
-                              title: " المنتجات",
-                              moreOnTap: () {
-                                //  Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
-                                Navigator.pushNamed(
-                                    context, Routes.productsRoute,
-                                    arguments: [cubit.allCategoriesModel, 0]);
-                              }),
-                          // المنتجاتlist
-                          (state is LoadingAllProductsState)
-                              ? Center(
-                                  child: CircularProgressIndicator(
-                                  color: AppColors.primary,
-                                ))
-                              : Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 12),
-                                  height: getSize(context) * 0.6,
-                                  child: ListView.separated(
-                                    separatorBuilder: (context, index) {
-                                      return SizedBox(
-                                        width: getSize(context) * 0.09,
-                                      );
-                                    },
-                                    itemCount:
-                                        cubit.allProductsModel?.count ?? 0,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      return HomeProductItem2(
-                                          productModel: ProductModel(
-                                              id: cubit.allProductsModel
-                                                  ?.result?[index].id,
-                                              price: cubit.allProductsModel
-                                                  ?.result?[index].listPrice,
-                                              name: cubit.allProductsModel
-                                                  ?.result?[index].name,
-                                              quantity: 0,
-                                              image: cubit.allProductsModel
-                                                  ?.result?[index].image1920,
-                                              description: cubit
-                                                  .allProductsModel
-                                                  ?.result?[index]
-                                                  .descriptionSale,
-                                              ribbon: cubit
-                                                  .allProductsModel
-                                                  ?.result?[index]
-                                                  .websiteRibbonId,
-                                              unit: cubit.allProductsModel
-                                                  ?.result?[index].uomName));
-                                    },
-                                  ),
-                                ),
-
-                          HomeTitleItem(
-                            title: " أحدث منتجات",
-                            moreOnTap: () {
-                              // Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
-                              Navigator.pushNamed(context, Routes.productsRoute,
-                                  arguments: [cubit.allCategoriesModel, 0]);
-                            },
-                          ),
-                          (state is LoadingAllProductsState)
-                              ? Center(
-                                  child: CircularProgressIndicator(
-                                  color: AppColors.primary,
-                                ))
-                              : Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 12),
-                                  height: getSize(context) * 0.6,
-                                  child: ListView.separated(
-                                    reverse: true,
-                                    separatorBuilder: (context, index) {
-                                      return SizedBox(
-                                        width: getSize(context) * 0.09,
-                                      );
-                                    },
-                                    itemCount:
-                                        cubit.allProductsModel?.count ?? 0,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      return HomeProductItem2(
-                                          productModel: ProductModel(
-                                              id: cubit.allProductsModel
-                                                  ?.result?[index].id,
-                                              price: cubit.allProductsModel
-                                                  ?.result?[index].listPrice,
-                                              name: cubit.allProductsModel
-                                                  ?.result?[index].name,
-                                              quantity: 0,
-                                              image: cubit.allProductsModel
-                                                  ?.result?[index].image1920,
-                                              description: cubit
-                                                  .allProductsModel
-                                                  ?.result?[index]
-                                                  .descriptionSale,
-                                              ribbon: cubit
-                                                  .allProductsModel
-                                                  ?.result?[index]
-                                                  .websiteRibbonId,
-                                              unit: cubit.allProductsModel
-                                                  ?.result?[index].uomName));
-                                    },
-                                  ),
-                                ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  // Positioned(
-                  //   right: 0,
-                  //     bottom: 0,
-                  //     child: InkWell(
-                  //       onTap: () {
-                  //
-                  //       },
-                  //       child: CircleAvatar(
-                  //         radius: 30,
-                  //         backgroundColor: AppColors.primary,
-                  //         child: Icon(Icons.add,size: 35,color: AppColors.white,),
-                  //
-                  //       ),
-                  //     ))
-                ],
-              );
+                    //search
+                    Row(
+                      children: [
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        Expanded(
+                          child: CustomTextField(
+                            readOnly: true,
+                            onTap: () {
+                              context
+                                  .read<HomeSearchCubit>()
+                                  .productsByCategoryIdModel = null;
+                              Navigator.pushNamed(
+                                  context, Routes.homeSearchRoute);
+                            },
+                            prefixWidget: Icon(
+                              Icons.search,
+                              color: AppColors.primary,
+                            ),
+                            title: "search_product".tr(),
+                            textInputType: TextInputType.text,
+                            backgroundColor: AppColors.green1,
+                            textColor: AppColors.gray,
+                          ),
+                        ),
+                        Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 10),
+                            width: getSize(context) / 10,
+                            height: getSize(context) / 10,
+                            decoration: BoxDecoration(
+                              color: AppColors.primary,
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: SvgPicture.asset(
+                                  ImageAssets.filterIcon,
+                                  width: 10,
+                                  height: 5,
+                                ))),
+                      ],
+                    ),
+                    BannerScreen(),
+
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    //categories
+                    HomeTitleItem(
+                      title: "categories".tr(),
+                      moreOnTap: () {
+                        //   Navigator.pushNamed(context, Routes.categoriesRoute,arguments: cubit.allCategoriesModel);
+                        Navigator.pushNamed(context, Routes.productsRoute,
+                            arguments: [cubit.allCategoriesModel, 0]);
+                      },
+                    ),
+                    //categories list
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 12),
+                      height: getSize(context) * 0.4,
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) {
+                          return SizedBox(
+                            width: getSize(context) / 30,
+                          );
+                        },
+                        itemCount: cubit.allCategoriesModel?.count ?? 0,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              context
+                                  .read<ProductsCubit>()
+                                  .getProductsByCategoryId(cubit
+                                  .allCategoriesModel!
+                                  .result![index]
+                                  .id!);
+
+                              //  Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                              Navigator.pushNamed(
+                                  context, Routes.productsRoute,
+                                  arguments: [
+                                    cubit.allCategoriesModel,
+                                    cubit.allCategoriesModel
+                                        ?.result?[index].id,
+                                  ]);
+                            },
+                            child: Column(
+                              children: [
+                                DecodedImage(
+                                    base64String: cubit.allCategoriesModel
+                                        ?.result?[index].image1920,
+                                    context: context),
+                                Flexible(
+                                  child: Container(
+                                    width: getSize(context) / 4,
+                                    child: Text(
+                                      "${cubit.allCategoriesModel
+                                          ?.result?[index].displayName}",
+                                      textAlign: TextAlign.center,
+                                      style: Theme
+                                          .of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                          color: AppColors.black1,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+
+                    //الأكثر مبيعا
+                    HomeTitleItem(
+                      title: "الأكثر مبيعا",
+                      moreOnTap: () {
+                        //  Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                        Navigator.pushNamed(context, Routes.productsRoute,
+                            arguments: [cubit.allCategoriesModel, 0]);
+                      },
+                    ),
+                    //الأكثر مبيعا list
+
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 12),
+                      height: getSize(context) * 0.6,
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) {
+                          return SizedBox(
+                            width: getSize(context) * 0.1,
+                          );
+                        },
+                        itemCount: cubit.allProductsModel?.count ?? 0,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return HomeProductItem2(
+                            productModel: ProductModel(
+                                id: cubit
+                                    .allProductsModel?.result?[index].id,
+                                price: cubit.allProductsModel
+                                    ?.result?[index].listPrice,
+                                name: cubit.allProductsModel
+                                    ?.result?[index].name,
+                                quantity: cubit.allProductsModel
+                                    ?.result?[index].count ?? 0,
+                                image: cubit.allProductsModel
+                                    ?.result?[index].image1920,
+                                description: cubit.allProductsModel
+                                    ?.result?[index].descriptionSale,
+                                ribbon: cubit.allProductsModel
+                                    ?.result?[index].websiteRibbonId,
+                                unit: cubit.allProductsModel
+                                    ?.result?[index].uomName),
+                          );
+                        },
+                      ),
+                    ),
+
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: getSize(context) * 0.07),
+                        child: Image.asset(ImageAssets.homeSaleImage)),
+
+                    // المنتجات
+                    HomeTitleItem(
+                        title: " المنتجات",
+                        moreOnTap: () {
+                          //  Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                          Navigator.pushNamed(
+                              context, Routes.productsRoute,
+                              arguments: [cubit.allCategoriesModel, 0]);
+                        }),
+                    // المنتجاتlist
+                    (state is LoadingAllProductsState)
+                        ? Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primary,
+                        ))
+                        : Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 12),
+                      height: getSize(context) * 0.6,
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) {
+                          return SizedBox(
+                            width: getSize(context) * 0.09,
+                          );
+                        },
+                        itemCount:
+                        cubit.allProductsModel?.count ?? 0,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return HomeProductItem2(
+                              productModel: ProductModel(
+                                  id: cubit.allProductsModel
+                                      ?.result?[index].id,
+                                  price: cubit.allProductsModel
+                                      ?.result?[index].listPrice,
+                                  name: cubit.allProductsModel
+                                      ?.result?[index].name,
+                                  quantity: 0,
+                                  image: cubit.allProductsModel
+                                      ?.result?[index].image1920,
+                                  description: cubit
+                                      .allProductsModel
+                                      ?.result?[index]
+                                      .descriptionSale,
+                                  ribbon: cubit
+                                      .allProductsModel
+                                      ?.result?[index]
+                                      .websiteRibbonId,
+                                  unit: cubit.allProductsModel
+                                      ?.result?[index].uomName));
+                        },
+                      ),
+                    ),
+
+                    HomeTitleItem(
+                      title: " أحدث منتجات",
+                      moreOnTap: () {
+                        // Navigator.pushNamed(context, Routes.productsRoute,arguments: cubit.allCategoriesModel);
+                        Navigator.pushNamed(context, Routes.productsRoute,
+                            arguments: [cubit.allCategoriesModel, 0]);
+                      },
+                    ),
+                    (state is LoadingAllProductsState)
+                        ? Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primary,
+                        ))
+                        : Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 12),
+                      height: getSize(context) * 0.6,
+                      child: ListView.separated(
+                        reverse: true,
+                        separatorBuilder: (context, index) {
+                          return SizedBox(
+                            width: getSize(context) * 0.09,
+                          );
+                        },
+                        itemCount:
+                        cubit.allProductsModel?.count ?? 0,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return HomeProductItem2(
+                              productModel: ProductModel(
+                                  id: cubit.allProductsModel
+                                      ?.result?[index].id,
+                                  price: cubit.allProductsModel
+                                      ?.result?[index].listPrice,
+                                  name: cubit.allProductsModel
+                                      ?.result?[index].name,
+                                  quantity: 0,
+                                  image: cubit.allProductsModel
+                                      ?.result?[index].image1920,
+                                  description: cubit
+                                      .allProductsModel
+                                      ?.result?[index]
+                                      .descriptionSale,
+                                  ribbon: cubit
+                                      .allProductsModel
+                                      ?.result?[index]
+                                      .websiteRibbonId,
+                                  unit: cubit.allProductsModel
+                                      ?.result?[index].uomName));
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Positioned(
+            //   right: 0,
+            //     bottom: 0,
+            //     child: InkWell(
+            //       onTap: () {
+            //
+            //       },
+            //       child: CircleAvatar(
+            //         radius: 30,
+            //         backgroundColor: AppColors.primary,
+            //         child: Icon(Icons.add,size: 35,color: AppColors.white,),
+            //
+            //       ),
+            //     ))
+          ],
+        );
       },
     );
   }

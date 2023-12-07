@@ -38,13 +38,13 @@ class RedirectToSignUp extends StatelessWidget {
                 text: "login".tr(),
                 onPressed: () async {
 
-              Navigator.pushNamed(context, Routes.loginRoute);
+              Navigator.pushReplacementNamed(context, Routes.loginRoute);
 
                 }),
             Flexible(
               flex: 3,
                 child: SizedBox()),
-          ],
+          ]
         ),
       ),
     );
